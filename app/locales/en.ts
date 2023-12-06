@@ -149,6 +149,10 @@ const en: LocaleType = {
       All: "All Languages",
     },
     Avatar: "Avatar",
+    Account: "Account: ",
+    Logout: "Logout",
+    Balance: "Power：",
+    Recharge: "Buy",
     FontSize: {
       Title: "Font Size",
       SubTitle: "Adjust font size of chat content",
@@ -443,8 +447,8 @@ const en: LocaleType = {
   },
   Exporter: {
     Description: {
-      Title: "Only messages after clearing the context will be displayed"
-    },  
+      Title: "Only messages after clearing the context will be displayed",
+    },
     Model: "Model",
     Messages: "Messages",
     Topic: "Topic",
