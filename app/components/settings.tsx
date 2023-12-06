@@ -491,7 +491,7 @@ function SyncItems() {
   return (
     <>
       <List>
-        <ListItem
+        {/* <ListItem
           title={Locale.Settings.Sync.CloudState}
           subTitle={
             syncStore.lastProvider
@@ -525,7 +525,7 @@ function SyncItems() {
               />
             )}
           </div>
-        </ListItem>
+        </ListItem> */}
 
         <ListItem
           title={Locale.Settings.Sync.LocalState}
@@ -580,6 +580,14 @@ export function Settings() {
     console.log("[Update] remote version ", updateStore.remoteVersion);
   }
 
+  function logout() {
+    console.log("todo logout ");
+  }
+
+  function recharge() {
+    console.log("todo recharge ");
+  }
+
   const accessStore = useAccessStore();
   const shouldHideBalanceQuery = useMemo(() => {
     const isOpenAiUrl = accessStore.openaiUrl.includes(OPENAI_BASE_URL);
@@ -624,7 +632,7 @@ export function Settings() {
   const showUsage = accessStore.isAuthorized();
   useEffect(() => {
     // checks per minutes
-    checkUpdate();
+    // checkUpdate();
     showUsage && checkUsage();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -635,7 +643,8 @@ export function Settings() {
         navigate(Path.Home);
       }
     };
-    if (clientConfig?.isApp) { // Force to set custom endpoint to true if it's app
+    if (clientConfig?.isApp) {
+      // Force to set custom endpoint to true if it's app
       accessStore.update((state) => {
         state.useCustomConfig = true;
       });
@@ -697,7 +706,7 @@ export function Settings() {
             </Popover>
           </ListItem>
 
-          <ListItem
+          {/* <ListItem
             title={Locale.Settings.Update.Version(currentVersion ?? "unknown")}
             subTitle={
               checkingUpdate
@@ -720,6 +729,24 @@ export function Settings() {
                 onClick={() => checkUpdate(true)}
               />
             )}
+          </ListItem> */}
+
+          <ListItem title={Locale.Settings.Account + "13266666666"}>
+            {
+              <IconButton
+                text={Locale.Settings.Logout}
+                onClick={() => logout()}
+              />
+            }
+          </ListItem>
+
+          <ListItem title={Locale.Settings.Balance + "1024"}>
+            {
+              <IconButton
+                text={Locale.Settings.Recharge}
+                onClick={() => recharge()}
+              />
+            }
           </ListItem>
 
           <ListItem title={Locale.Settings.SendKey}>
@@ -916,23 +943,23 @@ export function Settings() {
             <>
               {
                 // Conditionally render the following ListItem based on clientConfig.isApp
-                !clientConfig?.isApp && ( // only show if isApp is false
-                  <ListItem
-                    title={Locale.Settings.Access.CustomEndpoint.Title}
-                    subTitle={Locale.Settings.Access.CustomEndpoint.SubTitle}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={accessStore.useCustomConfig}
-                      onChange={(e) =>
-                        accessStore.update(
-                          (access) =>
-                            (access.useCustomConfig = e.currentTarget.checked),
-                        )
-                      }
-                    ></input>
-                  </ListItem>
-                )
+                // !clientConfig?.isApp && ( // only show if isApp is false
+                //   <ListItem
+                //     title={Locale.Settings.Access.CustomEndpoint.Title}
+                //     subTitle={Locale.Settings.Access.CustomEndpoint.SubTitle}
+                //   >
+                //     <input
+                //       type="checkbox"
+                //       checked={accessStore.useCustomConfig}
+                //       onChange={(e) =>
+                //         accessStore.update(
+                //           (access) =>
+                //             (access.useCustomConfig = e.currentTarget.checked),
+                //         )
+                //       }
+                //     ></input>
+                //   </ListItem>
+                // )
               }
               {accessStore.useCustomConfig && (
                 <>
@@ -1088,7 +1115,7 @@ export function Settings() {
             </ListItem>
           ) : null}
 
-          <ListItem
+          {/* <ListItem
             title={Locale.Settings.Access.CustomModel.Title}
             subTitle={Locale.Settings.Access.CustomModel.SubTitle}
           >
@@ -1102,7 +1129,7 @@ export function Settings() {
                 )
               }
             ></input>
-          </ListItem>
+          </ListItem> */}
         </List>
 
         <List>

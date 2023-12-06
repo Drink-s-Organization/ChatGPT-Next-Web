@@ -1215,6 +1215,11 @@ function _Chat() {
                                 onClick={() => onPinMessage(message)}
                               />
                               <ChatAction
+                                text={" -" + message.content.length}
+                                icon={<LightIcon />}
+                                onClick={() => copyToClipboard(message.content)}
+                              />
+                              <ChatAction
                                 text={Locale.Chat.Actions.Copy}
                                 icon={<CopyIcon />}
                                 onClick={() => copyToClipboard(message.content)}
