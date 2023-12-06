@@ -22,6 +22,10 @@ export function AuthPage() {
       access.accessCode = "";
     });
   }; // Reset access code to empty string
+  const login = () => {
+    console.log("todo login");
+    navigate(Path.Home);
+  };
 
   useEffect(() => {
     if (getClientConfig()?.isApp) {
@@ -32,54 +36,68 @@ export function AuthPage() {
 
   return (
     <div className={styles["auth-page"]}>
-      <div className={`no-dark ${styles["auth-logo"]}`}>
-        <BotIcon />
-      </div>
+      <div className={styles["auth-body"]}>
+        <div className={styles["auth-logo-div"]}>
+          <span className={`no-dark ${styles["auth-logo"]}`}>
+            <BotIcon />
+          </span>
+          <span className={styles["auth-title"]}>{Locale.Auth.Title}</span>
+        </div>
+        <div className={styles["auth-tips"]}>{Locale.Auth.Tips}</div>
 
-      <div className={styles["auth-title"]}>{Locale.Auth.Title}</div>
-      <div className={styles["auth-tips"]}>{Locale.Auth.Tips}</div>
+        <div style={{ height: 50 }}></div>
 
-      <input
-        className={styles["auth-input"]}
-        type="password"
-        placeholder={Locale.Auth.Input}
-        value={accessStore.accessCode}
-        onChange={(e) => {
-          accessStore.update(
-            (access) => (access.accessCode = e.currentTarget.value),
-          );
-        }}
-      />
-      {!accessStore.hideUserApiKey ? (
-        <>
-          <div className={styles["auth-tips"]}>{Locale.Auth.SubTips}</div>
+        <div className={styles["auth-tips"]}>
+          {Locale.Auth.Phone}
+          <span>{Locale.Auth.PhoneTips}</span>
+        </div>
+        <input
+          className={styles["auth-input"]}
+          placeholder={Locale.Settings.Access.OpenAI.ApiKey.Placeholder}
+          value={accessStore.phone}
+          onChange={(e) => {
+            accessStore.update(
+              (access) => (access.phone = e.currentTarget.value),
+            );
+          }}
+        />
+
+        <div className={styles["auth-tips"]}>
+          {Locale.Auth.Code}
+          <span>{Locale.Auth.CodeTips}</span>
+        </div>
+
+        <div style={{ position: "relative" }}>
           <input
             className={styles["auth-input"]}
-            type="password"
             placeholder={Locale.Settings.Access.OpenAI.ApiKey.Placeholder}
-            value={accessStore.openaiApiKey}
+            value={accessStore.tokenBalance}
             onChange={(e) => {
               accessStore.update(
-                (access) => (access.openaiApiKey = e.currentTarget.value),
+                // todo value to code
+                (access) => (access.tokenBalance = e.currentTarget.value),
               );
             }}
           />
-        </>
-      ) : null}
+          <span
+            className={styles["auth-input-code"]}
+            onClick={(e) => {
+              console.log("todo send code");
+            }}
+          >
+            {Locale.Auth.SendCode}
+          </span>
+        </div>
 
-      <div className={styles["auth-actions"]}>
-        <IconButton
-          text={Locale.Auth.Confirm}
-          type="primary"
-          onClick={goChat}
-        />
-        <IconButton
-          text={Locale.Auth.Later}
-          onClick={() => {
-            resetAccessCode();
-            goHome();
-          }}
-        />
+        <div className={styles["auth-login"]}>
+          <IconButton text={Locale.Auth.Login} type="primary" onClick={login} />
+          <div className={styles["auth-login-tips"]}>
+            {Locale.Auth.LoginTips}
+            <a>{Locale.Auth.Agreement}</a>
+            {Locale.Auth.LoginAnd}
+            <a>{Locale.Auth.Privacy}</a>
+          </div>
+        </div>
       </div>
     </div>
   );

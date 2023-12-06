@@ -731,7 +731,7 @@ export function Settings() {
             )}
           </ListItem> */}
 
-          <ListItem title={Locale.Settings.Account + "13266666666"}>
+          <ListItem title={Locale.Settings.Account + accessStore.phone}>
             {
               <IconButton
                 text={Locale.Settings.Logout}
@@ -740,7 +740,7 @@ export function Settings() {
             }
           </ListItem>
 
-          <ListItem title={Locale.Settings.Balance + "1024"}>
+          <ListItem title={Locale.Settings.Balance + accessStore.tokenBalance}>
             {
               <IconButton
                 text={Locale.Settings.Recharge}

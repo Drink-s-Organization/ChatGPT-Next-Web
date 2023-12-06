@@ -6,31 +6,111 @@
   width: 100%;
   flex-direction: column;
 
+  .auth-logo-div {
+    width: 340px;
+    margin-bottom: 12px;
+  }
+
   .auth-logo {
-    transform: scale(1.4);
+    width: 36px;
+    height: 36px;
+    border-radius: 18px 18px 18px 18px;
+    opacity: 1;
   }
 
   .auth-title {
-    font-size: 24px;
-    font-weight: bold;
-    line-height: 2;
+    margin-left: 8px;
+    font-size: 22px;
+    font-family: PingFang SC, PingFang SC;
+    font-weight: 500;
+    color: #303030;
+    line-height: 26px;
   }
 
   .auth-tips {
+    width: 340px;
+    height: 17px;
     font-size: 14px;
+    font-family: PingFang SC, PingFang SC;
+    font-weight: 400;
+    color: #303030;
+    line-height: 17px;
+    span {
+      margin-left: 8px;
+      color: #FF0000;
+    }
   }
 
   .auth-input {
-    margin: 3vh 0;
+    margin: 15px;
+    width: 340px;
+    height: 40px;
+    background: #FFFFFF;
+    border-radius: 4px 4px 4px 4px;
+    opacity: 1;
+    border: 1px solid #DDE1EE;
   }
 
   .auth-actions {
     display: flex;
     justify-content: center;
     flex-direction: column;
-
     button:not(:last-child) {
       margin-bottom: 10px;
+    }
+  }
+
+  .auth-input-code {
+    height: 17px;
+    font-size: 14px;
+    font-family: PingFang SC, PingFang SC;
+    font-weight: 400;
+    color: #1D93AB;
+    line-height: 17px;
+    position: absolute;
+    right: 28px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+
+  .auth-body {
+    width: 420px;
+    height: 484px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 12px 0px rgba(0,0,0,0.06);
+    border-radius: 16px 16px 16px 16px;
+    opacity: 1;
+    border: 1px solid #1D93AB;
+  }
+
+  .auth-login {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 350px;
+    
+    button {
+      margin-bottom: 10px;
+      height: 40px;
+    }
+  }
+
+  .auth-login-tips {
+    font-size: 14px;
+    text-align: center;
+    align-items: center;
+    font-family: PingFang SC, PingFang SC;
+    font-weight: 400;
+    color: #9E9E9E;
+    line-height: 17px;
+
+    a {
+      color: #1D93AB;
     }
   }
 }

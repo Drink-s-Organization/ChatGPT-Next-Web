@@ -24,6 +24,11 @@ const DEFAULT_ACCESS_STATE = {
   openaiUrl: DEFAULT_OPENAI_URL,
   openaiApiKey: "",
 
+  // account
+  phone: "1326666666",
+  tokenBalance: 1200,
+  authToken: "token-*****",
+
   // azure
   azureUrl: "",
   azureApiKey: "",
