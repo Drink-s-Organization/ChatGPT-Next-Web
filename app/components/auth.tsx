@@ -7,8 +7,9 @@ import { useAccessStore } from "../store";
 import Locale from "../locales";
 
 import BotIcon from "../icons/bot.svg";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getClientConfig } from "../config/client";
+import tr from "../locales/tr";
 
 export function AuthPage() {
   const navigate = useNavigate();
@@ -34,9 +35,37 @@ export function AuthPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const [showDoc, setShowDoc] = useState(false);
+  const [docTitle, setDocTitle] = useState("");
+  const [docText, setDocText] = useState("");
+  const [loginPsw, setLoginPsw] = useState(false);
+
   return (
     <div className={styles["auth-page"]}>
-      <div className={styles["auth-body"]}>
+      <div
+        className={styles["auth-doc"]}
+        style={{ display: showDoc ? "" : "none" }}
+      >
+        <h1>{docTitle}</h1>
+        <div className={styles["auth-doc-text"]}>
+          <span
+            dangerouslySetInnerHTML={{ __html: docText.replace(/\n/g, "<br>") }}
+          />
+        </div>
+        <IconButton
+          text={Locale.Auth.Confirm}
+          type="primary"
+          onClick={() => {
+            setShowDoc(false);
+            setDocText("");
+            setDocTitle("");
+          }}
+        />
+      </div>
+      <div
+        className={styles["auth-body"]}
+        style={{ display: showDoc ? "none" : "" }}
+      >
         <div className={styles["auth-logo-div"]}>
           <span className={`no-dark ${styles["auth-logo"]}`}>
             <BotIcon />
@@ -45,7 +74,32 @@ export function AuthPage() {
         </div>
         <div className={styles["auth-tips"]}>{Locale.Auth.Tips}</div>
 
-        <div style={{ height: 50 }}></div>
+        <div className={styles["auth-login-type-block"]}>
+          <span
+            className={
+              !loginPsw
+                ? styles["auth-login-type-active"]
+                : styles["auth-login-type"]
+            }
+            onClick={() => {
+              setLoginPsw(false);
+            }}
+          >
+            验证码登录
+          </span>
+          <span
+            className={
+              loginPsw
+                ? styles["auth-login-type-active"]
+                : styles["auth-login-type"]
+            }
+            onClick={() => {
+              setLoginPsw(true);
+            }}
+          >
+            账号密码登录
+          </span>
+        </div>
 
         <div className={styles["auth-tips"]}>
           {Locale.Auth.Phone}
@@ -95,7 +149,11 @@ export function AuthPage() {
             {Locale.Auth.LoginTips}
             <a
               onClick={() => {
-                console.log("todo show agreement");
+                setShowDoc(true);
+                setDocTitle(
+                  Locale.Auth.Agreement.replace("《", "").replace("》", ""),
+                );
+                setDocText(Locale.Auth.AgreementContent);
               }}
             >
               {Locale.Auth.Agreement}
@@ -103,7 +161,11 @@ export function AuthPage() {
             {Locale.Auth.LoginAnd}
             <a
               onClick={() => {
-                console.log("todo show privacy");
+                setShowDoc(true);
+                setDocTitle(
+                  Locale.Auth.Privacy.replace("《", "").replace("》", ""),
+                );
+                setDocText(Locale.Auth.PrivacyContent);
               }}
             >
               {Locale.Auth.Privacy}
