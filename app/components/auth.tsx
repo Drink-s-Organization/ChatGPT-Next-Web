@@ -93,9 +93,21 @@ export function AuthPage() {
           <IconButton text={Locale.Auth.Login} type="primary" onClick={login} />
           <div className={styles["auth-login-tips"]}>
             {Locale.Auth.LoginTips}
-            <a>{Locale.Auth.Agreement}</a>
+            <a
+              onClick={() => {
+                console.log("todo show agreement");
+              }}
+            >
+              {Locale.Auth.Agreement}
+            </a>
             {Locale.Auth.LoginAnd}
-            <a>{Locale.Auth.Privacy}</a>
+            <a
+              onClick={() => {
+                console.log("todo show privacy");
+              }}
+            >
+              {Locale.Auth.Privacy}
+            </a>
           </div>
         </div>
       </div>
