@@ -30,67 +30,65 @@
 
   .auth-tips {
     width: 340px;
-    height: 17px;
+    // height: 17px;
     font-size: 14px;
     font-family: PingFang SC, PingFang SC;
     font-weight: 400;
     color: #303030;
     line-height: 17px;
+
     span {
       margin-left: 8px;
       color: #FF0000;
+    }
+
+    input {
+      width: 310px;
+      height: 40px;
+      margin-top: 15px;
+      margin-bottom: 15px;
+      background: #FFFFFF;
+      border-radius: 4px 4px 4px 4px;
+      opacity: 1;
+      border: 1px solid #DDE1EE;
+      font-size: 14px;
+      font-family: PingFang SC, PingFang SC;
+      font-weight: 400;
+      text-align: left;
+      padding-left: 16px;
+      padding-right: 16px;
     }
   }
 
   .auth-login-type-block {
     height: 26px;
     width: 340px;
-    margin-top: 20px;
-    margin-bottom: 40px;
+    margin-top: 18px;
+    margin-bottom: 24px;
   }
 
   .auth-login-type {
-    height: 26px;
-    span {
-      width: 70px;
-      height: 17px;
-      font-size: 14px;
-      font-family: PingFang SC, PingFang SC;
-      font-weight: 500;
-      line-height: 17px;
-    }
-  }
-
-  .auth-login-type-active {
-    height: 26px;
-    border-bottom: 2px;
-    border: #1D93AB;
-
-    span {
-      width: 70px;
-      height: 17px;
-      font-size: 14px;
-      font-family: PingFang SC, PingFang SC;
-      font-weight: 500;
-      line-height: 17px;
-      color: #1D93AB;
-    }
-  }
-
-  .auth-input {
-    margin: 15px;
-    width: 310px;
-    height: 40px;
-    background: #FFFFFF;
-    border-radius: 4px 4px 4px 4px;
-    opacity: 1;
-    border: 1px solid #DDE1EE;
+    height: 35px;
+    width: 70px;
     font-size: 14px;
     font-family: PingFang SC, PingFang SC;
     font-weight: 400;
-    text-align: left;
-    padding-left: 16px;
-    padding-right: 16px;
+    color: #666666;
+    line-height: 17px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .auth-login-type-active {
+    height: 35px;
+    border-bottom: 2px solid #1D93AB;
+    width: 84px;
+    font-size: 14px;
+    font-family: PingFang SC, PingFang SC;
+    font-weight: 600;
+    color: #1D93AB;
+    line-height: 17px;
+    text-align: center;
   }
 
   .auth-actions {
@@ -107,10 +105,31 @@
     font-size: 14px;
     font-family: PingFang SC, PingFang SC;
     font-weight: 400;
-    color: #1D93AB;
+    color: #666666;
     line-height: 17px;
     position: absolute;
-    right: 28px;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .auth-input-code-active {
+    height: 17px;
+    font-size: 14px;
+    font-family: PingFang SC, PingFang SC;
+    font-weight: 400;
+    line-height: 17px;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #1D93AB;
+  }
+
+  .auth-show-password {
+    position: absolute;
+    right: 12px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
@@ -118,7 +137,7 @@
 
   .auth-body {
     width: 420px;
-    height: 484px;
+    // height: 484px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -128,6 +147,8 @@
     border-radius: 16px 16px 16px 16px;
     opacity: 1;
     border: 1px solid #1D93AB;
+    padding-top: 40px;
+    padding-bottom: 20px;
   }
 
   .auth-login {
@@ -135,9 +156,10 @@
     justify-content: center;
     flex-direction: column;
     width: 350px;
+    margin-top: 20px;
     
     button {
-      margin-bottom: 10px;
+      margin-bottom: 16px;
       height: 40px;
     }
   }
@@ -155,6 +177,32 @@
       color: #1D93AB;
       cursor: pointer;
     }
+  }
+
+  .auth-action-div {
+    align-items: center;
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .auth-action {
+    width: 56px;
+    height: 17px;
+    font-size: 14px;
+    font-family: PingFang SC, PingFang SC;
+    font-weight: 400;
+    color: #9E9E9E;
+    line-height: 17px;
+  }
+
+  .auth-action-active {
+    width: 56px;
+    height: 17px;
+    font-size: 14px;
+    font-family: PingFang SC, PingFang SC;
+    font-weight: 400;
+    color: #1D93AB;
+    cursor: pointer;
   }
 
   .auth-doc {
