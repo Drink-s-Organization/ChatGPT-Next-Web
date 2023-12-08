@@ -12,6 +12,7 @@ import { getClientConfig } from "../config/client";
 import tr from "../locales/tr";
 import CloseIcon from "../icons/close.svg";
 import { relative } from "path";
+import { PasswordInput } from "./ui-lib";
 
 export function AuthPage() {
   const navigate = useNavigate();
@@ -44,6 +45,16 @@ export function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [afterSeconds, setAfterSeconds] = useState(0);
+  const [phoneTips, setPhoneTips] = useState("");
+  const [codeTips, setCodeTips] = useState("");
+  const [passwordTips, setPswTips] = useState("");
+
+  const [phone, setPhone] = useState(accessStore.phone);
+  const [verifyCode, setVerifyCode] = useState("");
+  const [password, setPassword] = useState("");
+
+  const phoneRegex = /^1\d{10}$/;
+  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/;
 
   const sendVerifyCode = () => {
     if (afterSeconds > 0) {
@@ -121,7 +132,7 @@ export function AuthPage() {
               setLoginPsw(true);
             }}
           >
-            账号密码登录
+            {Locale.Auth.Password + Locale.Auth.Login}
           </span>
           <span
             className={
@@ -134,20 +145,27 @@ export function AuthPage() {
               setLoginPsw(false);
             }}
           >
-            验证码登录
+            {Locale.Auth.Code + Locale.Auth.Login}
           </span>
         </div>
 
         <div className={styles["auth-tips"]}>
           {Locale.Auth.Phone}
-          <span>{Locale.Auth.PhoneTips}</span>
+          <span>{phoneTips}</span>
           <input
-            placeholder={Locale.Auth.Phone}
-            value={accessStore.phone}
+            placeholder={Locale.Auth.InputTips + Locale.Auth.Phone}
+            value={phone}
             onChange={(e) => {
-              accessStore.update(
-                (access) => (access.phone = e.currentTarget.value),
-              );
+              const inputValue = e.currentTarget.value;
+              setPhone(inputValue);
+              if (inputValue == "" || phoneRegex.test(inputValue)) {
+                // 输入的内容符合手机号码格式，更新状态或执行其他操作
+                setPhoneTips("");
+                setPhone(inputValue);
+                accessStore.update((access) => (access.phone = inputValue));
+              } else {
+                setPhoneTips(Locale.Auth.PhoneTips);
+              }
             }}
           />
         </div>
@@ -157,15 +175,13 @@ export function AuthPage() {
           style={{ display: isLogin && loginPsw ? "none" : "" }}
         >
           {Locale.Auth.Code}
-          <span>{Locale.Auth.CodeTips}</span>
+          <span>{codeTips}</span>
           <div style={{ position: "relative" }}>
             <input
-              placeholder={Locale.Auth.Code}
-              value={accessStore.phone}
+              placeholder={Locale.Auth.InputTips + Locale.Auth.Code}
+              value={verifyCode}
               onChange={(e) => {
-                accessStore.update(
-                  (access) => (access.phone = e.currentTarget.value),
-                );
+                setVerifyCode(e.currentTarget.value);
               }}
             />
             <a
@@ -181,7 +197,7 @@ export function AuthPage() {
                 sendVerifyCode();
               }}
             >
-              {afterSeconds > 0 ? afterSeconds + " 秒" : Locale.Auth.SendCode}
+              {afterSeconds > 0 ? afterSeconds + " s" : Locale.Auth.SendCode}
             </a>
           </div>
         </div>
@@ -191,24 +207,28 @@ export function AuthPage() {
           style={{ display: isLogin && !loginPsw ? "none" : "" }}
         >
           {Locale.Auth.Password}
-          <span>
-            {isLogin ? Locale.Auth.PasswordTips : Locale.Auth.PasswordTips2}
-          </span>
+          <span>{passwordTips}</span>
           <div style={{ position: "relative" }}>
             <input
-              placeholder={Locale.Auth.Password}
-              value={accessStore.phone}
+              placeholder={Locale.Auth.InputTips + Locale.Auth.Password}
+              value={password}
+              type={showPassword ? "" : "password"}
+              security={"true"}
               onChange={(e) => {
-                accessStore.update(
-                  (access) => (access.phone = e.currentTarget.value),
-                );
+                var inputStr = e.currentTarget.value;
+                setPassword(inputStr);
+                if (passwordRegex.test(inputStr) || inputStr == "") {
+                  // 输入的内容符合密码格式或为空，更新状态
+                  setPswTips("");
+                } else {
+                  setPswTips(isLogin ? "" : Locale.Auth.PasswordTips2);
+                }
               }}
             />
             <BotIcon
               className={styles["auth-show-password"]}
               onClick={() => {
                 var show = !showPassword;
-                console.log("show psw: " + show);
                 setShowPassword(show);
               }}
             />
@@ -251,7 +271,7 @@ export function AuthPage() {
                 setLoginPsw(true);
               }}
             >
-              前往登录
+              {Locale.Auth.Login}
             </span>
             <span className={styles["auth-action"]}> | </span>
             <span
@@ -262,7 +282,7 @@ export function AuthPage() {
                 !isLogin ? {} : setIsLogin(false);
               }}
             >
-              忘记密码
+              {Locale.Auth.ForgetPsw}
             </span>
           </div>
         </div>

@@ -921,7 +921,7 @@ export function Settings() {
         </List>
 
         <List id={SlotID.CustomModel}>
-          {showAccessCode && (
+          {/* {showAccessCode && (
             <ListItem
               title={Locale.Settings.Access.AccessCode.Title}
               subTitle={Locale.Settings.Access.AccessCode.SubTitle}
@@ -937,7 +937,7 @@ export function Settings() {
                 }}
               />
             </ListItem>
-          )}
+          )} */}
 
           {!accessStore.hideUserApiKey && (
             <>
