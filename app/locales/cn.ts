@@ -273,6 +273,12 @@ const cn = {
         Title: "编辑提示词",
       },
     },
+    AdvanceSetting: {
+      Disable: {
+        Title: "显示高级设置",
+        SubTitle: "高级设置，默认使用不需要配置",
+      },
+    },
     HistoryCount: {
       Title: "附带历史消息数",
       SubTitle: "每次请求携带的历史消息数",

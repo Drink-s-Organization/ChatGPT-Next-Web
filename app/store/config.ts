@@ -38,6 +38,7 @@ export const DEFAULT_CONFIG = {
   sidebarWidth: DEFAULT_SIDEBAR_WIDTH,
 
   disablePromptHint: false,
+  showAdvanceSetting: false,
 
   dontShowMaskSplashScreen: false, // dont show splash screen when create chat
   hideBuiltinMasks: false, // dont add builtin masks

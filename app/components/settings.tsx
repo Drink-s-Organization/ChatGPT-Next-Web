@@ -1130,18 +1130,35 @@ export function Settings() {
               }
             ></input>
           </ListItem> */}
+          <ListItem
+            title={Locale.Settings.AdvanceSetting.Disable.Title}
+            subTitle={Locale.Settings.AdvanceSetting.Disable.SubTitle}
+          >
+            <input
+              type="checkbox"
+              checked={config.showAdvanceSetting}
+              onChange={(e) =>
+                updateConfig(
+                  (config) =>
+                    (config.showAdvanceSetting = e.currentTarget.checked),
+                )
+              }
+            ></input>
+          </ListItem>
         </List>
 
-        <List>
-          <ModelConfigList
-            modelConfig={config.modelConfig}
-            updateConfig={(updater) => {
-              const modelConfig = { ...config.modelConfig };
-              updater(modelConfig);
-              config.update((config) => (config.modelConfig = modelConfig));
-            }}
-          />
-        </List>
+        {config.showAdvanceSetting && (
+          <List>
+            <ModelConfigList
+              modelConfig={config.modelConfig}
+              updateConfig={(updater) => {
+                const modelConfig = { ...config.modelConfig };
+                updater(modelConfig);
+                config.update((config) => (config.modelConfig = modelConfig));
+              }}
+            />
+          </List>
+        )}
 
         {shouldShowPromptModal && (
           <UserPromptModal onClose={() => setShowPromptModal(false)} />

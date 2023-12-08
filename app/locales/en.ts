@@ -165,7 +165,7 @@ const en: LocaleType = {
       },
     },
     Lang: {
-      Name: "Language", // ATTENTION: if you wanna add a new translation, please do not translate this value, leave it as `Language`
+      Name: "Language",
       All: "All Languages",
     },
     Avatar: "Avatar",
@@ -367,6 +367,12 @@ const en: LocaleType = {
       Title: "Frequency Penalty",
       SubTitle:
         "A larger value decreasing the likelihood to repeat the same line",
+    },
+    AdvanceSetting: {
+      Disable: {
+        Title: "Show Andvance",
+        SubTitle: "ababa",
+      },
     },
   },
   Store: {
