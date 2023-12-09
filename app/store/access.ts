@@ -23,6 +23,7 @@ const DEFAULT_ACCESS_STATE = {
   // openai
   openaiUrl: DEFAULT_OPENAI_URL,
   openaiApiKey: "",
+  severUrl: "http://localhost:8888",
 
   // account
   phone: "1326666666",

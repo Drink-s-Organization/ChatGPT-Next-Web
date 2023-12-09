@@ -9,10 +9,8 @@ import Locale from "../locales";
 import BotIcon from "../icons/bot.svg";
 import { useEffect, useState } from "react";
 import { getClientConfig } from "../config/client";
-import tr from "../locales/tr";
 import CloseIcon from "../icons/close.svg";
-import { relative } from "path";
-import { PasswordInput } from "./ui-lib";
+import { httpRequest } from "../client/server/api";
 
 export function AuthPage() {
   const navigate = useNavigate();
@@ -26,9 +24,56 @@ export function AuthPage() {
       access.accessCode = "";
     });
   }; // Reset access code to empty string
-  const login = () => {
+
+  function checkParams() {
+    if (phone == "") {
+      setPhoneTips("请输入手机号");
+      return false;
+    }
+    if (loginPsw && password == "") {
+      setPswTips("请输入密码");
+      return false;
+    }
+    if ((!isLogin || !loginPsw) && verifyCode == "") {
+      setCodeTips("请输入验证码");
+      return false;
+    }
+    return true;
+  }
+
+  const onClickBtn = () => {
     console.log("todo login");
-    navigate(Path.Home);
+    if (!checkParams()) {
+      return;
+    }
+    let data = {
+      phone: phone,
+      password: password,
+      verify_code: verifyCode,
+    };
+
+    if (isLogin) {
+      loginPsw ? delete data.verify_code : delete data.password;
+    }
+
+    const path = isLogin ? "/user/login" : "/user/reset_password";
+    httpRequest(
+      path,
+      {
+        data: data,
+      },
+      {
+        onFinish: (data: any) => {
+          console.log(data);
+          localStorage.setItem("Authorization", "123");
+          // navigate(Path.Home);
+        },
+        onError: (err: Error) => {
+          console.error(err);
+          setPswTips("network error");
+        },
+      },
+    );
   };
 
   useEffect(() => {
@@ -60,6 +105,29 @@ export function AuthPage() {
     if (afterSeconds > 0) {
       return;
     }
+    if (phone == "") {
+      setPhoneTips("请输入手机号");
+      return false;
+    }
+    httpRequest(
+      "/user/verify_code",
+      {
+        data: {
+          phone: phone,
+          code: isLogin ? 0 : 1,
+        },
+      },
+      {
+        onFinish: (data: any) => {
+          console.log(data);
+          // navigate(Path.Home);
+        },
+        onError: (err: Error) => {
+          console.error(err);
+          setPswTips("network error");
+        },
+      },
+    );
     setAfterSeconds(60);
     const interval = setInterval(() => {
       setAfterSeconds((prevCountdown) => prevCountdown - 1);
@@ -182,6 +250,9 @@ export function AuthPage() {
               value={verifyCode}
               onChange={(e) => {
                 setVerifyCode(e.currentTarget.value);
+                if (e.currentTarget.value !== "") {
+                  setCodeTips("");
+                }
               }}
             />
             <a
@@ -236,7 +307,11 @@ export function AuthPage() {
         </div>
 
         <div className={styles["auth-login"]}>
-          <IconButton text={Locale.Auth.Login} type="primary" onClick={login} />
+          <IconButton
+            text={isLogin ? Locale.Auth.Login : Locale.Auth.ResetPsw}
+            type="primary"
+            onClick={onClickBtn}
+          />
           <div className={styles["auth-login-tips"]}>
             {Locale.Auth.LoginTips}
             <a
