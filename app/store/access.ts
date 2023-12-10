@@ -27,7 +27,7 @@ const DEFAULT_ACCESS_STATE = {
 
   // account
   phone: "",
-  Joule: 0,
+  Watt: 0,
   authToken: "",
 
   // azure
