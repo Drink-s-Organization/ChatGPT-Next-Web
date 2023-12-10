@@ -27,7 +27,7 @@ const DEFAULT_ACCESS_STATE = {
 
   // account
   phone: "1326666666",
-  tokenBalance: 1200,
+  Joule: 1200,
   authToken: "token-*****",
 
   // azure

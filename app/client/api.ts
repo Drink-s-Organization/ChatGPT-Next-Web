@@ -151,5 +151,7 @@ export function getHeaders() {
     );
   }
 
+  headers["auth_token"] = accessStore.authToken;
+
   return headers;
 }

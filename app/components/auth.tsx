@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { getClientConfig } from "../config/client";
 import CloseIcon from "../icons/close.svg";
 import { httpRequest } from "../client/server/api";
+import tr from "../locales/tr";
 
 export function AuthPage() {
   const navigate = useNavigate();
@@ -53,7 +54,11 @@ export function AuthPage() {
     };
 
     if (isLogin) {
-      loginPsw ? delete data.verify_code : delete data.password;
+      if (loginPsw) {
+        delete data.verify_code;
+      } else if (!register) {
+        delete data.password;
+      }
     }
 
     const path = isLogin ? "/user/login" : "/user/reset_password";
@@ -63,10 +68,34 @@ export function AuthPage() {
         data: data,
       },
       {
-        onFinish: (data: any) => {
-          console.log(data);
-          localStorage.setItem("Authorization", "123");
-          // navigate(Path.Home);
+        onFinish: (resp: any) => {
+          console.log(resp);
+          if (resp["code"] !== 0) {
+            isLogin && loginPsw
+              ? setPswTips(resp["message"])
+              : setCodeTips(resp["message"]);
+            return;
+          }
+          if (!isLogin) {
+            setIsLogin(true);
+            return;
+          }
+          const data = resp["data"];
+          if (data["unregister"]) {
+            setPhoneTips(data["message"]);
+            setLoginPsw(false);
+            setRegister(true);
+            return;
+          }
+          const auth = data["authorization"];
+          localStorage.setItem("Authorization", auth);
+          accessStore.authToken = auth;
+          accessStore.update((access) => {
+            access.accessCode = auth;
+            access.authToken = auth;
+            access.Joule = data["joule"];
+          });
+          navigate(Path.Home);
         },
         onError: (err: Error) => {
           console.error(err);
@@ -74,6 +103,16 @@ export function AuthPage() {
         },
       },
     );
+  };
+
+  const switchLoginAndReset = (login: boolean) => {
+    setIsLogin(login);
+    setLoginPsw(login);
+    setPhoneTips("");
+    setPswTips("");
+    setCodeTips("");
+    setVerifyCode("");
+    setPassword("");
   };
 
   useEffect(() => {
@@ -87,6 +126,7 @@ export function AuthPage() {
   const [docTitle, setDocTitle] = useState("");
   const [docText, setDocText] = useState("");
   const [loginPsw, setLoginPsw] = useState(true);
+  const [register, setRegister] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [afterSeconds, setAfterSeconds] = useState(0);
@@ -99,7 +139,7 @@ export function AuthPage() {
   const [password, setPassword] = useState("");
 
   const phoneRegex = /^1\d{10}$/;
-  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/;
+  const passwordRegex = /^(?=.*[a-zA-Z0-9]).{8,16}$/;
 
   const sendVerifyCode = () => {
     if (afterSeconds > 0) {
@@ -110,17 +150,25 @@ export function AuthPage() {
       return false;
     }
     httpRequest(
-      "/user/verify_code",
+      "/user/send_verify_code",
       {
         data: {
           phone: phone,
-          code: isLogin ? 0 : 1,
+          action: isLogin ? 1 : 2,
         },
       },
       {
         onFinish: (data: any) => {
-          console.log(data);
-          // navigate(Path.Home);
+          if (data["code"] !== 0) {
+            setVerifyCode(data["message"]);
+            return;
+          }
+          console.log(data["data"]);
+          if (isLogin && data["data"]["unregister"]) {
+            setCodeTips("验证码已下发，请注意查收手机短信");
+            setPswTips("暂未注册，请输入密码");
+            setRegister(true);
+          }
         },
         onError: (err: Error) => {
           console.error(err);
@@ -275,7 +323,7 @@ export function AuthPage() {
 
         <div
           className={styles["auth-tips"]}
-          style={{ display: isLogin && !loginPsw ? "none" : "" }}
+          style={{ display: !register && isLogin && !loginPsw ? "none" : "" }}
         >
           {Locale.Auth.Password}
           <span>{passwordTips}</span>
@@ -342,8 +390,9 @@ export function AuthPage() {
             <span
               className={styles[isLogin ? "auth-action" : "auth-action-active"]}
               onClick={() => {
-                isLogin ? {} : setIsLogin(true);
-                setLoginPsw(true);
+                if (!isLogin) {
+                  switchLoginAndReset(true);
+                }
               }}
             >
               {Locale.Auth.Login}
@@ -354,7 +403,9 @@ export function AuthPage() {
                 styles[!isLogin ? "auth-action" : "auth-action-active"]
               }
               onClick={() => {
-                !isLogin ? {} : setIsLogin(false);
+                if (isLogin) {
+                  switchLoginAndReset(false);
+                }
               }}
             >
               {Locale.Auth.ForgetPsw}

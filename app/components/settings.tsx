@@ -70,6 +70,7 @@ import { useSyncStore } from "../store/sync";
 import { nanoid } from "nanoid";
 import { useMaskStore } from "../store/mask";
 import { ProviderType } from "../utils/cloud";
+import { httpRequest } from "../client/server/api";
 
 function EditPromptModal(props: { id: string; onClose: () => void }) {
   const promptStore = usePromptStore();
@@ -582,6 +583,11 @@ export function Settings() {
 
   function logout() {
     console.log("todo logout ");
+    accessStore.update((access) => {
+      access.authToken = "";
+      access.Joule = 0;
+    });
+    navigate(Path.Auth);
   }
 
   function recharge() {
@@ -740,7 +746,7 @@ export function Settings() {
             }
           </ListItem>
 
-          <ListItem title={Locale.Settings.Balance + accessStore.tokenBalance}>
+          <ListItem title={Locale.Settings.Balance + accessStore.Joule}>
             {
               <IconButton
                 text={Locale.Settings.Recharge}
@@ -921,7 +927,7 @@ export function Settings() {
         </List>
 
         <List id={SlotID.CustomModel}>
-          {/* {showAccessCode && (
+          {!showAccessCode && (
             <ListItem
               title={Locale.Settings.Access.AccessCode.Title}
               subTitle={Locale.Settings.Access.AccessCode.SubTitle}
@@ -937,7 +943,7 @@ export function Settings() {
                 }}
               />
             </ListItem>
-          )} */}
+          )}
 
           {!accessStore.hideUserApiKey && (
             <>
