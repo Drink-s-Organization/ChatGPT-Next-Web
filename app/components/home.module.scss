@@ -15,6 +15,8 @@
 
   width: var(--window-width);
   height: var(--window-height);
+
+  position: relative;
 }
 
 .container {
@@ -34,6 +36,7 @@
 
     border-radius: 0;
     border: 0;
+    position: relative;
   }
 }
 
@@ -337,4 +340,105 @@
 
 .rtl-screen {
   direction: rtl;
+}
+
+.recharge-pop-mask {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #818181;
+  opacity: 0.5;
+}
+
+.recharge-pop {
+  width: 872px;
+  height: 715px;
+  border-radius: 12px;
+  background-color: #FFFFFF;
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+
+  .recharge-pop-head {
+    height: 108px;
+    background-image: url("../../public/recharge-pop-head-bg.png");
+    background-size: cover;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .recharge-pop-user-info {
+      display: flex;
+      flex-direction: column;
+      margin: 25px 0 0 40px;
+
+      .recharge-pop-user-info-phone {
+        font-size: 16px;
+        font-family: PingFang SC, PingFang SC, serif;
+        font-weight: 600;
+        color: #303030;
+        line-height: 22px;
+      }
+
+      .recharge-pop-user-info-watt {
+        font-size: 14px;
+        font-family: PingFang SC, PingFang SC, serif;
+        font-weight: 600;
+        color: #C8C8C8;
+        line-height: 20px;
+
+        .recharge-pop-user-info-watt-num {
+          color: #FFAD00;
+        }
+      }
+    }
+
+    .recharge-pop-close {
+      .recharge-pop-close-icon {
+        background: rgba(0, 0, 0, 0);
+        margin: 12px 12px 0 0;
+      }
+    }
+  }
+
+  .recharge-pop-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.3);
+    border-radius: 12px;
+    opacity: 1;
+
+    .recharge-pop-body-title {
+      height: 68px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      font-size: 32px;
+      font-weight: 400;
+      font-style: italic;
+      color: #FFAD00;
+      line-height: 38px;
+      border-bottom: #D8D8D8 solid 1px;
+
+      .recharge-pop-body-title-question {
+        margin-left: 334px;
+      }
+    }
+
+    .recharge-pop-body-other {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: row;
+
+      .recharge-pop-body-other-left {
+        .recharge-pop-body-tips {
+          margin: 30px 0 0 40px;
+          border-radius: 14px;
+        }
+      }
+    }
+  }
 }

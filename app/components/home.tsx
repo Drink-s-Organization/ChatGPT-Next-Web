@@ -1,5 +1,7 @@
 "use client";
 
+import { position } from "unist-util-position";
+
 require("../polyfill");
 
 import { useState, useEffect } from "react";
@@ -8,6 +10,8 @@ import styles from "./home.module.scss";
 
 import BotIcon from "../icons/bot.svg";
 import LoadingIcon from "../icons/three-dots.svg";
+import CloseIcon from "../icons/close.svg";
+import RechargePopTipsImg from "../../public/recharge-pop-tips.png";
 
 import { getCSSVar, useMobileScreen } from "../utils";
 
@@ -29,6 +33,10 @@ import { AuthPage } from "./auth";
 import { getClientConfig } from "../config/client";
 import { api } from "../client/api";
 import { useAccessStore } from "../store";
+import UploadIcon from "@/app/icons/upload.svg";
+import Locale from "@/app/locales";
+import { IconButton } from "./button";
+import Image from "next/image";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -128,7 +136,8 @@ function Screen() {
   const isHome = location.pathname === Path.Home;
   const isAuth = location.pathname === Path.Auth;
   const isMobileScreen = useMobileScreen();
-  const shouldTightBorder = getClientConfig()?.isApp || (config.tightBorder && !isMobileScreen);
+  const shouldTightBorder =
+    getClientConfig()?.isApp || (config.tightBorder && !isMobileScreen);
 
   useEffect(() => {
     loadAsyncGoogleFont();
@@ -162,6 +171,48 @@ function Screen() {
           </div>
         </>
       )}
+
+      <div className={styles["recharge-pop-mask"]}></div>
+      <div className={styles["recharge-pop"]}>
+        <div className={styles["recharge-pop-head"]}>
+          <div className={styles["recharge-pop-user-info"]}>
+            <div className={styles["recharge-pop-user-info-phone"]}>
+              账号：13021015362
+            </div>
+            <div className={styles["recharge-pop-user-info-watt"]}>
+              剩余算力：
+              <span className={styles["recharge-pop-user-info-watt-num"]}>
+                15132
+              </span>
+            </div>
+          </div>
+          <div className={styles["recharge-pop-close"]}>
+            <IconButton
+              icon={<CloseIcon />}
+              className={styles["recharge-pop-close-icon"]}
+            />
+          </div>
+        </div>
+        <div className={styles["recharge-pop-body"]}>
+          <div className={styles["recharge-pop-body-title"]}>
+            <div>购买算力</div>
+            <div className={styles["recharge-pop-body-title-question"]}>
+              常见问题
+            </div>
+          </div>
+          <div className={styles["recharge-pop-body-other"]}>
+            <div className={styles["recharge-pop-body-other-left"]}>
+              <Image
+                src={RechargePopTipsImg}
+                alt={""}
+                width={322}
+                height={469}
+                className={styles["recharge-pop-body-tips"]}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
