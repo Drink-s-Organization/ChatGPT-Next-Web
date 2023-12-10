@@ -24,7 +24,7 @@
     font-size: 22px;
     font-family: PingFang SC, PingFang SC;
     font-weight: 500;
-    color: #303030;
+    color: var(--#303030);
     line-height: 26px;
   }
 
@@ -34,7 +34,7 @@
     font-size: 14px;
     font-family: PingFang SC, PingFang SC;
     font-weight: 400;
-    color: #303030;
+    color: var(--#303030);
     line-height: 17px;
 
     span {
@@ -47,7 +47,7 @@
       height: 40px;
       margin-top: 15px;
       margin-bottom: 15px;
-      background: #FFFFFF;
+      background: var(--#FFFFFF);
       border-radius: 4px 4px 4px 4px;
       opacity: 1;
       border: 1px solid #DDE1EE;
@@ -75,7 +75,7 @@
     font-size: 14px;
     font-family: PingFang SC, PingFang SC;
     font-weight: 400;
-    color: #666666;
+    color: var(--#666666);
     line-height: 17px;
     text-align: center;
     cursor: pointer;
@@ -107,7 +107,7 @@
     font-size: 14px;
     font-family: PingFang SC, PingFang SC;
     font-weight: 400;
-    color: #666666;
+    color: var(--#666666);
     line-height: 17px;
     position: absolute;
     right: 12px;
@@ -144,7 +144,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background: #FFFFFF;
+    // background: #FFFFFF;
     box-shadow: 0px 2px 12px 0px rgba(0,0,0,0.06);
     border-radius: 16px 16px 16px 16px;
     opacity: 1;
@@ -172,7 +172,7 @@
     align-items: center;
     font-family: PingFang SC, PingFang SC;
     font-weight: 400;
-    color: #9E9E9E;
+    color: var(--#9E9E9E);
     line-height: 17px;
 
     a {
@@ -193,7 +193,7 @@
     font-size: 14px;
     font-family: PingFang SC, PingFang SC;
     font-weight: 400;
-    color: #9E9E9E;
+    color: var(--#9E9E9E);
     line-height: 17px;
   }
 
@@ -210,7 +210,7 @@
   .auth-doc {
     width: 960px;
     height: 600px;
-    background: #FFFFFF;
+    background: var(--#FFFFFF);
     border-radius: 16px 16px 16px 16px;
     opacity: 1;
     border: 1px solid #1D93AB;
@@ -223,7 +223,7 @@
       font-size: 22px;
       font-family: PingFang SC, PingFang SC;
       font-weight: 600;
-      color: #303030;
+      color: var(--#303030);
       line-height: 31px;
       margin-bottom: 16px;
     }
@@ -238,7 +238,7 @@
       font-size: 18px;
       font-family: PingFang SC, PingFang SC;
       font-weight: 400;
-      color: #303030;
+      color: var(--#303030);
       line-height: 25px;
     }
 
@@ -246,7 +246,7 @@
       margin-bottom: 10px;
       width: 100px;
       height: 40px;
-      background: #1D93AB;
+      background: var(--#1D93AB);
       border-radius: 8px 8px 8px 8px;
       opacity: 1;
       position: absolute;
