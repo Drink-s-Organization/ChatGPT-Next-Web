@@ -585,7 +585,7 @@ export function Settings() {
     console.log("todo logout ");
     accessStore.update((access) => {
       access.authToken = "";
-      access.Joule = 0;
+      access.Watt = 0;
     });
     navigate(Path.Auth);
   }
@@ -746,7 +746,7 @@ export function Settings() {
             }
           </ListItem>
 
-          <ListItem title={Locale.Settings.Balance + accessStore.Joule}>
+          <ListItem title={Locale.Settings.Balance + accessStore.Watt}>
             {
               <IconButton
                 text={Locale.Settings.Recharge}

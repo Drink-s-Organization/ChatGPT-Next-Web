@@ -26,9 +26,9 @@ const DEFAULT_ACCESS_STATE = {
   severUrl: "http://localhost:8888",
 
   // account
-  phone: "1326666666",
-  Joule: 1200,
-  authToken: "token-*****",
+  phone: "",
+  Watt: 0,
+  authToken: "",
 
   // azure
   azureUrl: "",
