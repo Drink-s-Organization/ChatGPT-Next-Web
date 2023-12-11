@@ -153,37 +153,53 @@ export function SideBar(props: { className?: string }) {
         transition: isMobileScreen && isIOSMobile ? "none" : undefined,
       }}
     >
-      <div className={styles["sidebar-header"]} data-tauri-drag-region>
-        <div className={styles["sidebar-title"]} data-tauri-drag-region>
-          ChatGPT Next
-        </div>
-        <div className={styles["sidebar-sub-title"]}>
-          Build your own AI assistant.
-        </div>
-        <div className={styles["sidebar-logo"] + " no-dark"}>
-          <ChatGptIcon />
-        </div>
-      </div>
+      {/* 删掉原来side bar的logo */}
+      {/*<div className={styles["sidebar-header"]} data-tauri-drag-region>*/}
+      {/*  <div className={styles["sidebar-title"]} data-tauri-drag-region>*/}
+      {/*    ChatGPT Next*/}
+      {/*  </div>*/}
+      {/*  <div className={styles["sidebar-sub-title"]}>*/}
+      {/*    Build your own AI assistant.*/}
+      {/*  </div>*/}
+      {/*  <div className={styles["sidebar-logo"] + " no-dark"}>*/}
+      {/*    <ChatGptIcon />*/}
+      {/*  </div>*/}
+      {/*</div>*/}
 
       <div className={styles["sidebar-header-bar"]}>
+        {/*删除原来的两个按钮，改为新的聊天*/}
+        {/*<IconButton*/}
+        {/*  icon={<MaskIcon />}*/}
+        {/*  text={shouldNarrow ? undefined : Locale.Mask.Name}*/}
+        {/*  className={styles["sidebar-bar-button"]}*/}
+        {/*  onClick={() => {*/}
+        {/*    if (config.dontShowMaskSplashScreen !== true) {*/}
+        {/*      navigate(Path.NewChat, { state: { fromHome: true } });*/}
+        {/*    } else {*/}
+        {/*      navigate(Path.Masks, { state: { fromHome: true } });*/}
+        {/*    }*/}
+        {/*  }}*/}
+        {/*  shadow*/}
+        {/*/>*/}
+        {/*<IconButton*/}
+        {/*  icon={<PluginIcon />}*/}
+        {/*  text={shouldNarrow ? undefined : Locale.Plugin.Name}*/}
+        {/*  className={styles["sidebar-bar-button"]}*/}
+        {/*  onClick={() => showToast(Locale.WIP)}*/}
+        {/*  shadow*/}
+        {/*/>*/}
         <IconButton
-          icon={<MaskIcon />}
-          text={shouldNarrow ? undefined : Locale.Mask.Name}
-          className={styles["sidebar-bar-button"]}
+          className={styles["sidebar-new-chat-btn"]}
+          icon={<AddIcon />}
+          text={shouldNarrow ? undefined : Locale.Home.NewChat}
           onClick={() => {
-            if (config.dontShowMaskSplashScreen !== true) {
-              navigate(Path.NewChat, { state: { fromHome: true } });
+            if (config.dontShowMaskSplashScreen) {
+              chatStore.newSession();
+              navigate(Path.Chat);
             } else {
-              navigate(Path.Masks, { state: { fromHome: true } });
+              navigate(Path.NewChat);
             }
           }}
-          shadow
-        />
-        <IconButton
-          icon={<PluginIcon />}
-          text={shouldNarrow ? undefined : Locale.Plugin.Name}
-          className={styles["sidebar-bar-button"]}
-          onClick={() => showToast(Locale.WIP)}
           shadow
         />
       </div>
@@ -228,15 +244,29 @@ export function SideBar(props: { className?: string }) {
           </div>
         </div>
         <div>
+          {/*将新的聊天移动到顶部*/}
+          {/*<IconButton*/}
+          {/*  icon={<AddIcon />}*/}
+          {/*  text={shouldNarrow ? undefined : Locale.Home.NewChat}*/}
+          {/*  onClick={() => {*/}
+          {/*    if (config.dontShowMaskSplashScreen) {*/}
+          {/*      chatStore.newSession();*/}
+          {/*      navigate(Path.Chat);*/}
+          {/*    } else {*/}
+          {/*      navigate(Path.NewChat);*/}
+          {/*    }*/}
+          {/*  }}*/}
+          {/*  shadow*/}
+          {/*/>*/}
           <IconButton
-            icon={<AddIcon />}
-            text={shouldNarrow ? undefined : Locale.Home.NewChat}
+            icon={<MaskIcon />}
+            text={shouldNarrow ? undefined : Locale.Mask.Name}
+            className={styles["sidebar-role-btn"]}
             onClick={() => {
-              if (config.dontShowMaskSplashScreen) {
-                chatStore.newSession();
-                navigate(Path.Chat);
+              if (config.dontShowMaskSplashScreen !== true) {
+                navigate(Path.NewChat, { state: { fromHome: true } });
               } else {
-                navigate(Path.NewChat);
+                navigate(Path.Masks, { state: { fromHome: true } });
               }
             }}
             shadow

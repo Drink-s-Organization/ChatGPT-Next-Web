@@ -12,6 +12,8 @@ import BotIcon from "../icons/bot.svg";
 import LoadingIcon from "../icons/three-dots.svg";
 import CloseIcon from "../icons/close.svg";
 import RechargePopTipsImg from "../../public/recharge-pop-tips.png";
+import LogoImg from "../icons/chatgpt.png";
+import LightingIcon from "../icons/lightning-fill.svg";
 
 import { getCSSVar, useMobileScreen } from "../utils";
 
@@ -160,6 +162,27 @@ function Screen() {
         </>
       ) : (
         <>
+          <div className={styles["page-header"]}>
+            <div className={styles["logo-container"]}>
+              <div>
+                <Image src={LogoImg} alt={""} width={35} height={35} />
+              </div>
+              <div className={styles["logo-text"]}>
+                <div className={styles["logo-text-line1"]}>EasyChat</div>
+                <div className={styles["logo-text-line2"]}>
+                  让每个人都能享受ai带来的便利
+                </div>
+              </div>
+            </div>
+            <IconButton
+              icon={<LightingIcon />}
+              text={"4w"}
+              className={styles["watt-btn"]}
+              onClick={() => {
+                setPopRecharge(true);
+              }}
+            />
+          </div>
           <SideBar className={isHome ? styles["sidebar-show"] : ""} />
 
           <div className={styles["window-content"]} id={SlotID.AppBody}>
@@ -173,15 +196,6 @@ function Screen() {
           </div>
         </>
       )}
-      <div>
-        <IconButton
-          onClick={() => {
-            setPopRecharge(true);
-          }}
-          shadow
-          text={"tmp"}
-        />
-      </div>
       {popRecharge ? (
         <>
           <div
