@@ -359,6 +359,7 @@
   transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
+  z-index: 3;
 
   .recharge-pop-head {
     height: 108px;
@@ -437,6 +438,32 @@
         .recharge-pop-body-tips {
           margin: 30px 0 0 40px;
           border-radius: 14px;
+        }
+      }
+
+      .recharge-pop-body-other-right {
+        margin-left: 20px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        .recharge-pop-plan {
+          margin-top: 30px;
+          width: 450px;
+          height: 218px;
+          background: #FFFFFF;
+          border-radius: 14px;
+          border: 1px solid #F3F3F3;
+          display: flex;
+          flex-direction: row;
+        }
+
+        .recharge-pop-pay {
+          margin-top: 20px;
+          width: 450px;
+          height: 231px;
+          background: #FFFFFF;
+          border-radius: 14px;
+          border: 1px solid #F3F3F3;
         }
       }
     }

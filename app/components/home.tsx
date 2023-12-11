@@ -37,6 +37,7 @@ import UploadIcon from "@/app/icons/upload.svg";
 import Locale from "@/app/locales";
 import { IconButton } from "./button";
 import Image from "next/image";
+import AddIcon from "@/app/icons/add.svg";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -138,6 +139,7 @@ function Screen() {
   const isMobileScreen = useMobileScreen();
   const shouldTightBorder =
     getClientConfig()?.isApp || (config.tightBorder && !isMobileScreen);
+  const [popRecharge, setPopRecharge] = useState(false);
 
   useEffect(() => {
     loadAsyncGoogleFont();
@@ -171,48 +173,74 @@ function Screen() {
           </div>
         </>
       )}
-
-      <div className={styles["recharge-pop-mask"]}></div>
-      <div className={styles["recharge-pop"]}>
-        <div className={styles["recharge-pop-head"]}>
-          <div className={styles["recharge-pop-user-info"]}>
-            <div className={styles["recharge-pop-user-info-phone"]}>
-              账号：13021015362
-            </div>
-            <div className={styles["recharge-pop-user-info-watt"]}>
-              剩余算力：
-              <span className={styles["recharge-pop-user-info-watt-num"]}>
-                15132
-              </span>
-            </div>
-          </div>
-          <div className={styles["recharge-pop-close"]}>
-            <IconButton
-              icon={<CloseIcon />}
-              className={styles["recharge-pop-close-icon"]}
-            />
-          </div>
-        </div>
-        <div className={styles["recharge-pop-body"]}>
-          <div className={styles["recharge-pop-body-title"]}>
-            <div>购买算力</div>
-            <div className={styles["recharge-pop-body-title-question"]}>
-              常见问题
-            </div>
-          </div>
-          <div className={styles["recharge-pop-body-other"]}>
-            <div className={styles["recharge-pop-body-other-left"]}>
-              <Image
-                src={RechargePopTipsImg}
-                alt={""}
-                width={322}
-                height={469}
-                className={styles["recharge-pop-body-tips"]}
-              />
-            </div>
-          </div>
-        </div>
+      <div>
+        <IconButton
+          onClick={() => {
+            setPopRecharge(true);
+          }}
+          shadow
+          text={"tmp"}
+        />
       </div>
+      {popRecharge ? (
+        <>
+          <div
+            className={styles["recharge-pop-mask"]}
+            onClick={() => {
+              setPopRecharge(false);
+            }}
+          ></div>
+          <div className={popRecharge ? styles["recharge-pop"] : ""}>
+            <div className={styles["recharge-pop-head"]}>
+              <div className={styles["recharge-pop-user-info"]}>
+                <div className={styles["recharge-pop-user-info-phone"]}>
+                  账号：13021015362
+                </div>
+                <div className={styles["recharge-pop-user-info-watt"]}>
+                  剩余算力：
+                  <span className={styles["recharge-pop-user-info-watt-num"]}>
+                    15132
+                  </span>
+                </div>
+              </div>
+              <div className={styles["recharge-pop-close"]}>
+                <IconButton
+                  icon={<CloseIcon />}
+                  className={styles["recharge-pop-close-icon"]}
+                  onClick={() => {
+                    setPopRecharge(false);
+                  }}
+                />
+              </div>
+            </div>
+            <div className={styles["recharge-pop-body"]}>
+              <div className={styles["recharge-pop-body-title"]}>
+                <div>购买算力</div>
+                <div className={styles["recharge-pop-body-title-question"]}>
+                  常见问题
+                </div>
+              </div>
+              <div className={styles["recharge-pop-body-other"]}>
+                <div className={styles["recharge-pop-body-other-left"]}>
+                  <Image
+                    src={RechargePopTipsImg}
+                    alt={""}
+                    width={322}
+                    height={469}
+                    className={styles["recharge-pop-body-tips"]}
+                  />
+                </div>
+                <div className={styles["recharge-pop-body-other-right"]}>
+                  <div className={styles["recharge-pop-plan"]}></div>
+                  <div className={styles["recharge-pop-pay"]}></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }
