@@ -14,6 +14,8 @@ import CloseIcon from "../icons/close.svg";
 import RechargePopTipsImg from "../../public/recharge-pop-tips.png";
 import LogoImg from "../icons/chatgpt.png";
 import LightingIcon from "../icons/lightning-fill.svg";
+import WeChatPayIcon from "../icons/wechat-pay.svg";
+import AlipayIcon from "../icons/alipay.svg";
 
 import { getCSSVar, useMobileScreen } from "../utils";
 
@@ -245,8 +247,110 @@ function Screen() {
                   />
                 </div>
                 <div className={styles["recharge-pop-body-other-right"]}>
-                  <div className={styles["recharge-pop-plan"]}></div>
-                  <div className={styles["recharge-pop-pay"]}></div>
+                  <div className={styles["recharge-pop-plan"]}>
+                    <div className={styles["recharge-pop-plan-item"]}>
+                      <div className={styles["recharge-pop-plan-item-joule"]}>
+                        400算力≈20w字
+                      </div>
+                      <div className={styles["recharge-pop-plan-item-price"]}>
+                        ¥15.99
+                      </div>
+                      <div
+                        className={
+                          styles["recharge-pop-plan-item-origin-price"]
+                        }
+                      >
+                        ¥20.00
+                      </div>
+                      <div
+                        className={styles["recharge-pop-plan-item-discount"]}
+                      >
+                        立减4.01
+                      </div>
+                    </div>
+                    <div
+                      className={
+                        styles["recharge-pop-plan-item"] +
+                        ` ${styles["recharge-pop-plan-item-choose"]}`
+                      }
+                    >
+                      <div className={styles["recharge-pop-plan-item-joule"]}>
+                        1k算力≈50w字
+                      </div>
+                      <div className={styles["recharge-pop-plan-item-price"]}>
+                        ¥39.99
+                      </div>
+                      <div
+                        className={
+                          styles["recharge-pop-plan-item-origin-price"]
+                        }
+                      >
+                        ¥50.00
+                      </div>
+                      <div
+                        className={styles["recharge-pop-plan-item-discount"]}
+                      >
+                        立减10.01
+                      </div>
+                    </div>
+                    <div className={styles["recharge-pop-plan-item"]}>
+                      <div className={styles["recharge-pop-plan-item-joule"]}>
+                        2k算力≈100w字
+                      </div>
+                      <div className={styles["recharge-pop-plan-item-price"]}>
+                        ¥69.99
+                      </div>
+                      <div
+                        className={
+                          styles["recharge-pop-plan-item-origin-price"]
+                        }
+                      >
+                        ¥100.00
+                      </div>
+                      <div
+                        className={styles["recharge-pop-plan-item-discount"]}
+                      >
+                        立减30.01
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles["recharge-pop-pay"]}>
+                    <div className={styles["recharge-pop-pay-title"]}>
+                      <div className={styles["recharge-pop-pay-title-item"]}>
+                        {
+                          <WeChatPayIcon
+                            className={
+                              styles["recharge-pop-pay-title-item-icon"]
+                            }
+                          />
+                        }
+                        微信支付
+                      </div>
+                      <div
+                        className={
+                          styles["recharge-pop-pay-title-item"] +
+                          ` ${styles["recharge-pop-pay-title-item-choose"]}`
+                        }
+                      >
+                        {
+                          <AlipayIcon
+                            className={
+                              styles["recharge-pop-pay-title-item-icon"]
+                            }
+                          />
+                        }
+                        支付宝支付
+                      </div>
+                    </div>
+                    <div className={styles["recharge-pop-pay-content"]}>
+                      <div
+                        className={styles["recharge-pop-pay-content-left"]}
+                      ></div>
+                      <div
+                        className={styles["recharge-pop-pay-content-right"]}
+                      ></div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
