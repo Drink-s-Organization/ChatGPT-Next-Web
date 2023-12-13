@@ -573,6 +573,105 @@
               background: #FFFFFF;
             }
           }
+
+          .recharge-pop-pay-content {
+            display: flex;
+            flex-direction: row;
+
+            .recharge-pop-pay-content-left {
+              margin: 20px 0 0 20px;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              width: 123px;
+              height: 138px;
+              background: #FFFFFF;
+              border-radius: 4px;
+              opacity: 1;
+              border: 1px solid #F3F3F3;
+
+              .recharge-pop-pay-code-tips {
+                margin-top: 6px;
+                font-size: 12px;
+                font-family: PingFang SC, PingFang SC;
+                font-weight: 400;
+                color: #818181;
+                line-height: 17px;
+              }
+            }
+
+            .recharge-pop-pay-content-right {
+              margin-left: 20px;
+              display: flex;
+              flex-direction: column;
+
+              .recharge-pop-new-user-discount {
+                margin-top: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 267px;
+                height: 27px;
+                background: #FF5B16;
+                border-radius: 4px;
+                opacity: 1;
+                font-size: 12px;
+                font-family: PingFang SC, PingFang SC;
+                font-weight: 600;
+                color: #FFECBF;
+                line-height: 17px;
+              }
+
+              .recharge-pop-goods {
+                margin-top: 10px;
+                font-size: 12px;
+                font-family: PingFang SC, PingFang SC;
+                font-weight: 400;
+                color: #303030;
+                line-height: 17px;
+
+                .recharge-pop-goods-info {
+                  color: #818181;
+                }
+              }
+
+              .recharge-pop-goods-margin-top {
+                margin-top: 20px;
+              }
+
+              .recharge-pop-order-final-amount {
+                margin-top: 20px;
+
+                .recharge-pop-order-final-amount-agree {
+                  font-size: 16px;
+                  font-family: PingFang SC, PingFang SC;
+                  font-weight: 600;
+                  color: #303030;
+                  line-height: 17px;
+                }
+
+                .recharge-pop-order-final-amount-last {
+                  margin-left: 8px;
+                  font-size: 36px;
+                  font-family: PingFang SC, PingFang SC;
+                  font-weight: 500;
+                  color: #FF0000;
+                  line-height: 17px;
+                }
+
+                .recharge-pop-order-final-amount-origin {
+                  margin-left: 4px;
+                  font-size: 10px;
+                  font-family: PingFang SC, PingFang SC;
+                  font-weight: 400;
+                  color: #818181;
+                  line-height: 14px;
+                  text-decoration-line: line-through;
+                }
+              }
+            }
+          }
         }
       }
     }

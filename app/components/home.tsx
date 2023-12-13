@@ -16,6 +16,7 @@ import LogoImg from "../icons/chatgpt.png";
 import LightingIcon from "../icons/lightning-fill.svg";
 import WeChatPayIcon from "../icons/wechat-pay.svg";
 import AlipayIcon from "../icons/alipay.svg";
+import CouponIcon from "../icons/coupon.svg";
 
 import { getCSSVar, useMobileScreen } from "../utils";
 
@@ -37,11 +38,8 @@ import { AuthPage } from "./auth";
 import { getClientConfig } from "../config/client";
 import { api } from "../client/api";
 import { useAccessStore } from "../store";
-import UploadIcon from "@/app/icons/upload.svg";
-import Locale from "@/app/locales";
 import { IconButton } from "./button";
 import Image from "next/image";
-import AddIcon from "@/app/icons/add.svg";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -343,12 +341,69 @@ function Screen() {
                       </div>
                     </div>
                     <div className={styles["recharge-pop-pay-content"]}>
-                      <div
-                        className={styles["recharge-pop-pay-content-left"]}
-                      ></div>
-                      <div
-                        className={styles["recharge-pop-pay-content-right"]}
-                      ></div>
+                      <div className={styles["recharge-pop-pay-content-left"]}>
+                        <div className={styles["recharge-pop-pay-code"]}>
+                          <Image
+                            src={LogoImg}
+                            alt={""}
+                            width={96}
+                            height={96}
+                          />
+                        </div>
+                        <div className={styles["recharge-pop-pay-code-tips"]}>
+                          打开支付宝扫一扫
+                        </div>
+                      </div>
+                      <div className={styles["recharge-pop-pay-content-right"]}>
+                        <div
+                          className={styles["recharge-pop-new-user-discount"]}
+                        >
+                          {<CouponIcon width={18} height={15} />}
+                          新用户首单优惠¥10
+                        </div>
+                        <div className={styles["recharge-pop-goods"]}>
+                          购买商品：
+                          <span className={styles["recharge-pop-goods-info"]}>
+                            2k算力
+                          </span>
+                        </div>
+                        <div
+                          className={
+                            styles["recharge-pop-goods"] +
+                            ` ${styles["recharge-pop-goods-margin-top"]}`
+                          }
+                        >
+                          订单金额：
+                          <span className={styles["recharge-pop-goods-info"]}>
+                            ¥100-¥30.01(限时优惠)-¥10(首单减免)
+                          </span>
+                        </div>
+                        <div
+                          className={styles["recharge-pop-order-final-amount"]}
+                        >
+                          <span
+                            className={
+                              styles["recharge-pop-order-final-amount-agree"]
+                            }
+                          >
+                            同意并支付
+                          </span>
+                          <span
+                            className={
+                              styles["recharge-pop-order-final-amount-last"]
+                            }
+                          >
+                            ¥59.99
+                          </span>
+                          <span
+                            className={
+                              styles["recharge-pop-order-final-amount-origin"]
+                            }
+                          >
+                            ¥100.00
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
