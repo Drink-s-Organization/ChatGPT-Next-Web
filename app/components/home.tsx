@@ -31,6 +31,7 @@ import {
   Routes,
   Route,
   useLocation,
+  useNavigate,
 } from "react-router-dom";
 import { SideBar } from "./sidebar";
 import { useAppConfig } from "../store/config";
@@ -40,6 +41,8 @@ import { api } from "../client/api";
 import { useAccessStore } from "../store";
 import { IconButton } from "./button";
 import Image from "next/image";
+import { httpRequest } from "@/app/client/server/api";
+import QRCode from "react-qr-code";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -141,11 +144,116 @@ function Screen() {
   const isMobileScreen = useMobileScreen();
   const shouldTightBorder =
     getClientConfig()?.isApp || (config.tightBorder && !isMobileScreen);
+  const navigate = useNavigate();
+  const accessStore = useAccessStore();
   const [popRecharge, setPopRecharge] = useState(false);
+  const [popRechargePurchase, setPopRechargePurchase] = useState(true);
+  const purchaseWattPlan = [
+    {
+      tips: "4k算力≈20w字",
+      goods_count: 4000,
+      now_amount: 15.99,
+      origin_amount: 20.0,
+      discount: 4.01,
+    },
+    {
+      tips: "1w算力≈50w字",
+      goods_count: 10000,
+      now_amount: 39.99,
+      origin_amount: 50.0,
+      discount: 10.01,
+    },
+    {
+      tips: "2w算力≈100w字",
+      goods_count: 20000,
+      now_amount: 69.99,
+      origin_amount: 100.0,
+      discount: 30.01,
+    },
+  ];
+  const [choosePurchasePlan, setChoosePurchasePlan] = useState(0);
+  const [choosePayWay, setChoosePayWay] = useState(1);
+  const [wechatPayCodeUrl, setWechatPayCodeUrl] = useState("");
+  const [alipayCodeUrl, setAlipayCodeUrl] = useState("");
+  const isLogin = localStorage.getItem("Authorization") != null;
+  let getOrderStatusCount = 0;
+  const getPayQRCode = () => {
+    let requestParams = {
+      channel: choosePayWay,
+      amount: Number(
+        (purchaseWattPlan[choosePurchasePlan].now_amount - 10).toFixed(2),
+      ),
+      goods_name: purchaseWattPlan[choosePurchasePlan].tips,
+      goods_count: purchaseWattPlan[choosePurchasePlan].goods_count,
+      out_trade_no:
+        choosePayWay == 1
+          ? accessStore.outTradeNo[choosePurchasePlan].wechat_pay
+          : accessStore.outTradeNo[choosePurchasePlan].alipay,
+    };
+    httpRequest(
+      "/order/prepay",
+      { data: requestParams },
+      {
+        onFinish: (resp: any) => {
+          if (choosePayWay == 1) {
+            setWechatPayCodeUrl(resp["data"]["code_url"]);
+            accessStore.outTradeNo[choosePurchasePlan].wechat_pay =
+              resp["data"]["out_trade_no"];
+          } else if (choosePayWay == 2) {
+            setAlipayCodeUrl(resp["data"]["code_url"]);
+            accessStore.outTradeNo[choosePurchasePlan].alipay =
+              resp["data"]["out_trade_no"];
+          }
+        },
+      },
+    );
+  };
+
+  const getPayOrderStatus = () => {
+    let outTradeNo =
+      choosePayWay == 1
+        ? accessStore.outTradeNo[choosePurchasePlan].wechat_pay
+        : accessStore.outTradeNo[choosePurchasePlan].alipay;
+    if (outTradeNo == "") {
+      setTimeout(getPayOrderStatus, 1000);
+      return;
+    }
+    let url = "/order/status?out_trade_no=" + outTradeNo;
+    httpRequest(
+      url,
+      {
+        method: "GET",
+      },
+      {
+        onFinish: (resp: any) => {
+          let order_status = resp["data"]["order_status"];
+          if (order_status == 2) {
+            console.log("订单完成，跳转");
+          } else if (order_status == 1) {
+            console.log("订单未完成，跳转");
+          } else {
+            if (getOrderStatusCount >= 30 * 60) {
+              return;
+            }
+            getOrderStatusCount++;
+            setTimeout(getPayOrderStatus, 1000);
+          }
+        },
+      },
+    );
+  };
 
   useEffect(() => {
     loadAsyncGoogleFont();
   }, []);
+  useEffect(() => {
+    getPayQRCode();
+  }, [choosePayWay, choosePurchasePlan]);
+  useEffect(() => {
+    if (popRecharge) {
+      getPayOrderStatus();
+    }
+  }, [popRecharge]);
 
   return (
     <div
@@ -176,10 +284,15 @@ function Screen() {
             </div>
             <IconButton
               icon={<LightingIcon />}
-              text={"4w"}
+              text={String(accessStore.Watt)}
               className={styles["watt-btn"]}
               onClick={() => {
-                setPopRecharge(true);
+                if (isLogin) {
+                  setPopRecharge(true);
+                  getPayQRCode();
+                } else {
+                  navigate(Path.Auth);
+                }
               }}
             />
           </div>
@@ -208,12 +321,12 @@ function Screen() {
             <div className={styles["recharge-pop-head"]}>
               <div className={styles["recharge-pop-user-info"]}>
                 <div className={styles["recharge-pop-user-info-phone"]}>
-                  账号：13021015362
+                  账号：{accessStore.phone}
                 </div>
                 <div className={styles["recharge-pop-user-info-watt"]}>
                   剩余算力：
                   <span className={styles["recharge-pop-user-info-watt-num"]}>
-                    15132
+                    {accessStore.Watt}
                   </span>
                 </div>
               </div>
@@ -246,75 +359,118 @@ function Screen() {
                 </div>
                 <div className={styles["recharge-pop-body-other-right"]}>
                   <div className={styles["recharge-pop-plan"]}>
-                    <div className={styles["recharge-pop-plan-item"]}>
+                    <div
+                      className={
+                        styles["recharge-pop-plan-item"] +
+                        ` ${
+                          choosePurchasePlan == 0
+                            ? styles["recharge-pop-plan-item-choose"]
+                            : ""
+                        }`
+                      }
+                      onClick={() => {
+                        setChoosePurchasePlan(0);
+                      }}
+                    >
                       <div className={styles["recharge-pop-plan-item-joule"]}>
-                        400算力≈20w字
+                        {purchaseWattPlan[0].tips}
                       </div>
                       <div className={styles["recharge-pop-plan-item-price"]}>
-                        ¥15.99
+                        ¥{purchaseWattPlan[0].now_amount}
                       </div>
                       <div
                         className={
                           styles["recharge-pop-plan-item-origin-price"]
                         }
                       >
-                        ¥20.00
+                        ¥{purchaseWattPlan[0].origin_amount}
                       </div>
                       <div
                         className={styles["recharge-pop-plan-item-discount"]}
                       >
-                        立减4.01
+                        立减{purchaseWattPlan[0].discount}
                       </div>
                     </div>
                     <div
                       className={
                         styles["recharge-pop-plan-item"] +
-                        ` ${styles["recharge-pop-plan-item-choose"]}`
+                        ` ${
+                          choosePurchasePlan == 1
+                            ? styles["recharge-pop-plan-item-choose"]
+                            : ""
+                        }`
                       }
+                      onClick={() => {
+                        setChoosePurchasePlan(1);
+                      }}
                     >
                       <div className={styles["recharge-pop-plan-item-joule"]}>
-                        1k算力≈50w字
+                        {purchaseWattPlan[1].tips}
                       </div>
                       <div className={styles["recharge-pop-plan-item-price"]}>
-                        ¥39.99
+                        ¥{purchaseWattPlan[1].now_amount}
                       </div>
                       <div
                         className={
                           styles["recharge-pop-plan-item-origin-price"]
                         }
                       >
-                        ¥50.00
+                        ¥{purchaseWattPlan[1].origin_amount}
                       </div>
                       <div
                         className={styles["recharge-pop-plan-item-discount"]}
                       >
-                        立减10.01
+                        立减{purchaseWattPlan[1].discount}
                       </div>
                     </div>
-                    <div className={styles["recharge-pop-plan-item"]}>
+                    <div
+                      className={
+                        styles["recharge-pop-plan-item"] +
+                        ` ${
+                          choosePurchasePlan == 2
+                            ? styles["recharge-pop-plan-item-choose"]
+                            : ""
+                        }`
+                      }
+                      onClick={() => {
+                        setChoosePurchasePlan(2);
+                      }}
+                    >
                       <div className={styles["recharge-pop-plan-item-joule"]}>
-                        2k算力≈100w字
+                        {purchaseWattPlan[2].tips}
                       </div>
                       <div className={styles["recharge-pop-plan-item-price"]}>
-                        ¥69.99
+                        ¥{purchaseWattPlan[2].now_amount}
                       </div>
                       <div
                         className={
                           styles["recharge-pop-plan-item-origin-price"]
                         }
                       >
-                        ¥100.00
+                        ¥{purchaseWattPlan[2].origin_amount}
                       </div>
                       <div
                         className={styles["recharge-pop-plan-item-discount"]}
                       >
-                        立减30.01
+                        立减{purchaseWattPlan[2].discount}
                       </div>
                     </div>
                   </div>
                   <div className={styles["recharge-pop-pay"]}>
                     <div className={styles["recharge-pop-pay-title"]}>
-                      <div className={styles["recharge-pop-pay-title-item"]}>
+                      <div
+                        className={
+                          styles["recharge-pop-pay-title-item"] +
+                          ` ${
+                            choosePayWay == 1
+                              ? styles["recharge-pop-pay-title-item-choose"]
+                              : ""
+                          }`
+                        }
+                        onClick={() => {
+                          setChoosePayWay(1);
+                        }}
+                      >
                         {
                           <WeChatPayIcon
                             className={
@@ -327,8 +483,15 @@ function Screen() {
                       <div
                         className={
                           styles["recharge-pop-pay-title-item"] +
-                          ` ${styles["recharge-pop-pay-title-item-choose"]}`
+                          ` ${
+                            choosePayWay == 2
+                              ? styles["recharge-pop-pay-title-item-choose"]
+                              : ""
+                          }`
                         }
+                        onClick={() => {
+                          setChoosePayWay(2);
+                        }}
                       >
                         {
                           <AlipayIcon
@@ -343,15 +506,17 @@ function Screen() {
                     <div className={styles["recharge-pop-pay-content"]}>
                       <div className={styles["recharge-pop-pay-content-left"]}>
                         <div className={styles["recharge-pop-pay-code"]}>
-                          <Image
-                            src={LogoImg}
-                            alt={""}
-                            width={96}
-                            height={96}
+                          <QRCode
+                            value={
+                              choosePayWay == 1
+                                ? wechatPayCodeUrl
+                                : alipayCodeUrl
+                            }
+                            className={styles["pay-qrcode-image"]}
                           />
                         </div>
                         <div className={styles["recharge-pop-pay-code-tips"]}>
-                          打开支付宝扫一扫
+                          打开{choosePayWay == 1 ? "微信" : "支付宝"}扫一扫
                         </div>
                       </div>
                       <div className={styles["recharge-pop-pay-content-right"]}>
@@ -364,7 +529,8 @@ function Screen() {
                         <div className={styles["recharge-pop-goods"]}>
                           购买商品：
                           <span className={styles["recharge-pop-goods-info"]}>
-                            2k算力
+                            {purchaseWattPlan[choosePurchasePlan].goods_count}
+                            算力
                           </span>
                         </div>
                         <div
@@ -375,7 +541,10 @@ function Screen() {
                         >
                           订单金额：
                           <span className={styles["recharge-pop-goods-info"]}>
-                            ¥100-¥30.01(限时优惠)-¥10(首单减免)
+                            ¥
+                            {purchaseWattPlan[choosePurchasePlan].origin_amount}
+                            -¥{purchaseWattPlan[choosePurchasePlan].discount}
+                            (限时优惠)-¥10(首单减免)
                           </span>
                         </div>
                         <div
@@ -393,14 +562,19 @@ function Screen() {
                               styles["recharge-pop-order-final-amount-last"]
                             }
                           >
-                            ¥59.99
+                            ¥
+                            {(
+                              purchaseWattPlan[choosePurchasePlan].now_amount -
+                              10
+                            ).toFixed(2)}
                           </span>
                           <span
                             className={
                               styles["recharge-pop-order-final-amount-origin"]
                             }
                           >
-                            ¥100.00
+                            ¥
+                            {purchaseWattPlan[choosePurchasePlan].origin_amount}
                           </span>
                         </div>
                       </div>

@@ -42,6 +42,13 @@ const DEFAULT_ACCESS_STATE = {
   disableGPT4: false,
   disableFastLink: false,
   customModels: "",
+
+  // pay
+  outTradeNo: [
+    { wechat_pay: "", alipay: "" },
+    { wechat_pay: "", alipay: "" },
+    { wechat_pay: "", alipay: "" },
+  ],
 };
 
 export const useAccessStore = createPersistStore(

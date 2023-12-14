@@ -591,6 +591,13 @@
               opacity: 1;
               border: 1px solid #F3F3F3;
 
+              .recharge-pop-pay-code {
+                .pay-qrcode-image {
+                  width: 96px;
+                  height: 96px;
+                }
+              }
+
               .recharge-pop-pay-code-tips {
                 margin-top: 6px;
                 font-size: 12px;

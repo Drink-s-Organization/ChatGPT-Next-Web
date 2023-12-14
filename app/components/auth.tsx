@@ -95,7 +95,7 @@ export function AuthPage() {
           accessStore.update((access) => {
             access.accessCode = auth;
             access.authToken = auth;
-            access.Watt = data["joule"];
+            access.Watt = data["watt"];
           });
           navigate(Path.Home);
         },
