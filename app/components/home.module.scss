@@ -681,7 +681,7 @@
 .page-header {
   flex-basis: 100%;
   height: 56px;
-  background: #FFFFFF;
+  background: var(--#FFFFFF);
   opacity: 1;
   display: flex;
   justify-content: space-between;
@@ -701,7 +701,7 @@
         font-size: 22px;
         font-family: PingFang SC, PingFang SC;
         font-weight: 500;
-        color: #303030;
+        color: var(--#303030);
         line-height: 17px;
       }
 
@@ -710,7 +710,7 @@
         font-size: 12px;
         font-family: PingFang SC, PingFang SC;
         font-weight: 400;
-        color: #9E9E9E;
+        color: var(--#9E9E9E);
         line-height: 17px;
       }
     }
@@ -720,7 +720,7 @@
     margin-right: 18px;
     width: 65px;
     height: 30px;
-    background: #FAFAFA;
+    background: var(--#FAFAFA);
     border-radius: 4px;
     opacity: 1;
   }
@@ -729,14 +729,14 @@
 .sidebar-role-btn {
   width: 91px;
   height: 37px;
-  background: #FFFFFF;
+  background: var(--#FFFFFF);
   border-radius: 10px;
   opacity: 1;
 }
 
 .sidebar-new-chat-btn {
   height: 72px;
-  background: #FFFFFF;
+  background: var(--#FFFFFF);
   border-radius: 14px;
   opacity: 1;
   border: 1px solid #818181;
