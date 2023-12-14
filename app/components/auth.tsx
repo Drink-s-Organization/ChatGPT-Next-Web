@@ -12,6 +12,8 @@ import { getClientConfig } from "../config/client";
 import CloseIcon from "../icons/close.svg";
 import { httpRequest } from "../client/server/api";
 import tr from "../locales/tr";
+import EyeIcon from "../icons/eye.svg";
+import EyeOffIcon from "../icons/eye-off.svg";
 
 export function AuthPage() {
   const navigate = useNavigate();
@@ -344,7 +346,8 @@ export function AuthPage() {
                 }
               }}
             />
-            <BotIcon
+            <IconButton
+              icon={showPassword ? <EyeIcon /> : <EyeOffIcon />}
               className={styles["auth-show-password"]}
               onClick={() => {
                 var show = !showPassword;
