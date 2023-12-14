@@ -160,7 +160,7 @@ export function AuthPage() {
       {
         onFinish: (data: any) => {
           if (data["code"] !== 0) {
-            setVerifyCode(data["message"]);
+            setCodeTips(data["message"]);
             return;
           }
           console.log(data["data"]);
