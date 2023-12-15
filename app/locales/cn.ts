@@ -168,9 +168,9 @@ const cn = {
       All: "所有语言",
     },
     Avatar: "头像",
-    Account: "账号：",
+    Account: "账号",
     Logout: "退出登录",
-    Balance: "算力：",
+    Balance: "算力",
     Recharge: "购买",
     FontSize: {
       Title: "字体大小",

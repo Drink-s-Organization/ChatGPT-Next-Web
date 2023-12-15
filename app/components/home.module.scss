@@ -44,7 +44,7 @@
 .sidebar {
   top: 0;
   width: var(--sidebar-width);
-  height: calc(var(--full-height) - 56px);
+  height: calc(var(--full-height) - 64px);
   box-sizing: border-box;
   padding: 20px;
   background-color: var(--second);
@@ -56,7 +56,7 @@
 
   .sidebar-header-bar {
     display: flex;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 
     .sidebar-bar-button {
       flex-grow: 1;
@@ -101,7 +101,7 @@
 
 .window-content {
   width: var(--window-content-width);
-  height: calc(100% - 56px);
+  height: calc(100% - 64px);
   display: flex;
   flex-direction: column;
 }
@@ -115,7 +115,6 @@
     min-height: unset;
     min-width: unset;
     max-height: unset;
-    min-width: unset;
     border: 0;
     border-radius: 0;
   }
@@ -687,12 +686,14 @@
 
 .page-header {
   flex-basis: 100%;
-  height: 56px;
+  height: 64px;
   background: var(--#FFFFFF);
   opacity: 1;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 1px 15px 0 rgba(158, 158, 158, 0.20);
+  z-index: 999;
 
   .logo-container {
     margin-left: 20px;
@@ -700,12 +701,13 @@
     align-items: center;
 
     .logo-text {
-      margin-left: 5px;
+      margin-left: 8px;
       display: flex;
       flex-direction: column;
+      user-select: text;
       
       .logo-text-line1 {
-        font-size: 22px;
+        font-size: 16px;
         font-family: PingFang SC, PingFang SC;
         font-weight: 500;
         color: var(--#303030);
@@ -713,12 +715,13 @@
       }
 
       .logo-text-line2 {
-        margin-top: 1px;
+        margin-top: 4px;
         font-size: 12px;
         font-family: PingFang SC, PingFang SC;
         font-weight: 400;
-        color: var(--#9E9E9E);
+        color: var(--text-gray);
         line-height: 17px;
+        letter-spacing: 0.5px;
       }
     }
   }
@@ -742,10 +745,12 @@
 }
 
 .sidebar-new-chat-btn {
-  height: 72px;
+  height: 68px;
   background: var(--#FFFFFF);
-  border-radius: 14px;
+  border-radius: 10px;
   opacity: 1;
-  border: 1px solid #818181;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  box-shadow: var(--card-shadow);
   flex-grow: 1;
 }

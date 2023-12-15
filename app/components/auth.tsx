@@ -57,8 +57,10 @@ export function AuthPage() {
 
     if (isLogin) {
       if (loginPsw) {
+        // @ts-ignore
         delete data.verify_code;
       } else if (!register) {
+        // @ts-ignore
         delete data.password;
       }
     }

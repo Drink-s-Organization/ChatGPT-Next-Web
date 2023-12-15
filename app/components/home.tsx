@@ -278,7 +278,7 @@ function Screen() {
               <div className={styles["logo-text"]}>
                 <div className={styles["logo-text-line1"]}>EasyChat</div>
                 <div className={styles["logo-text-line2"]}>
-                  让每个人都能享受ai带来的便利
+                  让人人享受AI带来的便利
                 </div>
               </div>
             </div>
@@ -321,10 +321,10 @@ function Screen() {
             <div className={styles["recharge-pop-head"]}>
               <div className={styles["recharge-pop-user-info"]}>
                 <div className={styles["recharge-pop-user-info-phone"]}>
-                  账号：{accessStore.phone}
+                  账号{accessStore.phone}
                 </div>
                 <div className={styles["recharge-pop-user-info-watt"]}>
-                  剩余算力：
+                  剩余算力
                   <span className={styles["recharge-pop-user-info-watt-num"]}>
                     {accessStore.Watt}
                   </span>
