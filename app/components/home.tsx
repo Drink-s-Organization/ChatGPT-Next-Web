@@ -4,7 +4,7 @@ import { position } from "unist-util-position";
 
 require("../polyfill");
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import styles from "./home.module.scss";
 
@@ -176,7 +176,9 @@ function Screen() {
   const [wechatPayCodeUrl, setWechatPayCodeUrl] = useState("");
   const [alipayCodeUrl, setAlipayCodeUrl] = useState("");
   const isLogin = localStorage.getItem("Authorization") != null;
-  let getOrderStatusCount = 0;
+  const choosePurchasePlanRef = useRef(choosePurchasePlan);
+  const choosePayWayRef = useRef(choosePayWay);
+  const popRechargeRef = useRef(popRecharge);
   const getPayQRCode = () => {
     let requestParams = {
       channel: choosePayWay,
@@ -210,10 +212,13 @@ function Screen() {
   };
 
   const getPayOrderStatus = () => {
+    if (!popRechargeRef.current) {
+      return;
+    }
     let outTradeNo =
-      choosePayWay == 1
-        ? accessStore.outTradeNo[choosePurchasePlan].wechat_pay
-        : accessStore.outTradeNo[choosePurchasePlan].alipay;
+      choosePayWayRef.current == 1
+        ? accessStore.outTradeNo[choosePurchasePlanRef.current].wechat_pay
+        : accessStore.outTradeNo[choosePurchasePlanRef.current].alipay;
     if (outTradeNo == "") {
       setTimeout(getPayOrderStatus, 1000);
       return;
@@ -232,10 +237,6 @@ function Screen() {
           } else if (order_status == 1) {
             console.log("订单未完成，跳转");
           } else {
-            if (getOrderStatusCount >= 30 * 60) {
-              return;
-            }
-            getOrderStatusCount++;
             setTimeout(getPayOrderStatus, 1000);
           }
         },
@@ -247,9 +248,12 @@ function Screen() {
     loadAsyncGoogleFont();
   }, []);
   useEffect(() => {
+    choosePayWayRef.current = choosePayWay;
+    choosePurchasePlanRef.current = choosePurchasePlan;
     getPayQRCode();
   }, [choosePayWay, choosePurchasePlan]);
   useEffect(() => {
+    popRechargeRef.current = popRecharge;
     if (popRecharge) {
       getPayOrderStatus();
     }
@@ -342,246 +346,505 @@ function Screen() {
             </div>
             <div className={styles["recharge-pop-body"]}>
               <div className={styles["recharge-pop-body-title"]}>
-                <div>购买算力</div>
-                <div className={styles["recharge-pop-body-title-question"]}>
+                <div
+                  className={
+                    popRechargePurchase
+                      ? styles["recharge-pop-body-title-choose"]
+                      : ""
+                  }
+                  onClick={() => {
+                    setPopRechargePurchase(true);
+                  }}
+                >
+                  购买算力
+                </div>
+                <div
+                  className={
+                    styles["recharge-pop-body-title-question"] +
+                    ` ${
+                      !popRechargePurchase
+                        ? styles["recharge-pop-body-title-choose"]
+                        : ""
+                    }`
+                  }
+                  onClick={() => {
+                    setPopRechargePurchase(false);
+                  }}
+                >
                   常见问题
                 </div>
               </div>
-              <div className={styles["recharge-pop-body-other"]}>
-                <div className={styles["recharge-pop-body-other-left"]}>
-                  <Image
-                    src={RechargePopTipsImg}
-                    alt={""}
-                    width={322}
-                    height={469}
-                    className={styles["recharge-pop-body-tips"]}
-                  />
-                </div>
-                <div className={styles["recharge-pop-body-other-right"]}>
-                  <div className={styles["recharge-pop-plan"]}>
-                    <div
-                      className={
-                        styles["recharge-pop-plan-item"] +
-                        ` ${
-                          choosePurchasePlan == 0
-                            ? styles["recharge-pop-plan-item-choose"]
-                            : ""
-                        }`
-                      }
-                      onClick={() => {
-                        setChoosePurchasePlan(0);
-                      }}
-                    >
-                      <div className={styles["recharge-pop-plan-item-joule"]}>
-                        {purchaseWattPlan[0].tips}
-                      </div>
-                      <div className={styles["recharge-pop-plan-item-price"]}>
-                        ¥{purchaseWattPlan[0].now_amount}
-                      </div>
-                      <div
-                        className={
-                          styles["recharge-pop-plan-item-origin-price"]
-                        }
-                      >
-                        ¥{purchaseWattPlan[0].origin_amount}
-                      </div>
-                      <div
-                        className={styles["recharge-pop-plan-item-discount"]}
-                      >
-                        立减{purchaseWattPlan[0].discount}
-                      </div>
-                    </div>
-                    <div
-                      className={
-                        styles["recharge-pop-plan-item"] +
-                        ` ${
-                          choosePurchasePlan == 1
-                            ? styles["recharge-pop-plan-item-choose"]
-                            : ""
-                        }`
-                      }
-                      onClick={() => {
-                        setChoosePurchasePlan(1);
-                      }}
-                    >
-                      <div className={styles["recharge-pop-plan-item-joule"]}>
-                        {purchaseWattPlan[1].tips}
-                      </div>
-                      <div className={styles["recharge-pop-plan-item-price"]}>
-                        ¥{purchaseWattPlan[1].now_amount}
-                      </div>
-                      <div
-                        className={
-                          styles["recharge-pop-plan-item-origin-price"]
-                        }
-                      >
-                        ¥{purchaseWattPlan[1].origin_amount}
-                      </div>
-                      <div
-                        className={styles["recharge-pop-plan-item-discount"]}
-                      >
-                        立减{purchaseWattPlan[1].discount}
-                      </div>
-                    </div>
-                    <div
-                      className={
-                        styles["recharge-pop-plan-item"] +
-                        ` ${
-                          choosePurchasePlan == 2
-                            ? styles["recharge-pop-plan-item-choose"]
-                            : ""
-                        }`
-                      }
-                      onClick={() => {
-                        setChoosePurchasePlan(2);
-                      }}
-                    >
-                      <div className={styles["recharge-pop-plan-item-joule"]}>
-                        {purchaseWattPlan[2].tips}
-                      </div>
-                      <div className={styles["recharge-pop-plan-item-price"]}>
-                        ¥{purchaseWattPlan[2].now_amount}
-                      </div>
-                      <div
-                        className={
-                          styles["recharge-pop-plan-item-origin-price"]
-                        }
-                      >
-                        ¥{purchaseWattPlan[2].origin_amount}
-                      </div>
-                      <div
-                        className={styles["recharge-pop-plan-item-discount"]}
-                      >
-                        立减{purchaseWattPlan[2].discount}
-                      </div>
-                    </div>
+              {popRechargePurchase ? (
+                <div className={styles["recharge-pop-body-other"]}>
+                  <div className={styles["recharge-pop-body-other-left"]}>
+                    <Image
+                      src={RechargePopTipsImg}
+                      alt={""}
+                      width={322}
+                      height={469}
+                      className={styles["recharge-pop-body-tips"]}
+                    />
                   </div>
-                  <div className={styles["recharge-pop-pay"]}>
-                    <div className={styles["recharge-pop-pay-title"]}>
+                  <div className={styles["recharge-pop-body-other-right"]}>
+                    <div className={styles["recharge-pop-plan"]}>
                       <div
                         className={
-                          styles["recharge-pop-pay-title-item"] +
+                          styles["recharge-pop-plan-item"] +
                           ` ${
-                            choosePayWay == 1
-                              ? styles["recharge-pop-pay-title-item-choose"]
+                            choosePurchasePlan == 0
+                              ? styles["recharge-pop-plan-item-choose"]
                               : ""
                           }`
                         }
                         onClick={() => {
-                          setChoosePayWay(1);
+                          setChoosePurchasePlan(0);
                         }}
                       >
-                        {
-                          <WeChatPayIcon
-                            className={
-                              styles["recharge-pop-pay-title-item-icon"]
-                            }
-                          />
-                        }
-                        微信支付
-                      </div>
-                      <div
-                        className={
-                          styles["recharge-pop-pay-title-item"] +
-                          ` ${
-                            choosePayWay == 2
-                              ? styles["recharge-pop-pay-title-item-choose"]
-                              : ""
-                          }`
-                        }
-                        onClick={() => {
-                          setChoosePayWay(2);
-                        }}
-                      >
-                        {
-                          <AlipayIcon
-                            className={
-                              styles["recharge-pop-pay-title-item-icon"]
-                            }
-                          />
-                        }
-                        支付宝支付
-                      </div>
-                    </div>
-                    <div className={styles["recharge-pop-pay-content"]}>
-                      <div className={styles["recharge-pop-pay-content-left"]}>
-                        <div className={styles["recharge-pop-pay-code"]}>
-                          <QRCode
-                            value={
-                              choosePayWay == 1
-                                ? wechatPayCodeUrl
-                                : alipayCodeUrl
-                            }
-                            className={styles["pay-qrcode-image"]}
-                          />
+                        <div className={styles["recharge-pop-plan-item-joule"]}>
+                          {purchaseWattPlan[0].tips}
                         </div>
-                        <div className={styles["recharge-pop-pay-code-tips"]}>
-                          打开{choosePayWay == 1 ? "微信" : "支付宝"}扫一扫
-                        </div>
-                      </div>
-                      <div className={styles["recharge-pop-pay-content-right"]}>
-                        <div
-                          className={styles["recharge-pop-new-user-discount"]}
-                        >
-                          {<CouponIcon width={18} height={15} />}
-                          新用户首单优惠¥10
-                        </div>
-                        <div className={styles["recharge-pop-goods"]}>
-                          购买商品：
-                          <span className={styles["recharge-pop-goods-info"]}>
-                            {purchaseWattPlan[choosePurchasePlan].goods_count}
-                            算力
-                          </span>
+                        <div className={styles["recharge-pop-plan-item-price"]}>
+                          ¥{purchaseWattPlan[0].now_amount}
                         </div>
                         <div
                           className={
-                            styles["recharge-pop-goods"] +
-                            ` ${styles["recharge-pop-goods-margin-top"]}`
+                            styles["recharge-pop-plan-item-origin-price"]
                           }
                         >
-                          订单金额：
-                          <span className={styles["recharge-pop-goods-info"]}>
-                            ¥
-                            {purchaseWattPlan[choosePurchasePlan].origin_amount}
-                            -¥{purchaseWattPlan[choosePurchasePlan].discount}
-                            (限时优惠)-¥10(首单减免)
-                          </span>
+                          ¥{purchaseWattPlan[0].origin_amount}
                         </div>
                         <div
-                          className={styles["recharge-pop-order-final-amount"]}
+                          className={styles["recharge-pop-plan-item-discount"]}
                         >
-                          <span
+                          立减{purchaseWattPlan[0].discount}
+                        </div>
+                      </div>
+                      <div
+                        className={
+                          styles["recharge-pop-plan-item"] +
+                          ` ${
+                            choosePurchasePlan == 1
+                              ? styles["recharge-pop-plan-item-choose"]
+                              : ""
+                          }`
+                        }
+                        onClick={() => {
+                          setChoosePurchasePlan(1);
+                        }}
+                      >
+                        <div className={styles["recharge-pop-plan-item-joule"]}>
+                          {purchaseWattPlan[1].tips}
+                        </div>
+                        <div className={styles["recharge-pop-plan-item-price"]}>
+                          ¥{purchaseWattPlan[1].now_amount}
+                        </div>
+                        <div
+                          className={
+                            styles["recharge-pop-plan-item-origin-price"]
+                          }
+                        >
+                          ¥{purchaseWattPlan[1].origin_amount}
+                        </div>
+                        <div
+                          className={styles["recharge-pop-plan-item-discount"]}
+                        >
+                          立减{purchaseWattPlan[1].discount}
+                        </div>
+                      </div>
+                      <div
+                        className={
+                          styles["recharge-pop-plan-item"] +
+                          ` ${
+                            choosePurchasePlan == 2
+                              ? styles["recharge-pop-plan-item-choose"]
+                              : ""
+                          }`
+                        }
+                        onClick={() => {
+                          setChoosePurchasePlan(2);
+                        }}
+                      >
+                        <div className={styles["recharge-pop-plan-item-joule"]}>
+                          {purchaseWattPlan[2].tips}
+                        </div>
+                        <div className={styles["recharge-pop-plan-item-price"]}>
+                          ¥{purchaseWattPlan[2].now_amount}
+                        </div>
+                        <div
+                          className={
+                            styles["recharge-pop-plan-item-origin-price"]
+                          }
+                        >
+                          ¥{purchaseWattPlan[2].origin_amount}
+                        </div>
+                        <div
+                          className={styles["recharge-pop-plan-item-discount"]}
+                        >
+                          立减{purchaseWattPlan[2].discount}
+                        </div>
+                      </div>
+                    </div>
+                    <div className={styles["recharge-pop-pay"]}>
+                      <div className={styles["recharge-pop-pay-title"]}>
+                        <div
+                          className={
+                            styles["recharge-pop-pay-title-item"] +
+                            ` ${
+                              choosePayWay == 1
+                                ? styles["recharge-pop-pay-title-item-choose"]
+                                : ""
+                            }`
+                          }
+                          onClick={() => {
+                            setChoosePayWay(1);
+                          }}
+                        >
+                          {
+                            <WeChatPayIcon
+                              className={
+                                styles["recharge-pop-pay-title-item-icon"]
+                              }
+                            />
+                          }
+                          微信支付
+                        </div>
+                        <div
+                          className={
+                            styles["recharge-pop-pay-title-item"] +
+                            ` ${
+                              choosePayWay == 2
+                                ? styles["recharge-pop-pay-title-item-choose"]
+                                : ""
+                            }`
+                          }
+                          onClick={() => {
+                            setChoosePayWay(2);
+                          }}
+                        >
+                          {
+                            <AlipayIcon
+                              className={
+                                styles["recharge-pop-pay-title-item-icon"]
+                              }
+                            />
+                          }
+                          支付宝支付
+                        </div>
+                      </div>
+                      <div className={styles["recharge-pop-pay-content"]}>
+                        <div
+                          className={styles["recharge-pop-pay-content-left"]}
+                        >
+                          <div className={styles["recharge-pop-pay-code"]}>
+                            <QRCode
+                              value={
+                                choosePayWay == 1
+                                  ? wechatPayCodeUrl
+                                  : alipayCodeUrl
+                              }
+                              className={styles["pay-qrcode-image"]}
+                            />
+                          </div>
+                          <div className={styles["recharge-pop-pay-code-tips"]}>
+                            打开{choosePayWay == 1 ? "微信" : "支付宝"}扫一扫
+                          </div>
+                        </div>
+                        <div
+                          className={styles["recharge-pop-pay-content-right"]}
+                        >
+                          <div
+                            className={styles["recharge-pop-new-user-discount"]}
+                          >
+                            {<CouponIcon width={18} height={15} />}
+                            新用户首单优惠¥10
+                          </div>
+                          <div className={styles["recharge-pop-goods"]}>
+                            购买商品：
+                            <span className={styles["recharge-pop-goods-info"]}>
+                              {purchaseWattPlan[choosePurchasePlan].goods_count}
+                              算力
+                            </span>
+                          </div>
+                          <div
                             className={
-                              styles["recharge-pop-order-final-amount-agree"]
+                              styles["recharge-pop-goods"] +
+                              ` ${styles["recharge-pop-goods-margin-top"]}`
                             }
                           >
-                            同意并支付
-                          </span>
-                          <span
+                            订单金额：
+                            <span className={styles["recharge-pop-goods-info"]}>
+                              ¥
+                              {
+                                purchaseWattPlan[choosePurchasePlan]
+                                  .origin_amount
+                              }
+                              -¥{purchaseWattPlan[choosePurchasePlan].discount}
+                              (限时优惠)-¥10(首单减免)
+                            </span>
+                          </div>
+                          <div
                             className={
-                              styles["recharge-pop-order-final-amount-last"]
+                              styles["recharge-pop-order-final-amount"]
                             }
                           >
-                            ¥
-                            {(
-                              purchaseWattPlan[choosePurchasePlan].now_amount -
-                              10
-                            ).toFixed(2)}
-                          </span>
-                          <span
-                            className={
-                              styles["recharge-pop-order-final-amount-origin"]
-                            }
-                          >
-                            ¥
-                            {purchaseWattPlan[choosePurchasePlan].origin_amount}
-                          </span>
+                            <span
+                              className={
+                                styles["recharge-pop-order-final-amount-agree"]
+                              }
+                            >
+                              同意并支付
+                            </span>
+                            <span
+                              className={
+                                styles["recharge-pop-order-final-amount-last"]
+                              }
+                            >
+                              ¥
+                              {(
+                                purchaseWattPlan[choosePurchasePlan]
+                                  .now_amount - 10
+                              ).toFixed(2)}
+                            </span>
+                            <span
+                              className={
+                                styles["recharge-pop-order-final-amount-origin"]
+                              }
+                            >
+                              ¥
+                              {
+                                purchaseWattPlan[choosePurchasePlan]
+                                  .origin_amount
+                              }
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              ) : (
+                <div className={styles["recharge-pop-body-question"]}>
+                  <div className={styles["recharge-pop-body-question-item"]}>
+                    <div
+                      className={
+                        styles["recharge-pop-body-question-item-title"]
+                      }
+                    >
+                      什么是算力？
+                    </div>
+                    <div
+                      className={
+                        styles["recharge-pop-body-question-item-content"]
+                      }
+                    >
+                      「算力」是平台内部的货币。使用&nbsp;AI&nbsp;模型需要消耗一定算力。获得的算力不能提现或转赠给他人，只能在平台内部使用。
+                    </div>
+                  </div>
+                  <div className={styles["recharge-pop-body-question-item"]}>
+                    <div
+                      className={
+                        styles["recharge-pop-body-question-item-title"]
+                      }
+                    >
+                      平台服务是否提供免费试用？
+                    </div>
+                    <div
+                      className={
+                        styles["recharge-pop-body-question-item-content"]
+                      }
+                    >
+                      提供，我们为每一个新注册的用户提供99算力。此外首次购买将享受折上折，在原有打折的基础上立减10元。
+                    </div>
+                  </div>
+                  <div className={styles["recharge-pop-body-question-item"]}>
+                    <div
+                      className={
+                        styles["recharge-pop-body-question-item-title"]
+                      }
+                    >
+                      我上个月没用完的算力会失效吗？
+                    </div>
+                    <div
+                      className={
+                        styles["recharge-pop-body-question-item-content"]
+                      }
+                    >
+                      我们不同于其他平台,我们的算力不会按月重置,所有购买的算力只会在调用模型时消耗。
+                    </div>
+                  </div>
+                  <div className={styles["recharge-pop-body-question-item"]}>
+                    <div
+                      className={
+                        styles["recharge-pop-body-question-item-title"]
+                      }
+                    >
+                      有时候会觉得算力消耗的比预期快，这是什么原因？
+                    </div>
+                    <div
+                      className={
+                        styles["recharge-pop-body-question-item-content"]
+                      }
+                    >
+                      在连续对话时，会带入之前所有的提问和回复内容作为上下文，以生成连贯且有意义的句子。需要注意的是，随着对话的进行，每次提问所需的算力将会增加。因此，我们建议您针对不同的话题创建新的对话。
+                    </div>
+                  </div>
+                  <div className={styles["recharge-pop-body-question-item"]}>
+                    <div
+                      className={
+                        styles["recharge-pop-body-question-item-title"]
+                      }
+                    >
+                      我可以开发票吗？
+                    </div>
+                    <div
+                      className={
+                        styles["recharge-pop-body-question-item-content"]
+                      }
+                    >
+                      您可以联系平台客服或发送邮件到support@yoooxin.cn，主题为&ldquo;申请发票&rdquo;，并在邮件中注明你的注册手机号、开票订单和开票信息。我们会尽快为你处理。
+                    </div>
+                  </div>
+                  <div className={styles["recharge-pop-body-question-contact"]}>
+                    <div
+                      className={
+                        styles["recharge-pop-body-question-contact-title"]
+                      }
+                    >
+                      联系我们
+                    </div>
+                    <div
+                      className={
+                        styles["recharge-pop-body-question-contact-content"]
+                      }
+                    >
+                      <div
+                        className={
+                          styles[
+                            "recharge-pop-body-question-contact-content-item"
+                          ]
+                        }
+                      >
+                        <div
+                          className={
+                            styles[
+                              "recharge-pop-body-question-contact-content-item-image"
+                            ]
+                          }
+                        >
+                          <Image
+                            src={LogoImg}
+                            alt={""}
+                            height={95}
+                            width={95}
+                          />
+                        </div>
+                        <div
+                          className={
+                            styles[
+                              "recharge-pop-body-question-contact-content-item-tips"
+                            ]
+                          }
+                        >
+                          客服微信
+                        </div>
+                      </div>
+                      <div
+                        className={
+                          styles[
+                            "recharge-pop-body-question-contact-content-item"
+                          ]
+                        }
+                      >
+                        <div
+                          className={
+                            styles[
+                              "recharge-pop-body-question-contact-content-item-image"
+                            ]
+                          }
+                        >
+                          <Image
+                            src={LogoImg}
+                            alt={""}
+                            height={95}
+                            width={95}
+                          />
+                        </div>
+                        <div
+                          className={
+                            styles[
+                              "recharge-pop-body-question-contact-content-item-tips"
+                            ]
+                          }
+                        >
+                          客服微信
+                        </div>
+                      </div>
+                      <div
+                        className={
+                          styles[
+                            "recharge-pop-body-question-contact-content-item"
+                          ]
+                        }
+                      >
+                        <div
+                          className={
+                            styles[
+                              "recharge-pop-body-question-contact-content-item-image"
+                            ]
+                          }
+                        >
+                          <Image
+                            src={LogoImg}
+                            alt={""}
+                            height={95}
+                            width={95}
+                          />
+                        </div>
+                        <div
+                          className={
+                            styles[
+                              "recharge-pop-body-question-contact-content-item-tips"
+                            ]
+                          }
+                        >
+                          客服微信
+                        </div>
+                      </div>
+                      <div
+                        className={
+                          styles[
+                            "recharge-pop-body-question-contact-content-item"
+                          ]
+                        }
+                      >
+                        <div
+                          className={
+                            styles[
+                              "recharge-pop-body-question-contact-content-item-image"
+                            ]
+                          }
+                        >
+                          <Image
+                            src={LogoImg}
+                            alt={""}
+                            height={95}
+                            width={95}
+                          />
+                        </div>
+                        <div
+                          className={
+                            styles[
+                              "recharge-pop-body-question-contact-content-item-tips"
+                            ]
+                          }
+                        >
+                          客服微信
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </>

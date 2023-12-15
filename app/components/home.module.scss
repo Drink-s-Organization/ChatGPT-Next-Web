@@ -353,7 +353,6 @@
 
 .recharge-pop {
   width: 872px;
-  height: 715px;
   border-radius: 12px;
   background-color: #FFFFFF;
   position: absolute; left: 50%; top: 50%;
@@ -421,7 +420,7 @@
       font-size: 32px;
       font-weight: 400;
       font-style: italic;
-      color: #FFAD00;
+      color: #C8C8C8;
       line-height: 38px;
       border-bottom: #D8D8D8 solid 1px;
 
@@ -430,10 +429,15 @@
       }
     }
 
+    .recharge-pop-body-title-choose {
+      color: #FFAD00;
+    }
+
     .recharge-pop-body-other {
       flex-grow: 1;
       display: flex;
       flex-direction: row;
+      padding-bottom: 40px;
 
       .recharge-pop-body-other-left {
         .recharge-pop-body-tips {
@@ -676,6 +680,85 @@
                   text-decoration-line: line-through;
                 }
               }
+            }
+          }
+        }
+      }
+    }
+
+    .recharge-pop-body-question {
+      margin-top: 30px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      background: #FFFFFF;
+      align-items: center;
+
+      .recharge-pop-body-question-item {
+        width: 792px;
+        background: #FAFAFA;
+        border-radius: 8px;
+        opacity: 1;
+        margin-bottom: 12px;
+
+        .recharge-pop-body-question-item-title {
+          margin: 12px 0 0 12px;
+          font-size: 16px;
+          font-family: PingFang SC, PingFang SC;
+          font-weight: 600;
+          color: #303030;
+          line-height: 22px;
+        }
+
+        .recharge-pop-body-question-item-content {
+          margin: 8px 0 12px 12px;
+          font-size: 16px;
+          font-family: PingFang SC, PingFang SC;
+          font-weight: 400;
+          color: #818181;
+          line-height: 22px;
+        }
+      }
+
+      .recharge-pop-body-question-contact {
+        display: flex;
+        flex-direction: column;
+        margin: 20px 0 0 40px;
+        align-self: flex-start;
+
+        .recharge-pop-body-question-contact-title {
+          font-size: 18px;
+          font-family: PingFang SC, PingFang SC;
+          font-weight: 500;
+          color: #303030;
+          line-height: 25px;
+        }
+
+        .recharge-pop-body-question-contact-content {
+          display: flex;
+          flex-direction: row;
+          margin-top: 12px;
+
+          .recharge-pop-body-question-contact-content-item {
+            margin: 0 12px 40px 0;
+            width: 118px;
+            height: 143px;
+            background: #FFFFFF;
+            border-radius: 8px;
+            opacity: 1;
+            border: 1px solid #F3F3F3;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .recharge-pop-body-question-contact-content-item-tips {
+              margin-top: 8px;
+              font-size: 10px;
+              font-family: PingFang SC, PingFang SC;
+              font-weight: 400;
+              color: #303030;
+              line-height: 14px;
             }
           }
         }
