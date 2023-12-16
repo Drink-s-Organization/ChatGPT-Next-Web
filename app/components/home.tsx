@@ -490,6 +490,7 @@ function Screen() {
                         <div
                           className={
                             styles["recharge-pop-pay-title-item"] +
+                            " no-dark" +
                             ` ${
                               choosePayWay == 1
                                 ? styles["recharge-pop-pay-title-item-choose"]
@@ -512,6 +513,7 @@ function Screen() {
                         <div
                           className={
                             styles["recharge-pop-pay-title-item"] +
+                            " no-dark " +
                             ` ${
                               choosePayWay == 2
                                 ? styles["recharge-pop-pay-title-item-choose"]
@@ -554,7 +556,10 @@ function Screen() {
                           className={styles["recharge-pop-pay-content-right"]}
                         >
                           <div
-                            className={styles["recharge-pop-new-user-discount"]}
+                            className={
+                              styles["recharge-pop-new-user-discount"] +
+                              " no-dark"
+                            }
                           >
                             {<CouponIcon width={18} height={15} />}
                             新用户首单优惠¥10
