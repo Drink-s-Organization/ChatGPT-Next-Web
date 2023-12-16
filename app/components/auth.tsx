@@ -15,6 +15,8 @@ import tr from "../locales/tr";
 import EyeIcon from "../icons/eye.svg";
 import EyeOffIcon from "../icons/eye-off.svg";
 
+import bgImage from "../../public/background.png";
+
 export function AuthPage() {
   const navigate = useNavigate();
   const accessStore = useAccessStore();
@@ -192,6 +194,9 @@ export function AuthPage() {
 
   return (
     <div className={styles["auth-page"]}>
+      <div className={styles["background-container"]}></div>
+      <div className={styles["background-container-mask"]}></div>
+
       <div
         className={styles["auth-doc"]}
         style={{ display: showDoc ? "" : "none" }}

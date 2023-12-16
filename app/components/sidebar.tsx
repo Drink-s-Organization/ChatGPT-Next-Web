@@ -7,6 +7,7 @@ import SettingsIcon from "../icons/settings.svg";
 import GithubIcon from "../icons/github.svg";
 import ChatGptIcon from "../icons/chatgpt.svg";
 import AddIcon from "../icons/add.svg";
+import GroupChatIcon from "../icons/group-chat.svg";
 import CloseIcon from "../icons/close.svg";
 import DeleteIcon from "../icons/delete.svg";
 import MaskIcon from "../icons/mask.svg";
@@ -234,7 +235,7 @@ export function SideBar(props: { className?: string }) {
           </div>
           <div className={styles["sidebar-action"]}>
             <IconButton
-              icon={<AddIcon />}
+              icon={<GroupChatIcon />}
               onClick={() => {
                 // todo show pop qrcode
                 console.log("todo show pop qrcode");
