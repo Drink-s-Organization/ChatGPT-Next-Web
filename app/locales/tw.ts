@@ -208,9 +208,9 @@ const tw: PartialLocaleType = {
   Mask: {
     Name: "角色",
     Page: {
-      Title: "預設角色角色",
+      Title: "預設角色",
       SubTitle: (count: number) => `${count} 個預設角色定義`,
-      Search: "搜尋角色角色",
+      Search: "搜尋角色",
       Create: "新增",
     },
     Item: {
