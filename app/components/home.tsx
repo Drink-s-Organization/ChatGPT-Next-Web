@@ -290,6 +290,7 @@ function Screen() {
               icon={<LightingIcon />}
               text={String(accessStore.Watt)}
               className={styles["watt-btn"]}
+              noDark={true}
               onClick={() => {
                 if (isLogin) {
                   setPopRecharge(true);

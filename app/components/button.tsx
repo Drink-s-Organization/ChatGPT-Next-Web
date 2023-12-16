@@ -16,6 +16,7 @@ export function IconButton(props: {
   disabled?: boolean;
   tabIndex?: number;
   autoFocus?: boolean;
+  noDark?: boolean;
 }) {
   return (
     <button
@@ -36,7 +37,9 @@ export function IconButton(props: {
         <div
           className={
             styles["icon-button-icon"] +
-            ` ${props.type === "primary" && "no-dark"}`
+            ` ${props.type === "primary" && "no-dark"} ${
+              props.noDark ? " no-dark" : ""
+            }`
           }
         >
           {props.icon}
