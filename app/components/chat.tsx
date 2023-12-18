@@ -29,6 +29,7 @@ import ConfirmIcon from "../icons/confirm.svg";
 import CancelIcon from "../icons/cancel.svg";
 
 import LightIcon from "../icons/light.svg";
+import Lightning from "../icons/lightning-line.svg";
 import DarkIcon from "../icons/dark.svg";
 import AutoIcon from "../icons/auto.svg";
 import BottomIcon from "../icons/bottom.svg";
@@ -1215,9 +1216,11 @@ function _Chat() {
                                 onClick={() => onPinMessage(message)}
                               />
                               <ChatAction
-                                text={" -" + message.content.length}
-                                icon={<LightIcon />}
-                                onClick={() => copyToClipboard(message.content)}
+                                text={" -" + message.id}
+                                icon={<Lightning />}
+                                onClick={() => {
+                                  console.log(message);
+                                }}
                               />
                               <ChatAction
                                 text={Locale.Chat.Actions.Copy}
