@@ -836,3 +836,56 @@
   box-shadow: var(--card-shadow);
   flex-grow: 1;
 }
+
+.recharge-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .recharge-result-tips {
+    font-size: 28px;
+    font-family: PingFang SC, PingFang SC;
+    font-weight: 500;
+    color: #FFAD00;
+    line-height: 39px;
+    margin-top: 88px;
+  }
+
+  .recharge-result-contact-tips {
+    font-size: 18px;
+    font-family: PingFang SC, PingFang SC;
+    font-weight: 400;
+    color: #818181;
+    line-height: 25px;
+    margin-top: 60px;
+  }
+
+  .recharge-result-contact-code {
+    display: flex;
+    flex-direction: row;
+
+    .recharge-result-contact-code-item {
+      width: 118px;
+      height: 143px;
+      background: #FFFFFF;
+      border-radius: 8px;
+      opacity: 1;
+      border: 1px solid #F3F3F3;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 36px 12px 148px 0;
+
+      .recharge-result-contact-code-item-tips {
+        font-size: 10px;
+        font-family: PingFang SC, PingFang SC;
+        font-weight: 400;
+        color: #303030;
+        line-height: 14px;
+        margin-top: 8px;
+      }
+    }
+  }
+}
