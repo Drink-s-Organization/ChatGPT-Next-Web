@@ -43,6 +43,7 @@ import { IconButton } from "./button";
 import Image from "next/image";
 import { httpRequest } from "@/app/client/server/api";
 import QRCode from "react-qr-code";
+import { formatWattNum } from "@/app/utils/format";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -152,7 +153,7 @@ function Screen() {
     {
       tips: "4k算力≈20w字",
       goods_count: 4000,
-      now_amount: 10.01,
+      now_amount: 15.99,
       origin_amount: 20.0,
       discount: 4.01,
     },
@@ -294,7 +295,7 @@ function Screen() {
             </div>
             <IconButton
               icon={<LightingIcon />}
-              text={String(accessStore.Watt)}
+              text={formatWattNum(accessStore.Watt)}
               className={styles["watt-btn"]}
               noDark={true}
               onClick={() => {
