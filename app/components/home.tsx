@@ -182,18 +182,39 @@ function Screen() {
   const popRechargeRef = useRef(popRecharge);
   const [orderGetResult, setOrderGetResult] = useState(false);
   const [rechargeResultTips, setRechargeResultTips] = useState("");
+
+  const getOutTradeNo = () => {
+    if (localStorage.getItem("out_trade_no") == null) {
+      localStorage.setItem(
+        "out_trade_no",
+        JSON.stringify([
+          { wechat_pay: "", alipay: "" },
+          { wechat_pay: "", alipay: "" },
+          { wechat_pay: "", alipay: "" },
+        ]),
+      );
+    }
+    let outTradeNo: { wechat_pay: string; alipay: string }[] = JSON.parse(
+      localStorage.getItem("out_trade_no") as string,
+    );
+    return outTradeNo;
+  };
+
   const getPayQRCode = () => {
+    let outTradeNos = getOutTradeNo();
     let requestParams = {
       channel: choosePayWay,
-      amount: Number(
-        (purchaseWattPlan[choosePurchasePlan].now_amount - 10).toFixed(2),
-      ),
+      amount: accessStore.isNewUser
+        ? Number(
+            (purchaseWattPlan[choosePurchasePlan].now_amount - 10).toFixed(2),
+          )
+        : purchaseWattPlan[choosePurchasePlan].now_amount,
       goods_name: purchaseWattPlan[choosePurchasePlan].tips,
       goods_count: purchaseWattPlan[choosePurchasePlan].goods_count,
       out_trade_no:
         choosePayWay == 1
-          ? accessStore.outTradeNo[choosePurchasePlan].wechat_pay
-          : accessStore.outTradeNo[choosePurchasePlan].alipay,
+          ? outTradeNos[choosePurchasePlan].wechat_pay
+          : outTradeNos[choosePurchasePlan].alipay,
     };
     httpRequest(
       "/order/prepay",
@@ -202,13 +223,29 @@ function Screen() {
         onFinish: (resp: any) => {
           if (choosePayWay == 1) {
             setWechatPayCodeUrl(resp["data"]["code_url"]);
-            accessStore.outTradeNo[choosePurchasePlan].wechat_pay =
+            outTradeNos[choosePurchasePlan].wechat_pay =
               resp["data"]["out_trade_no"];
           } else if (choosePayWay == 2) {
             setAlipayCodeUrl(resp["data"]["code_url"]);
-            accessStore.outTradeNo[choosePurchasePlan].alipay =
+            outTradeNos[choosePurchasePlan].alipay =
               resp["data"]["out_trade_no"];
           }
+          localStorage.setItem("out_trade_no", JSON.stringify(outTradeNos));
+        },
+      },
+    );
+  };
+
+  const getUserInfo = () => {
+    httpRequest(
+      "/user/full",
+      {
+        method: "GET",
+      },
+      {
+        onFinish: (resp: any) => {
+          accessStore.Watt = resp["data"]["watt"];
+          accessStore.isNewUser = resp["data"]["is_new_user"];
         },
       },
     );
@@ -218,10 +255,11 @@ function Screen() {
     if (!popRechargeRef.current) {
       return;
     }
+    let outTradeNos = getOutTradeNo();
     let outTradeNo =
       choosePayWayRef.current == 1
-        ? accessStore.outTradeNo[choosePurchasePlanRef.current].wechat_pay
-        : accessStore.outTradeNo[choosePurchasePlanRef.current].alipay;
+        ? outTradeNos[choosePurchasePlanRef.current].wechat_pay
+        : outTradeNos[choosePurchasePlanRef.current].alipay;
     if (outTradeNo == "") {
       setTimeout(getPayOrderStatus, 1000);
       return;
@@ -238,6 +276,7 @@ function Screen() {
           if (order_status == 2) {
             setOrderGetResult(true);
             setRechargeResultTips("🎉4k算力已充值成功, 将在15s后跳转首页");
+            getUserInfo();
           } else if (order_status == 1) {
             setOrderGetResult(true);
             setRechargeResultTips(
@@ -300,6 +339,7 @@ function Screen() {
               noDark={true}
               onClick={() => {
                 if (isLogin) {
+                  getUserInfo();
                   setPopRecharge(true);
                   getPayQRCode();
                 } else {
@@ -706,15 +746,34 @@ function Screen() {
                                 styles["recharge-pop-pay-content-right"]
                               }
                             >
-                              <div
-                                className={
-                                  styles["recharge-pop-new-user-discount"] +
-                                  " no-dark"
-                                }
-                              >
-                                {<CouponIcon width={18} height={15} />}
-                                新用户首单优惠¥10
-                              </div>
+                              {accessStore.isNewUser ? (
+                                <div
+                                  className={
+                                    styles["recharge-pop-new-user-discount"] +
+                                    " no-dark"
+                                  }
+                                >
+                                  {<CouponIcon width={18} height={15} />}
+                                  新用户首单优惠¥10
+                                </div>
+                              ) : (
+                                <div
+                                  className={styles["recharge-pop-order-sn"]}
+                                >
+                                  订单编号：
+                                  <span
+                                    className={
+                                      styles["recharge-pop-order-sn-content"]
+                                    }
+                                  >
+                                    {choosePayWay == 1
+                                      ? getOutTradeNo()[choosePurchasePlan]
+                                          .wechat_pay
+                                      : getOutTradeNo()[choosePurchasePlan]
+                                          .alipay}
+                                  </span>
+                                </div>
+                              )}
                               <div className={styles["recharge-pop-goods"]}>
                                 购买商品：
                                 <span
@@ -747,7 +806,10 @@ function Screen() {
                                     purchaseWattPlan[choosePurchasePlan]
                                       .discount
                                   }
-                                  (限时优惠)-¥10(首单减免)
+                                  (限时优惠)
+                                  {accessStore.isNewUser
+                                    ? "-¥10(首单减免)"
+                                    : ""}
                                 </span>
                               </div>
                               <div
@@ -772,10 +834,13 @@ function Screen() {
                                   }
                                 >
                                   ¥
-                                  {(
-                                    purchaseWattPlan[choosePurchasePlan]
-                                      .now_amount - 10
-                                  ).toFixed(2)}
+                                  {accessStore.isNewUser
+                                    ? (
+                                        purchaseWattPlan[choosePurchasePlan]
+                                          .now_amount - 10
+                                      ).toFixed(2)
+                                    : purchaseWattPlan[choosePurchasePlan]
+                                        .now_amount}
                                 </span>
                                 <span
                                   className={

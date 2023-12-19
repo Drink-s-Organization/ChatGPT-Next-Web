@@ -100,6 +100,7 @@ export function AuthPage() {
             access.accessCode = auth;
             access.authToken = auth;
             access.Watt = data["watt"];
+            access.isNewUser = data["is_new_user"];
           });
           navigate(Path.Home);
         },
