@@ -417,11 +417,12 @@
       justify-content: center;
       align-items: center;
       font-size: 32px;
-      font-weight: 400;
+      font-weight: 200;
       font-style: italic;
       color: #C8C8C8;
       line-height: 38px;
       border-bottom: #D8D8D8 solid 1px;
+      font-family: "SmileySans";
 
       .recharge-pop-body-title-question {
         margin-left: 334px;
@@ -618,7 +619,7 @@
               .recharge-pop-new-user-discount {
                 margin-top: 20px;
                 display: flex;
-                justify-content: center;
+                justify-content: flex-start;
                 align-items: center;
                 width: 267px;
                 height: 27px;
@@ -630,6 +631,7 @@
                 font-weight: 600;
                 color: #FFECBF;
                 line-height: 17px;
+                padding: 0 3px;
               }
 
               .recharge-pop-goods {
