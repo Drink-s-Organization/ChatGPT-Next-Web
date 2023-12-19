@@ -632,8 +632,22 @@
                 line-height: 17px;
               }
 
+              .recharge-pop-order-sn {
+                margin-top: 20px;
+                font-size: 12px;
+                font-family: PingFang SC, PingFang SC;
+                font-weight: 400;
+                color: #303030;
+                line-height: 17px;
+
+                .recharge-pop-order-sn-content {
+                  font-size: 10px;
+                  color: #818181;
+                }
+              }
+
               .recharge-pop-goods {
-                margin-top: 10px;
+                margin-top: 20px;
                 font-size: 12px;
                 font-family: PingFang SC, PingFang SC;
                 font-weight: 400;

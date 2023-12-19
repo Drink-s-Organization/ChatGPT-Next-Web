@@ -29,6 +29,7 @@ const DEFAULT_ACCESS_STATE = {
   phone: "",
   Watt: 0,
   authToken: "",
+  isNewUser: true,
 
   // azure
   azureUrl: "",
