@@ -5,32 +5,275 @@
   height: 100%;
   width: 100%;
   flex-direction: column;
+  // background: #E7F8FF;
+
+  .auth-logo-div {
+    display: flex;
+    justify-content: flex-start;
+    width: 340px;
+    margin-bottom: 12px;
+    flex-direction: row;
+  }
+
+  .background-container {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 0;
+    background-image: url("../../public/background.png");
+    background-size: contain;
+  }
+
+  .background-container-mask {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 99;
+    background-color: var(--second);
+    background-size: contain;
+    opacity: 0.5;
+  }
 
   .auth-logo {
-    transform: scale(1.4);
+    border-radius: 18px 18px 18px 18px;
+    opacity: 1;
   }
 
   .auth-title {
-    font-size: 24px;
-    font-weight: bold;
-    line-height: 2;
+    margin-left: 8px;
+    font-size: 22px;
+    font-family: PingFang SC, PingFang SC;
+    font-weight: 500;
+    color: var(--#303030);
   }
 
   .auth-tips {
+    width: 340px;
+    // height: 17px;
     font-size: 14px;
+    font-family: PingFang SC, PingFang SC;
+    font-weight: 400;
+    color: var(--#303030);
+    line-height: 17px;
+
+    span {
+      margin-left: 8px;
+      color: #FF0000;
+    }
+
+    input {
+      width: 340px;
+      height: 40px;
+      margin-top: 15px;
+      margin-bottom: 15px;
+      background: var(--#FFFFFF);
+      border-radius: 4px 4px 4px 4px;
+      opacity: 1;
+      border: 1px solid #DDE1EE;
+      font-size: 14px;
+      font-family: PingFang SC, PingFang SC;
+      font-weight: 400;
+      text-align: left;
+      padding-left: 16px;
+      padding-right: 16px;
+      box-sizing: border-box;
+      min-width: 340px;
+    }
   }
 
-  .auth-input {
-    margin: 3vh 0;
+  .auth-login-type-block {
+    height: 26px;
+    width: 340px;
+    margin-top: 18px;
+    margin-bottom: 24px;
+  }
+
+  .auth-login-type {
+    height: 35px;
+    width: 70px;
+    font-size: 14px;
+    font-family: PingFang SC, PingFang SC;
+    font-weight: 400;
+    color: var(--#666666);
+    line-height: 17px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .auth-login-type-active {
+    height: 35px;
+    border-bottom: 2px solid #1D93AB;
+    width: 84px;
+    font-size: 14px;
+    font-family: PingFang SC, PingFang SC;
+    font-weight: 600;
+    color: #1D93AB;
+    line-height: 17px;
+    text-align: center;
   }
 
   .auth-actions {
     display: flex;
     justify-content: center;
     flex-direction: column;
-
     button:not(:last-child) {
       margin-bottom: 10px;
+    }
+  }
+
+  .auth-input-code {
+    height: 17px;
+    font-size: 14px;
+    font-family: PingFang SC, PingFang SC;
+    font-weight: 400;
+    color: var(--#666666);
+    line-height: 17px;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .auth-input-code-active {
+    height: 17px;
+    font-size: 14px;
+    font-family: PingFang SC, PingFang SC;
+    font-weight: 400;
+    line-height: 17px;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #1D93AB;
+  }
+
+  .auth-show-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    // justify-content: flex-end;
+    background: fixed;
+  }
+
+  .auth-body {
+    width: 420px;
+    // height: 484px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: var(--white);
+    z-index: 999;
+    box-shadow: 0px 2px 12px 0px rgba(0,0,0,0.06);
+    border-radius: 16px 16px 16px 16px;
+    opacity: 1;
+    border: 1px solid #1D93AB;
+    padding-top: 40px;
+    padding-bottom: 20px;
+  }
+
+  .auth-login {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 350px;
+    margin-top: 20px;
+    
+    button {
+      margin-bottom: 16px;
+      height: 40px;
+    }
+  }
+
+  .auth-login-tips {
+    font-size: 14px;
+    text-align: center;
+    align-items: center;
+    font-family: PingFang SC, PingFang SC;
+    font-weight: 400;
+    color: var(--#9E9E9E);
+    line-height: 17px;
+
+    a {
+      color: #1D93AB;
+      cursor: pointer;
+    }
+  }
+
+  .auth-action-div {
+    align-items: center;
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .auth-action {
+    width: 56px;
+    height: 17px;
+    font-size: 14px;
+    font-family: PingFang SC, PingFang SC;
+    font-weight: 400;
+    color: var(--#9E9E9E);
+    line-height: 17px;
+  }
+
+  .auth-action-active {
+    width: 56px;
+    height: 17px;
+    font-size: 14px;
+    font-family: PingFang SC, PingFang SC;
+    font-weight: 400;
+    color: #1D93AB;
+    cursor: pointer;
+  }
+
+  .auth-doc {
+    width: 960px;
+    height: 600px;
+    background: var(--#FFFFFF);
+    border-radius: 16px 16px 16px 16px;
+    opacity: 1;
+    border: 1px solid #1D93AB;
+    padding: 40px;
+    position: relative;
+
+    h1 {
+      width: 88px;
+      height: 31px;
+      font-size: 22px;
+      font-family: PingFang SC, PingFang SC;
+      font-weight: 600;
+      color: var(--#303030);
+      line-height: 31px;
+      margin-bottom: 16px;
+    }
+
+    .auth-doc-text {
+      width: 960px;
+      height: 428px;
+      overflow: auto;
+    }
+
+    span {
+      font-size: 18px;
+      font-family: PingFang SC, PingFang SC;
+      font-weight: 400;
+      color: var(--#303030);
+      line-height: 25px;
+    }
+
+    button {
+      margin-bottom: 10px;
+      width: 100px;
+      height: 40px;
+      background: var(--#1D93AB);
+      border-radius: 8px 8px 8px 8px;
+      opacity: 1;
+      position: absolute;
+      bottom: 30px;
+      right: 40px;
     }
   }
 }

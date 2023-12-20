@@ -28,16 +28,17 @@ export enum Theme {
 export const DEFAULT_CONFIG = {
   lastUpdate: Date.now(), // timestamp, to merge state
 
-  submitKey: isMacOS() ? SubmitKey.MetaEnter : SubmitKey.CtrlEnter,
+  submitKey: SubmitKey.Enter,
   avatar: "1f603",
   fontSize: 14,
   theme: Theme.Auto as Theme,
   tightBorder: !!getClientConfig()?.isApp,
-  sendPreviewBubble: true,
+  sendPreviewBubble: false,
   enableAutoGenerateTitle: true,
   sidebarWidth: DEFAULT_SIDEBAR_WIDTH,
 
   disablePromptHint: false,
+  showAdvanceSetting: false,
 
   dontShowMaskSplashScreen: false, // dont show splash screen when create chat
   hideBuiltinMasks: false, // dont add builtin masks
@@ -46,7 +47,7 @@ export const DEFAULT_CONFIG = {
   models: DEFAULT_MODELS as any as LLMModel[],
 
   modelConfig: {
-    model: "gpt-3.5-turbo" as ModelType,
+    model: "gpt-3.5-turbo-16k" as ModelType,
     temperature: 0.5,
     top_p: 1,
     max_tokens: 4000,

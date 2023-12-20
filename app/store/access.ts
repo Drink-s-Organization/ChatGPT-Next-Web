@@ -23,6 +23,13 @@ const DEFAULT_ACCESS_STATE = {
   // openai
   openaiUrl: DEFAULT_OPENAI_URL,
   openaiApiKey: "",
+  severUrl: "http://localhost:8888",
+
+  // account
+  phone: "",
+  Watt: 0,
+  authToken: "",
+  isNewUser: true,
 
   // azure
   azureUrl: "",

@@ -1,5 +1,6 @@
 @import "./animation.scss";
 @import "./window.scss";
+@import "./fonts.scss";
 
 @mixin light {
   --theme: light;
@@ -13,6 +14,9 @@
   --hover-color: #f3f3f3;
   --bar-color: rgba(0, 0, 0, 0.1);
   --theme-color: var(--gray);
+
+  /* text color */
+  --text-gray: #9E9E9E;
 
   /* shadow */
   --shadow: 50px 50px 100px 10px rgb(0, 0, 0, 0.1);
@@ -90,7 +94,7 @@ html {
   height: var(--full-height);
 
   font-family: "Noto Sans", "SF Pro SC", "SF Pro Text", "SF Pro Icons",
-    "PingFang SC", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    "PingFang SC", "Helvetica Neue", "Helvetica", "Arial", "SmileySans", sans-serif;
 }
 
 body {
@@ -267,6 +271,36 @@ div.math {
 
 pre {
   position: relative;
+
+  &:hover .wechat-group-contain {
+    pointer-events: all;
+    transform: translateY(0px);
+    opacity: 0.5;
+  }
+
+  .wechat-group-contain {
+    position: absolute;
+    right: 10px;
+    top: 1em;
+    cursor: pointer;
+    padding: 0px 5px;
+    background-color: var(--black);
+    color: var(--white);
+    border: var(--border-in-light);
+    border-radius: 10px;
+    transform: translateX(10px);
+    pointer-events: none;
+    opacity: 0;
+    transition: all ease 0.3s;
+
+    &:after {
+      content: "copy";
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+  }
 
   &:hover .copy-code-button {
     pointer-events: all;

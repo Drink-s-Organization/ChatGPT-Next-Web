@@ -4,7 +4,6 @@
   border-radius: 20px;
   box-shadow: var(--shadow);
   color: var(--black);
-  background-color: var(--white);
   min-width: 600px;
   min-height: 370px;
   max-width: 1200px;
@@ -12,9 +11,12 @@
   display: flex;
   overflow: hidden;
   box-sizing: border-box;
+  flex-wrap: wrap;
 
   width: var(--window-width);
   height: var(--window-height);
+
+  position: relative;
 }
 
 .container {
@@ -34,12 +36,14 @@
 
     border-radius: 0;
     border: 0;
+    position: relative;
   }
 }
 
 .sidebar {
   top: 0;
   width: var(--sidebar-width);
+  height: calc(var(--full-height) - 64px);
   box-sizing: border-box;
   padding: 20px;
   background-color: var(--second);
@@ -51,7 +55,7 @@
 
   .sidebar-header-bar {
     display: flex;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 
     .sidebar-bar-button {
       flex-grow: 1;
@@ -96,7 +100,7 @@
 
 .window-content {
   width: var(--window-content-width);
-  height: 100%;
+  height: calc(100% - 64px);
   display: flex;
   flex-direction: column;
 }
@@ -110,7 +114,6 @@
     min-height: unset;
     min-width: unset;
     max-height: unset;
-    min-width: unset;
     border: 0;
     border-radius: 0;
   }
@@ -119,7 +122,7 @@
     position: absolute;
     left: -100%;
     z-index: 1000;
-    height: var(--full-height);
+    height: var(--full-heights);
     transition: all ease 0.3s;
     box-shadow: none;
   }
@@ -337,4 +340,568 @@
 
 .rtl-screen {
   direction: rtl;
+}
+
+.recharge-pop-mask {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #818181;
+  opacity: 0.5;
+}
+
+.recharge-pop {
+  width: 872px;
+  border-radius: 12px;
+  background-color: #FFFFFF;
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+
+  .recharge-pop-head {
+    height: 108px;
+    background-image: url("../../public/recharge-pop-head-bg.png");
+    background-size: cover;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .recharge-pop-user-info {
+      display: flex;
+      flex-direction: column;
+      margin: 25px 0 0 40px;
+
+      .recharge-pop-user-info-phone {
+        font-size: 16px;
+        font-family: PingFang SC, PingFang SC, serif;
+        font-weight: 600;
+        color: #303030;
+        line-height: 22px;
+      }
+
+      .recharge-pop-user-info-watt {
+        font-size: 14px;
+        font-family: PingFang SC, PingFang SC, serif;
+        font-weight: 600;
+        color: #C8C8C8;
+        line-height: 20px;
+
+        .recharge-pop-user-info-watt-num {
+          color: #FFAD00;
+        }
+      }
+    }
+
+    .recharge-pop-close {
+      .recharge-pop-close-icon {
+        background: rgba(0, 0, 0, 0);
+        margin: 12px 12px 0 0;
+      }
+    }
+  }
+
+  .recharge-pop-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.3);
+    border-radius: 12px;
+    opacity: 1;
+
+    .recharge-pop-body-title {
+      height: 68px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      font-size: 32px;
+      color: #C8C8C8;
+      line-height: 38px;
+      border-bottom: #D8D8D8 solid 1px;
+      font-family: "SmileySans";
+
+      .recharge-pop-body-title-question {
+        margin-left: 334px;
+      }
+    }
+
+    .recharge-pop-body-title-choose {
+      color: #FFAD00;
+    }
+
+    .recharge-pop-body-other {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: row;
+      padding-bottom: 40px;
+
+      .recharge-pop-body-other-left {
+        .recharge-pop-body-tips {
+          margin: 30px 0 0 40px;
+          border-radius: 14px;
+        }
+      }
+
+      .recharge-pop-body-other-right {
+        margin-left: 20px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        .recharge-pop-plan {
+          margin-top: 30px;
+          width: 450px;
+          height: 218px;
+          background: #FFFFFF;
+          border-radius: 14px;
+          border: 1px solid #F3F3F3;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-around;
+
+          .recharge-pop-plan-item {
+            margin-top: 26px;
+            width: 116px;
+            height: 167px;
+            background: #FEFCF5;
+            border-radius: 4px;
+            opacity: 1;
+            border: 1px solid #FFEBC7;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .recharge-pop-plan-item-joule {
+              margin-top: 20px;
+              font-size: 12px;
+              font-family: PingFang SC, PingFang SC;
+              font-weight: 400;
+              color: #303030;
+              line-height: 17px;
+            }
+
+            .recharge-pop-plan-item-price {
+              margin-top: 16px;
+              font-size: 26px;
+              font-family: PingFang SC, PingFang SC;
+              font-weight: 600;
+              color: #303030;
+              line-height: 36px;
+            }
+
+            .recharge-pop-plan-item-origin-price {
+              margin-top: 12px;
+              font-size: 14px;
+              font-family: PingFang SC, PingFang SC;
+              font-weight: 400;
+              color: #818181;
+              line-height: 20px;
+              text-decoration-line: line-through;
+            }
+
+            .recharge-pop-plan-item-discount {
+              margin-top: 21px;
+              width: 116px;
+              height: 25px;
+              background: rgba(255,209,125,0.22);
+              border-radius: 4px;
+              opacity: 1;
+              font-size: 12px;
+              font-family: PingFang SC, PingFang SC;
+              font-weight: 400;
+              color: #BC8000;
+              line-height: 17px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+          }
+
+          .recharge-pop-plan-item-choose {
+            background: linear-gradient(180deg, #FEE9B1 0%, rgba(254,233,177,0.3781) 71%, rgba(254,233,177,0) 100%);
+            border: 1px solid #FFEBC7;
+
+            .recharge-pop-plan-item-discount {
+              background: #FDD37A;
+            }
+          }
+        }
+
+        .recharge-pop-pay {
+          margin-top: 20px;
+          width: 450px;
+          height: 231px;
+          background: #FFFFFF;
+          border-radius: 14px;
+          border: 1px solid #F3F3F3;
+          display: flex;
+          flex-direction: column;
+
+          .recharge-pop-pay-title {
+            margin: 25px 0 0 20px;
+            display: flex;
+            flex-direction: row;
+            width: 410px;
+            height: 28px;
+            background: #F0F0F0;
+            border-radius: 4px;
+            opacity: 1;
+
+            .recharge-pop-pay-title-item {
+              display: flex;
+              flex-direction: row;
+              justify-content: center;
+              align-items: center;
+              width: 205px;
+              height: 26px;
+              border-radius: 4px;
+              opacity: 1;
+              font-size: 12px;
+              font-family: PingFang SC, PingFang SC;
+              font-weight: 400;
+              color: #303030;
+              line-height: 17px;
+
+              .recharge-pop-pay-title-item-icon {
+                width: 14.5px;
+                height: 14.5px;
+                margin-right: 3px;
+              }
+            }
+
+            .recharge-pop-pay-title-item-choose {
+              background: #FFFFFF;
+            }
+          }
+
+          .recharge-pop-pay-content {
+            display: flex;
+            flex-direction: row;
+
+            .recharge-pop-pay-content-left {
+              margin: 20px 0 0 20px;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              width: 123px;
+              height: 138px;
+              background: #FFFFFF;
+              border-radius: 4px;
+              opacity: 1;
+              border: 1px solid #F3F3F3;
+
+              .recharge-pop-pay-code {
+                .pay-qrcode-image {
+                  width: 96px;
+                  height: 96px;
+                }
+              }
+
+              .recharge-pop-pay-code-tips {
+                margin-top: 6px;
+                font-size: 12px;
+                font-family: PingFang SC, PingFang SC;
+                font-weight: 400;
+                color: #818181;
+                line-height: 17px;
+              }
+            }
+
+            .recharge-pop-pay-content-right {
+              margin-left: 20px;
+              display: flex;
+              flex-direction: column;
+
+              .recharge-pop-new-user-discount {
+                margin-top: 20px;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                width: 267px;
+                height: 27px;
+                background: #FF5B16;
+                border-radius: 4px;
+                opacity: 1;
+                font-size: 12px;
+                font-family: PingFang SC, PingFang SC;
+                font-weight: 600;
+                color: #FFECBF;
+                line-height: 17px;
+                padding: 0 3px;
+              }
+
+              .recharge-pop-order-sn {
+                margin-top: 20px;
+                font-size: 12px;
+                font-family: PingFang SC, PingFang SC;
+                font-weight: 400;
+                color: #303030;
+                line-height: 17px;
+
+                .recharge-pop-order-sn-content {
+                  font-size: 10px;
+                  color: #818181;
+                }
+              }
+
+              .recharge-pop-goods {
+                margin-top: 20px;
+                font-size: 12px;
+                font-family: PingFang SC, PingFang SC;
+                font-weight: 400;
+                color: #303030;
+                line-height: 17px;
+
+                .recharge-pop-goods-info {
+                  color: #818181;
+                }
+              }
+
+              .recharge-pop-goods-margin-top {
+                margin-top: 20px;
+              }
+
+              .recharge-pop-order-final-amount {
+                margin-top: 20px;
+
+                .recharge-pop-order-final-amount-agree {
+                  font-size: 16px;
+                  font-family: PingFang SC, PingFang SC;
+                  font-weight: 600;
+                  color: #303030;
+                  line-height: 17px;
+                }
+
+                .recharge-pop-order-final-amount-last {
+                  margin-left: 8px;
+                  font-size: 36px;
+                  font-family: PingFang SC, PingFang SC;
+                  font-weight: 500;
+                  color: #FF0000;
+                  line-height: 17px;
+                }
+
+                .recharge-pop-order-final-amount-origin {
+                  margin-left: 4px;
+                  font-size: 10px;
+                  font-family: PingFang SC, PingFang SC;
+                  font-weight: 400;
+                  color: #818181;
+                  line-height: 14px;
+                  text-decoration-line: line-through;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .recharge-pop-body-question {
+      margin-top: 30px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      background: #FFFFFF;
+      align-items: center;
+      overflow-y: auto;
+      height: 544px;
+
+      .recharge-pop-body-question-item {
+        width: 792px;
+        background: #FAFAFA;
+        border-radius: 8px;
+        opacity: 1;
+        margin-bottom: 12px;
+
+        .recharge-pop-body-question-item-title {
+          margin: 12px 0 0 12px;
+          font-size: 16px;
+          font-family: PingFang SC, PingFang SC;
+          font-weight: 600;
+          color: #303030;
+          line-height: 22px;
+        }
+
+        .recharge-pop-body-question-item-content {
+          margin: 8px 0 12px 12px;
+          font-size: 16px;
+          font-family: PingFang SC, PingFang SC;
+          font-weight: 400;
+          color: #818181;
+          line-height: 22px;
+        }
+      }
+
+      .recharge-pop-body-question-contact {
+        display: flex;
+        flex-direction: column;
+        margin: 20px 0 0 40px;
+        align-self: flex-start;
+
+        .recharge-pop-body-question-contact-title {
+          font-size: 18px;
+          font-family: PingFang SC, PingFang SC;
+          font-weight: 500;
+          color: #303030;
+          line-height: 25px;
+        }
+
+        .recharge-pop-body-question-contact-content {
+          display: flex;
+          flex-direction: row;
+          margin-top: 12px;
+
+          .recharge-pop-body-question-contact-content-item {
+            margin: 0 12px 40px 0;
+            width: 118px;
+            height: 143px;
+            background: #FFFFFF;
+            border-radius: 8px;
+            opacity: 1;
+            border: 1px solid #F3F3F3;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .recharge-pop-body-question-contact-content-item-tips {
+              margin-top: 8px;
+              font-size: 10px;
+              font-family: PingFang SC, PingFang SC;
+              font-weight: 400;
+              color: #303030;
+              line-height: 14px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.page-header {
+  flex-basis: 100%;
+  height: 64px;
+  background: var(--#FFFFFF);
+  opacity: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 1px 15px 0 rgba(158, 158, 158, 0.20);
+  z-index: 999;
+
+  .logo-container {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+
+    .logo-text {
+      margin-left: 8px;
+      display: flex;
+      flex-direction: column;
+      user-select: text;
+      
+      .logo-text-line1 {
+        font-size: 16px;
+        font-family: PingFang SC, PingFang SC;
+        font-weight: 500;
+        color: var(--#303030);
+        line-height: 17px;
+      }
+
+      .logo-text-line2 {
+        margin-top: 4px;
+        font-size: 12px;
+        font-family: PingFang SC, PingFang SC;
+        font-weight: 400;
+        color: var(--text-gray);
+        line-height: 17px;
+        letter-spacing: 0.5px;
+      }
+    }
+  }
+
+  .watt-btn {
+    margin-right: 18px;
+    width: 80px;
+    height: 30px;
+    background: var(--#FAFAFA);
+    border-radius: 4px;
+    opacity: 1;
+  }
+}
+
+.sidebar-role-btn {
+  width: 91px;
+  height: 37px;
+  background: var(--#FFFFFF);
+  border-radius: 10px;
+  opacity: 1;
+}
+
+.sidebar-new-chat-btn {
+  height: 68px;
+  background: var(--#FFFFFF);
+  border-radius: 10px;
+  opacity: 1;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  box-shadow: var(--card-shadow);
+  flex-grow: 1;
+}
+
+.recharge-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .recharge-result-tips {
+    font-size: 28px;
+    font-family: PingFang SC, PingFang SC;
+    font-weight: 500;
+    color: #FFAD00;
+    line-height: 39px;
+    margin-top: 88px;
+  }
+
+  .recharge-result-contact-tips {
+    font-size: 18px;
+    font-family: PingFang SC, PingFang SC;
+    font-weight: 400;
+    color: #818181;
+    line-height: 25px;
+    margin-top: 60px;
+  }
+
+  .recharge-result-contact-code {
+    display: flex;
+    flex-direction: row;
+
+    .recharge-result-contact-code-item {
+      width: 118px;
+      height: 143px;
+      background: #FFFFFF;
+      border-radius: 8px;
+      opacity: 1;
+      border: 1px solid #F3F3F3;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 36px 12px 148px 0;
+
+      .recharge-result-contact-code-item-tips {
+        font-size: 10px;
+        font-family: PingFang SC, PingFang SC;
+        font-weight: 400;
+        color: #303030;
+        line-height: 14px;
+        margin-top: 8px;
+      }
+    }
+  }
 }

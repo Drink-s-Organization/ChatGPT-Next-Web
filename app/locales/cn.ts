@@ -8,15 +8,36 @@ const cn = {
   Error: {
     Unauthorized: isApp
       ? "检测到无效 API Key，请前往[设置](/#/settings)页检查 API Key 是否配置正确。"
-      : "访问密码不正确或为空，请前往[登录](/#/auth)页输入正确的访问密码，或者在[设置](/#/settings)页填入你自己的 OpenAI API Key。",
+      : "未登录账号，请[登录](/#/auth)后使用",
+    // : "访问密码不正确或为空，请前往[登录](/#/auth)页输入正确的访问密码，或者在[设置](/#/settings)页填入你自己的 OpenAI API Key。",
   },
   Auth: {
-    Title: "需要密码",
-    Tips: "管理员开启了密码验证，请在下方填入访问码",
+    Title: "欢迎使用",
+    Tips: "未注册用户首次登陆后自动注册",
     SubTips: "或者输入你的 OpenAI API 密钥",
     Input: "在此处填写访问码",
     Confirm: "确认",
+    Login: "登录",
     Later: "稍后再说",
+    LoginTips: "登录/使用代表您已同意",
+    LoginAnd: "和",
+    Agreement: "《用户协议》",
+    Privacy: "《隐私政策》",
+    Phone: "手机号码",
+    PhoneTips: "请输入你的手机号！",
+    Password: "密码",
+    PasswordTips: "密码错误，请检查！",
+    PasswordTips2: "请输入8-16位, 同时至少一个数字和字母的密码",
+    Code: "验证码",
+    CodeTips: "验证码无效，请检查！",
+    SendCode: "获取验证码",
+    ResetPsw: "重置密码",
+    ForgetPsw: "忘记密码",
+    InputTips: "输入",
+    AgreementContent:
+      '咏昕科技用户协议本用户协议（以下简称"本协议"）由您与咏昕科技（以下简称"我们"或"咏昕科技"）共同缔结，本协议约定了您在使用咏昕科技提供的各项服务时，我们与您之间的权利义务关系。在您选择接受本协议或开始使用我们的任何服务时，即表示您已阅读、理解并同意接受本协议的全部内容，并愿在必要时接受本协议的相关变更。<br><br> 账户注册<br> 在您登录或使用我们的服务前，您应完成我们提供的用户注册流程，在该过程中，您应保证提供了真实、准确和完整的个人信息，并及时更新以保持信息的真实、准确和完整。<br><br> 使用规则<br> 您在使用我们的服务过程中，应遵守国家法律法规、行业惯例和社会公序良俗，不应通过我们的服务制作、复制、发布、传播任何违法、侮辱诽谤、淫秽色情、暴力血腥、恶意攻击、商业欺诈等侵害他人合法权益的内容。 <br><br>版权声明<br> 除非另行声明，我们的服务中使用的所有内容，包括但不限于文本、图像、声音、视频、软件、广告全文、商标、标识、视觉界面设计等，均属于咏昕科技所有。 服务终止 您有权随时注销您的账户或停止使用我们的服务。在必要时，我们也可以限制、暂停或终止向您提供全部或部分服务。 <br><br>免责条款<br> 我们对于任何间接、附带、特殊、惩罚性的或后果性损失（包括但不限于营业收入、预期收益、商誉或数据的损失）均不承担任何责任。 适用法律和争议解决 本协议的订立、执行和解释及争议的解决均适用中华人民共和国法律。如双方就本协议内容或执行发生任何争议，应首先友好协商，协商不成时，任何一方均可向我方所在地人民法院提起诉讼。 归咏昕科技所有, 我们将在法律允许的范围内修改、增加或削减本协议内容, 并在网站、APP或以其他方式的公告等形式通知用户。您继续使用我们的服务即视为接受修改后的协议。\n\n ——咏昕科技有限公司',
+    PrivacyContent:
+      "本隐私策略旨在帮助您理解我们如何收集，使用，存储和/或披露由您提供给我们的信息。\n\n 信息收集\n 当您使用我们的服务时，我们只会收集您提供的手机号。这是为了提供相关的服务和进行必要的通信。\n\n我们承诺, 未经您的同意我们不会用这些信息去做任何其他事情。 如何我们使用信息 我们会使用您的手机号提供所需服务，如发送验证码，服务更新通知等，以提升您的用户体验。 \n\n信息披露\n 除非得到您的明确同意，或因满足法规要求，我们不会将您的手机号出售，交易，或以其他方式向外部传递。保护您的信息是我们的首要责任。 \n\n信息保护\n 我们严格遵守各类信息保护法，实施各项安全措施，以确保您的手机号不被未经授权的第三方访问或滥用。 \n\n隐私策略更改\n 我们有权在任何时间更新或修改本隐私策略。任何更改将在发布后立即生效。您继续使用我们的服务将视为您接受了我们的修改后的隐私策略。 \n\n联系我们\n 如果您对此隐私政策有任何疑问，您可以通过在我们的网站上提供的联系信息与我们联系。 感谢您花时间阅读我们的隐私政策。我们重视您的隐私并承诺保护您的个人信息。\n\n 最后修改时间: 2023/12/25",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} 条对话`,
@@ -45,7 +66,7 @@ const cn = {
     },
     Commands: {
       new: "新建聊天",
-      newm: "从面具新建聊天",
+      newm: "从角色新建聊天",
       next: "下一个聊天",
       prev: "上一个聊天",
       clear: "清除上下文",
@@ -60,7 +81,7 @@ const cn = {
         dark: "深色模式",
       },
       Prompt: "快捷指令",
-      Masks: "所有面具",
+      Masks: "所有角色",
       Clear: "清除聊天",
       Settings: "对话设置",
     },
@@ -76,7 +97,7 @@ const cn = {
     Send: "发送",
     Config: {
       Reset: "清除记忆",
-      SaveAs: "存为面具",
+      SaveAs: "存为角色",
     },
     IsContext: "预设提示词",
   },
@@ -92,8 +113,8 @@ const cn = {
       SubTitle: "可以导出 Markdown 文本或者 PNG 图片",
     },
     IncludeContext: {
-      Title: "包含面具上下文",
-      SubTitle: "是否在消息中展示面具上下文",
+      Title: "包含角色上下文",
+      SubTitle: "是否在消息中展示角色上下文",
     },
     Steps: {
       Select: "选取",
@@ -147,6 +168,10 @@ const cn = {
       All: "所有语言",
     },
     Avatar: "头像",
+    Account: "账号",
+    Logout: "退出登录",
+    Balance: "算力",
+    Recharge: "购买",
     FontSize: {
       Title: "字体大小",
       SubTitle: "聊天内容的字体大小",
@@ -159,7 +184,6 @@ const cn = {
       Title: "用户输入预处理",
       SubTitle: "用户最新的一条消息会填充到此模板",
     },
-
     Update: {
       Version: (x: string) => `当前版本：${x}`,
       IsLatest: "已是最新版本",
@@ -218,18 +242,18 @@ const cn = {
 
       LocalState: "本地数据",
       Overview: (overview: any) => {
-        return `${overview.chat} 次对话，${overview.message} 条消息，${overview.prompt} 条提示词，${overview.mask} 个面具`;
+        return `${overview.chat} 次对话，${overview.message} 条消息，${overview.prompt} 条提示词，${overview.mask} 个角色`;
       },
       ImportFailed: "导入失败",
     },
     Mask: {
       Splash: {
-        Title: "面具启动页",
-        SubTitle: "新建聊天时，展示面具启动页",
+        Title: "角色启动页",
+        SubTitle: "新建聊天时，展示角色启动页",
       },
       Builtin: {
-        Title: "隐藏内置面具",
-        SubTitle: "在所有面具列表中隐藏内置面具",
+        Title: "隐藏内置角色",
+        SubTitle: "在所有角色列表中隐藏内置角色",
       },
     },
     Prompt: {
@@ -248,6 +272,12 @@ const cn = {
       },
       EditModal: {
         Title: "编辑提示词",
+      },
+    },
+    AdvanceSetting: {
+      Disable: {
+        Title: "显示高级设置",
+        SubTitle: "高级设置，默认使用不需要配置",
       },
     },
     HistoryCount: {
@@ -374,11 +404,11 @@ const cn = {
     Sysmessage: "你是一个助手",
   },
   Mask: {
-    Name: "面具",
+    Name: "角色",
     Page: {
-      Title: "预设角色面具",
+      Title: "预设角色",
       SubTitle: (count: number) => `${count} 个预设角色定义`,
-      Search: "搜索角色面具",
+      Search: "搜索角色",
       Create: "新建",
     },
     Item: {
@@ -391,7 +421,7 @@ const cn = {
     },
     EditModal: {
       Title: (readonly: boolean) =>
-        `编辑预设面具 ${readonly ? "（只读）" : ""}`,
+        `编辑预设角色 ${readonly ? "（只读）" : ""}`,
       Download: "下载预设",
       Clone: "克隆预设",
     },
@@ -408,8 +438,8 @@ const cn = {
         SubTitle: "隐藏后预设对话不会出现在聊天界面",
       },
       Share: {
-        Title: "分享此面具",
-        SubTitle: "生成此面具的直达链接",
+        Title: "分享此角色",
+        SubTitle: "生成此角色的直达链接",
         Action: "复制链接",
       },
     },
@@ -419,8 +449,8 @@ const cn = {
     Skip: "直接开始",
     NotShow: "不再展示",
     ConfirmNoShow: "确认禁用？禁用后可以随时在设置中重新启用。",
-    Title: "挑选一个面具",
-    SubTitle: "现在开始，与面具背后的灵魂思维碰撞",
+    Title: "挑选一个角色",
+    SubTitle: "现在开始，与角色背后的灵魂思维碰撞",
     More: "查看全部",
   },
 
@@ -441,9 +471,9 @@ const cn = {
     Config: "配置",
   },
   Exporter: {
-    Description : {
-      Title: "只有清除上下文之后的消息会被展示"
-    },  
+    Description: {
+      Title: "只有清除上下文之后的消息会被展示",
+    },
     Model: "模型",
     Messages: "消息",
     Topic: "主题",

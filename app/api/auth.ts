@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import { getServerSideConfig } from "../config/server";
 import md5 from "spark-md5";
 import { ACCESS_CODE_PREFIX } from "../constant";
+import tr from "../locales/tr";
 
 function getIP(req: NextRequest) {
   let ip = req.ip ?? req.headers.get("x-real-ip");
@@ -26,7 +27,8 @@ function parseApiKey(bearToken: string) {
 
 export function auth(req: NextRequest) {
   const authToken = req.headers.get("Authorization") ?? "";
-
+  const authToken2 = req.headers.get("auth_token") ?? "";
+  req.headers.delete("auth_token");
   // check if it is openai api key or user token
   const { accessCode, apiKey } = parseApiKey(authToken);
 
@@ -38,6 +40,13 @@ export function auth(req: NextRequest) {
   console.log("[Auth] hashed access code:", hashedCode);
   console.log("[User IP] ", getIP(req));
   console.log("[Time] ", new Date().toLocaleString());
+
+  if (!authToken2) {
+    return {
+      error: true,
+      msg: "login first",
+    };
+  }
 
   if (serverConfig.needCode && !serverConfig.codes.has(hashedCode) && !apiKey) {
     return {
@@ -66,10 +75,11 @@ export function auth(req: NextRequest) {
         `${serverConfig.isAzure ? "" : "Bearer "}${serverApiKey}`,
       );
     } else {
+      req.headers.set("Authorization", authToken2);
       console.log("[Auth] admin did not provide an api key");
     }
   } else {
-    console.log("[Auth] use user api key");
+    console.log("[Auth] use user api key", apiKey);
   }
 
   return {

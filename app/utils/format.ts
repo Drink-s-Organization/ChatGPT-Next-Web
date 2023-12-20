@@ -26,3 +26,15 @@ export function* chunks(s: string, maxBytes = 1000 * 1000) {
     buf = buf.slice(i + 1); // Skip space (if any)
   }
 }
+
+export function formatWattNum(num: number) {
+  if (num < 1000) {
+    return String(num);
+  } else if (num < 10000) {
+    return String((num / 1000).toFixed(2)) + "k";
+  } else if (num < 1000000) {
+    return String((num / 10000).toFixed(2)) + "w";
+  } else {
+    return "99+w";
+  }
+}
