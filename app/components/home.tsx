@@ -13,6 +13,9 @@ import LoadingIcon from "../icons/three-dots.svg";
 import CloseIcon from "../icons/close.svg";
 import RechargePopTipsImg from "../../public/recharge-pop-tips.png";
 import LogoImg from "../icons/chatgpt.png";
+import CustomerQRCodeImg from "../../public/easyChatCustomer.png";
+import WechatUserGroupQRCodeImg from "../../public/wecom-usergroup-rqcode.png";
+import QQUserGroupQRCodeImg from "../../public/qq-usergroup-qrcode.png";
 import LightingIcon from "../icons/lightning-fill.svg";
 import WeChatPayIcon from "../icons/wechat-pay.svg";
 import AlipayIcon from "../icons/alipay.svg";
@@ -446,7 +449,7 @@ function Screen() {
                             }
                           >
                             <Image
-                              src={LogoImg}
+                              src={CustomerQRCodeImg}
                               alt={""}
                               height={95}
                               width={95}
@@ -471,7 +474,7 @@ function Screen() {
                             }
                           >
                             <Image
-                              src={LogoImg}
+                              src={WechatUserGroupQRCodeImg}
                               alt={""}
                               height={95}
                               width={95}
@@ -482,7 +485,7 @@ function Screen() {
                               styles["recharge-result-contact-code-item-tips"]
                             }
                           >
-                            客服微信
+                            微信用户群
                           </div>
                         </div>
                         <div
@@ -496,7 +499,7 @@ function Screen() {
                             }
                           >
                             <Image
-                              src={LogoImg}
+                              src={QQUserGroupQRCodeImg}
                               alt={""}
                               height={95}
                               width={95}
@@ -507,7 +510,7 @@ function Screen() {
                               styles["recharge-result-contact-code-item-tips"]
                             }
                           >
-                            客服微信
+                            QQ用户群
                           </div>
                         </div>
                         <div
@@ -521,7 +524,7 @@ function Screen() {
                             }
                           >
                             <Image
-                              src={LogoImg}
+                              src={CustomerQRCodeImg}
                               alt={""}
                               height={95}
                               width={95}
@@ -532,7 +535,7 @@ function Screen() {
                               styles["recharge-result-contact-code-item-tips"]
                             }
                           >
-                            客服微信
+                            商业合作(微信)
                           </div>
                         </div>
                       </div>
@@ -973,7 +976,7 @@ function Screen() {
                           }
                         >
                           <Image
-                            src={LogoImg}
+                            src={CustomerQRCodeImg}
                             alt={""}
                             height={95}
                             width={95}
@@ -1004,7 +1007,7 @@ function Screen() {
                           }
                         >
                           <Image
-                            src={LogoImg}
+                            src={WechatUserGroupQRCodeImg}
                             alt={""}
                             height={95}
                             width={95}
@@ -1017,7 +1020,7 @@ function Screen() {
                             ]
                           }
                         >
-                          客服微信
+                          微信用户群
                         </div>
                       </div>
                       <div
@@ -1035,7 +1038,7 @@ function Screen() {
                           }
                         >
                           <Image
-                            src={LogoImg}
+                            src={QQUserGroupQRCodeImg}
                             alt={""}
                             height={95}
                             width={95}
@@ -1048,7 +1051,7 @@ function Screen() {
                             ]
                           }
                         >
-                          客服微信
+                          QQ用户群
                         </div>
                       </div>
                       <div
@@ -1066,7 +1069,7 @@ function Screen() {
                           }
                         >
                           <Image
-                            src={LogoImg}
+                            src={CustomerQRCodeImg}
                             alt={""}
                             height={95}
                             width={95}
@@ -1079,7 +1082,7 @@ function Screen() {
                             ]
                           }
                         >
-                          客服微信
+                          商业合作(微信)
                         </div>
                       </div>
                     </div>

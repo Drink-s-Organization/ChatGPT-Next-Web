@@ -272,6 +272,36 @@ div.math {
 pre {
   position: relative;
 
+  &:hover .wechat-group-contain {
+    pointer-events: all;
+    transform: translateY(0px);
+    opacity: 0.5;
+  }
+
+  .wechat-group-contain {
+    position: absolute;
+    right: 10px;
+    top: 1em;
+    cursor: pointer;
+    padding: 0px 5px;
+    background-color: var(--black);
+    color: var(--white);
+    border: var(--border-in-light);
+    border-radius: 10px;
+    transform: translateX(10px);
+    pointer-events: none;
+    opacity: 0;
+    transition: all ease 0.3s;
+
+    &:after {
+      content: "copy";
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
   &:hover .copy-code-button {
     pointer-events: all;
     transform: translateX(0px);

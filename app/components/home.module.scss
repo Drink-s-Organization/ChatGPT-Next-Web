@@ -417,8 +417,6 @@
       justify-content: center;
       align-items: center;
       font-size: 32px;
-      font-weight: 200;
-      font-style: italic;
       color: #C8C8C8;
       line-height: 38px;
       border-bottom: #D8D8D8 solid 1px;
@@ -708,6 +706,8 @@
       flex-direction: column;
       background: #FFFFFF;
       align-items: center;
+      overflow-y: auto;
+      height: 544px;
 
       .recharge-pop-body-question-item {
         width: 792px;
