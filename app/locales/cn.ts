@@ -404,7 +404,7 @@ const cn = {
     Sysmessage: "你是一个助手",
   },
   Mask: {
-    Name: "角色",
+    Name: "角色聊天",
     Page: {
       Title: "预设角色",
       SubTitle: (count: number) => `${count} 个预设角色定义`,

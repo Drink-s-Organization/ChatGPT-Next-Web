@@ -13,6 +13,8 @@ export const DEFAULT_API_HOST = `${DEFAULT_CORS_HOST}/api/proxy`;
 export const OPENAI_BASE_URL = "https://api.openai.com";
 
 export enum Path {
+  Test = "/test",
+
   Home = "/",
   Chat = "/chat",
   Settings = "/settings",

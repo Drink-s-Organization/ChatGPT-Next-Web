@@ -31,6 +31,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { isIOS, useMobileScreen } from "../utils";
 import dynamic from "next/dynamic";
 import { showConfirm, showToast } from "./ui-lib";
+import WechatUserGroupQRCodeImg from "@/public/wecom-usergroup-rqcode.png";
+import Image from "next/image";
 
 const ChatList = dynamic(async () => (await import("./chat-list")).ChatList, {
   loading: () => null,
@@ -233,15 +235,23 @@ export function SideBar(props: { className?: string }) {
               <IconButton icon={<SettingsIcon />} shadow />
             </Link>
           </div>
+
           <div className={styles["sidebar-action"]}>
             <IconButton
               icon={<GroupChatIcon />}
-              onClick={() => {
-                // todo show pop qrcode
-                console.log("todo show pop qrcode");
-              }}
+              className={`${styles["icon-button-group-chat"]} icon-button-group-chat`}
               shadow
             />
+
+            <div className={styles["group-chat-contain"]}>
+              <Image
+                src={WechatUserGroupQRCodeImg}
+                alt={""}
+                height={95}
+                width={95}
+              />
+              <text className={styles["text"]}>微信用户群</text>
+            </div>
           </div>
         </div>
         <div>
@@ -262,7 +272,7 @@ export function SideBar(props: { className?: string }) {
           <IconButton
             icon={<MaskIcon />}
             text={shouldNarrow ? undefined : Locale.Mask.Name}
-            className={styles["sidebar-role-btn"]}
+            // className={styles["sidebar-role-btn"]}
             onClick={() => {
               if (config.dontShowMaskSplashScreen !== true) {
                 navigate(Path.NewChat, { state: { fromHome: true } });
