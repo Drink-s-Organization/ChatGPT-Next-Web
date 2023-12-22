@@ -1216,7 +1216,11 @@ function _Chat() {
                                 onClick={() => onPinMessage(message)}
                               />
                               <ChatAction
-                                text={" -" + message.id}
+                                text={
+                                  message.token_count == undefined
+                                    ? "0"
+                                    : (-message.token_count).toFixed(2)
+                                }
                                 icon={<Lightning />}
                                 onClick={() => {
                                   console.log(message);

@@ -66,6 +66,10 @@ export class ChatGPTApi implements LLMApi {
     return res.choices?.at(0)?.message?.content ?? "";
   }
 
+  extractToken(res: any) {
+    return res.usage?.total_tokens ?? 0;
+  }
+
   async chat(options: ChatOptions) {
     const messages = options.messages.map((v) => ({
       role: v.role,
@@ -137,7 +141,7 @@ export class ChatGPTApi implements LLMApi {
           requestAnimationFrame(animateResponseText);
         }
 
-        // start animaion
+        // start animation
         animateResponseText();
 
         const finish = () => {
@@ -227,7 +231,8 @@ export class ChatGPTApi implements LLMApi {
 
         const resJson = await res.json();
         const message = this.extractMessage(resJson);
-        options.onFinish(message);
+        const token_count = this.extractToken(resJson) / 100;
+        options.onFinish(message, token_count);
       }
     } catch (e) {
       console.log("[Request] failed to make a chat request", e);

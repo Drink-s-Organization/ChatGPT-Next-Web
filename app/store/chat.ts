@@ -24,6 +24,7 @@ export type ChatMessage = RequestMessage & {
   isError?: boolean;
   id: string;
   model?: ModelType;
+  token_count?: number;
 };
 
 export function createMessage(override: Partial<ChatMessage>): ChatMessage {
@@ -304,7 +305,7 @@ export const useChatStore = createPersistStore(
         // make request
         api.llm.chat({
           messages: sendMessages,
-          config: { ...modelConfig, stream: true },
+          config: { ...modelConfig, stream: false },
           onUpdate(message) {
             botMessage.streaming = true;
             if (message) {
@@ -314,8 +315,9 @@ export const useChatStore = createPersistStore(
               session.messages = session.messages.concat();
             });
           },
-          onFinish(message) {
+          onFinish(message, token_count) {
             botMessage.streaming = false;
+            botMessage.token_count = token_count;
             if (message) {
               botMessage.content = message;
               get().onNewMessage(botMessage);
