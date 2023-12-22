@@ -324,22 +324,6 @@ export const useChatStore = createPersistStore(
               get().onNewMessage(botMessage);
             }
             ChatControllerPool.remove(session.id, botMessage.id);
-            httpRequest(
-              "/user/full",
-              {
-                method: "GET",
-              },
-              {
-                onFinish: (resp: any) => {
-                  localStorage.setItem("user_watt", resp["data"]["watt"]);
-                  localStorage.setItem(
-                    "is_new_user",
-                    resp["data"]["is_new_user"],
-                  );
-                  console.log("canwinter", localStorage.getItem("user_watt"));
-                },
-              },
-            );
           },
           onError(error) {
             const isAborted = error.message.includes("aborted");

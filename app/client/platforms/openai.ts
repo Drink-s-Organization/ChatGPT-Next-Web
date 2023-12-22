@@ -17,6 +17,7 @@ import {
 import { prettyObject } from "@/app/utils/format";
 import { getClientConfig } from "@/app/config/client";
 import { makeAzurePath } from "@/app/azure";
+import { httpRequest } from "@/app/client/server/api";
 
 export interface OpenAIListModelResponse {
   object: string;
@@ -232,6 +233,18 @@ export class ChatGPTApi implements LLMApi {
         const resJson = await res.json();
         const message = this.extractMessage(resJson);
         const token_count = this.extractToken(resJson) / 100;
+        httpRequest(
+          "/user/full",
+          {
+            method: "GET",
+          },
+          {
+            onFinish: (resp: any) => {
+              localStorage.setItem("user_watt", resp["data"]["watt"]);
+              localStorage.setItem("is_new_user", resp["data"]["is_new_user"]);
+            },
+          },
+        );
         options.onFinish(message, token_count);
       }
     } catch (e) {
