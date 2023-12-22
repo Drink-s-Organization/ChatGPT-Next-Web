@@ -248,7 +248,9 @@ function Screen() {
       {
         onFinish: (resp: any) => {
           accessStore.Watt = resp["data"]["watt"];
+          localStorage.setItem("user_watt", resp["data"]["watt"]);
           accessStore.isNewUser = resp["data"]["is_new_user"];
+          localStorage.setItem("is_new_user", resp["data"]["is_new_user"]);
         },
       },
     );
@@ -337,7 +339,11 @@ function Screen() {
             </div>
             <IconButton
               icon={<LightingIcon />}
-              text={formatWattNum(accessStore.Watt)}
+              text={formatWattNum(
+                localStorage.getItem("user_watt") == null
+                  ? 0
+                  : Number(localStorage.getItem("user_watt")),
+              )}
               className={styles["watt-btn"]}
               noDark={true}
               onClick={() => {
@@ -382,7 +388,9 @@ function Screen() {
                 <div className={styles["recharge-pop-user-info-watt"]}>
                   剩余算力
                   <span className={styles["recharge-pop-user-info-watt-num"]}>
-                    {accessStore.Watt}
+                    {localStorage.getItem("user_watt") == null
+                      ? "0"
+                      : localStorage.getItem("user_watt")}
                   </span>
                 </div>
               </div>

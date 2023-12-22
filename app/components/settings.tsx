@@ -746,7 +746,14 @@ export function Settings() {
             }
           </ListItem>
 
-          <ListItem title={Locale.Settings.Balance + accessStore.Watt}>
+          <ListItem
+            title={
+              Locale.Settings.Balance +
+              (localStorage.getItem("user_watt") == null
+                ? "0"
+                : localStorage.getItem("user_watt"))
+            }
+          >
             {
               <IconButton
                 text={Locale.Settings.Recharge}

@@ -101,6 +101,8 @@ export function AuthPage() {
             access.authToken = auth;
             access.Watt = data["watt"];
             access.isNewUser = data["is_new_user"];
+            localStorage.setItem("user_watt", data["watt"]);
+            localStorage.setItem("is_new_user", data["is_new_user"]);
           });
           navigate(Path.Home);
         },

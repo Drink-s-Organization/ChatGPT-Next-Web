@@ -250,7 +250,7 @@ export function SideBar(props: { className?: string }) {
                 height={95}
                 width={95}
               />
-              <text className={styles["text"]}>微信用户群</text>
+              <span className={styles["text"]}>微信用户群</span>
             </div>
           </div>
         </div>
