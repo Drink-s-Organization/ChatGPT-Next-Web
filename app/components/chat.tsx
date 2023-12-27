@@ -1217,9 +1217,9 @@ function _Chat() {
                               />
                               <ChatAction
                                 text={
-                                  message.token_count == undefined
+                                  message.tokenCount == undefined
                                     ? "0"
-                                    : (-message.token_count).toFixed(2)
+                                    : (-message.tokenCount).toFixed(2)
                                 }
                                 icon={<Lightning />}
                                 onClick={() => {
