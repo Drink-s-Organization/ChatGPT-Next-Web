@@ -18,6 +18,7 @@ import { estimateTokenLength } from "../utils/token";
 import { nanoid } from "nanoid";
 import { createPersistStore } from "../utils/store";
 import { httpRequest } from "@/app/client/server/api";
+import { useAccessStore } from "@/app/store/access";
 
 export type ChatMessage = RequestMessage & {
   date: string;
@@ -25,7 +26,8 @@ export type ChatMessage = RequestMessage & {
   isError?: boolean;
   id: string;
   model?: ModelType;
-  token_count?: number;
+  tokenCount?: number;
+  svrId?: string;
 };
 
 export function createMessage(override: Partial<ChatMessage>): ChatMessage {
@@ -133,6 +135,27 @@ export const useChatStore = createPersistStore(
       };
     }
 
+    const sleep = (ms: number): Promise<void> => {
+      return new Promise((resolve) => setTimeout(resolve, ms));
+    };
+    // @ts-ignore
+    const getChatConsumeToken = async (svrId?: string) => {
+      return await httpRequest(
+        "/token/count?chat_id=" + svrId,
+        {
+          method: "GET",
+        },
+        {
+          onFinish: async (resp: any) => {
+            if (resp["code"] == -1) {
+              await sleep(1200);
+              return await getChatConsumeToken(svrId);
+            }
+            return resp["data"]["token_count"];
+          },
+        },
+      );
+    };
     const methods = {
       clearSessions() {
         set(() => ({
@@ -259,13 +282,28 @@ export const useChatStore = createPersistStore(
         return session;
       },
 
-      onNewMessage(message: ChatMessage) {
+      async onNewMessage(message: ChatMessage) {
         get().updateCurrentSession((session) => {
           session.messages = session.messages.concat();
           session.lastUpdate = Date.now();
         });
+        if (message.tokenCount == undefined) {
+          message.tokenCount = await getChatConsumeToken(message.svrId);
+        }
         get().updateStat(message);
         get().summarizeSession();
+        httpRequest(
+          "/user/full",
+          {
+            method: "GET",
+          },
+          {
+            onFinish: (resp: any) => {
+              localStorage.setItem("user_watt", resp["data"]["watt"]);
+              localStorage.setItem("is_new_user", resp["data"]["is_new_user"]);
+            },
+          },
+        );
       },
 
       async onUserInput(content: string) {
@@ -306,7 +344,7 @@ export const useChatStore = createPersistStore(
         // make request
         api.llm.chat({
           messages: sendMessages,
-          config: { ...modelConfig, stream: false },
+          config: { ...modelConfig, stream: true },
           onUpdate(message) {
             botMessage.streaming = true;
             if (message) {
@@ -316,9 +354,10 @@ export const useChatStore = createPersistStore(
               session.messages = session.messages.concat();
             });
           },
-          onFinish(message, token_count) {
+          onFinish(message, token_count, svrId) {
             botMessage.streaming = false;
-            botMessage.token_count = token_count;
+            botMessage.tokenCount = token_count;
+            botMessage.svrId = svrId;
             if (message) {
               botMessage.content = message;
               get().onNewMessage(botMessage);

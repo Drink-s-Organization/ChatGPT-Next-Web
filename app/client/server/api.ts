@@ -33,7 +33,7 @@ export async function httpRequest<T>(
     }
 
     const resp = await response.json();
-    callback.onFinish(resp);
+    return callback.onFinish(resp);
   } catch (error) {
     if (callback.onError) {
       callback.onError(error as Error);

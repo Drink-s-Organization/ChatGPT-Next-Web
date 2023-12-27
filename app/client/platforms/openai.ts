@@ -71,6 +71,10 @@ export class ChatGPTApi implements LLMApi {
     return res.usage?.total_tokens ?? 0;
   }
 
+  extractUserWatt(res: any) {
+    return res.user_watt ?? 0;
+  }
+
   async chat(options: ChatOptions) {
     const messages = options.messages.map((v) => ({
       role: v.role,
@@ -122,6 +126,7 @@ export class ChatGPTApi implements LLMApi {
         let responseText = "";
         let remainText = "";
         let finished = false;
+        let svrId = "";
 
         // animate response to make it looks smooth
         function animateResponseText() {
@@ -148,7 +153,7 @@ export class ChatGPTApi implements LLMApi {
         const finish = () => {
           if (!finished) {
             finished = true;
-            options.onFinish(responseText + remainText);
+            options.onFinish(responseText + remainText, undefined, svrId);
           }
         };
 
@@ -203,12 +208,14 @@ export class ChatGPTApi implements LLMApi {
             const text = msg.data;
             try {
               const json = JSON.parse(text) as {
+                id: string;
                 choices: Array<{
                   delta: {
                     content: string;
                   };
                 }>;
               };
+              svrId = json.id;
               const delta = json.choices[0]?.delta?.content;
               if (delta) {
                 remainText += delta;
@@ -231,21 +238,14 @@ export class ChatGPTApi implements LLMApi {
         clearTimeout(requestTimeoutId);
 
         const resJson = await res.json();
+
         const message = this.extractMessage(resJson);
-        const token_count = this.extractToken(resJson) / 100;
-        httpRequest(
-          "/user/full",
-          {
-            method: "GET",
-          },
-          {
-            onFinish: (resp: any) => {
-              localStorage.setItem("user_watt", resp["data"]["watt"]);
-              localStorage.setItem("is_new_user", resp["data"]["is_new_user"]);
-            },
-          },
-        );
-        options.onFinish(message, token_count);
+        const tokenCount = this.extractToken(resJson) / 100;
+        const userWatt = this.extractUserWatt(resJson);
+        if (userWatt != 0) {
+          localStorage.setItem("user_watt", userWatt);
+        }
+        options.onFinish(message, tokenCount);
       }
     } catch (e) {
       console.log("[Request] failed to make a chat request", e);
