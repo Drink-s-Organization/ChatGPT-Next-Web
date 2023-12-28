@@ -15,7 +15,7 @@ export async function httpRequest<T>(
 ) {
   try {
     const { method = "POST", data = {} } = options;
-    url = `http://localhost:8888${url}`;
+    url = `http://api.easychat.vip${url}`;
     const requestOptions: RequestInit = {
       method: method.toUpperCase(),
       body: method.toUpperCase() === "GET" ? undefined : JSON.stringify(data), // 如果是 GET 请求则不发送 body,
