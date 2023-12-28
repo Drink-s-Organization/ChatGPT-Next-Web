@@ -135,27 +135,6 @@ export const useChatStore = createPersistStore(
       };
     }
 
-    const sleep = (ms: number): Promise<void> => {
-      return new Promise((resolve) => setTimeout(resolve, ms));
-    };
-    // @ts-ignore
-    const getChatConsumeToken = async (svrId?: string) => {
-      return await httpRequest(
-        "/token/count?chat_id=" + svrId,
-        {
-          method: "GET",
-        },
-        {
-          onFinish: async (resp: any) => {
-            if (resp["code"] == -1) {
-              await sleep(1200);
-              return await getChatConsumeToken(svrId);
-            }
-            return resp["data"]["token_count"];
-          },
-        },
-      );
-    };
     const methods = {
       clearSessions() {
         set(() => ({
@@ -282,14 +261,11 @@ export const useChatStore = createPersistStore(
         return session;
       },
 
-      async onNewMessage(message: ChatMessage) {
+      onNewMessage(message: ChatMessage) {
         get().updateCurrentSession((session) => {
           session.messages = session.messages.concat();
           session.lastUpdate = Date.now();
         });
-        if (message.tokenCount == undefined) {
-          message.tokenCount = await getChatConsumeToken(message.svrId);
-        }
         get().updateStat(message);
         get().summarizeSession();
         httpRequest(

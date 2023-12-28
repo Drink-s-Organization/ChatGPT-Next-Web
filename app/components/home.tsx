@@ -288,7 +288,7 @@ function Screen() {
               "☹️充值失败, 请通过下面方式联系客服或稍后再试",
             );
           } else {
-            setTimeout(getPayOrderStatus, 1000);
+            setTimeout(getPayOrderStatus, 2500);
           }
         },
       },

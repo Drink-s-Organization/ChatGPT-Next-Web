@@ -34,7 +34,6 @@ import DarkIcon from "../icons/dark.svg";
 import AutoIcon from "../icons/auto.svg";
 import BottomIcon from "../icons/bottom.svg";
 import StopIcon from "../icons/pause.svg";
-import RobotIcon from "../icons/robot.svg";
 
 import {
   ChatMessage,
@@ -90,6 +89,7 @@ import { prettyObject } from "../utils/format";
 import { ExportMessageModal } from "./exporter";
 import { getClientConfig } from "../config/client";
 import { useAllModels } from "../utils/hooks";
+import { httpRequest } from "@/app/client/server/api";
 
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
@@ -331,6 +331,7 @@ function ChatAction(props: {
   text: string;
   icon: JSX.Element;
   onClick: () => void;
+  message?: ChatMessage;
 }) {
   const iconRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
@@ -338,6 +339,7 @@ function ChatAction(props: {
     full: 16,
     icon: 16,
   });
+  const chatStore = useChatStore();
 
   function updateWidth() {
     if (!iconRef.current || !textRef.current) return;
@@ -348,6 +350,31 @@ function ChatAction(props: {
       full: textWidth + iconWidth,
       icon: iconWidth,
     });
+
+    if (props.message != undefined) {
+      // @ts-ignore
+      if (props.message.tokenCount > 0) return;
+      httpRequest(
+        "/token/count?chat_id=" + props.message.svrId,
+        {
+          method: "GET",
+        },
+        {
+          onFinish: (resp: any) => {
+            if (resp["data"] != null) {
+              chatStore.updateCurrentSession((session) => {
+                session.messages.map((m, i) => {
+                  if (m.id == props.message?.id) {
+                    session.messages[i].tokenCount =
+                      resp["data"]["token_count"];
+                  }
+                });
+              });
+            }
+          },
+        },
+      );
+    }
   }
 
   return (
@@ -1225,6 +1252,7 @@ function _Chat() {
                                 onClick={() => {
                                   console.log(message);
                                 }}
+                                message={message}
                               />
                               <ChatAction
                                 text={Locale.Chat.Actions.Copy}
