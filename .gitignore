@@ -46,3 +46,4 @@ dev
 *.key.pub
 
 yarn.lock
+.aliyun_pass
