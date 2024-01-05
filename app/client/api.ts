@@ -130,7 +130,7 @@ export function getHeaders() {
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
     "x-requested-with": "XMLHttpRequest",
-    "Accept": "application/json",
+    Accept: "application/json",
   };
 
   const isAzure = accessStore.provider === ServiceProvider.Azure;
@@ -152,7 +152,7 @@ export function getHeaders() {
     );
   }
 
-  headers["auth_token"] = accessStore.authToken;
+  headers["Auth-Token"] = accessStore.authToken;
 
   return headers;
 }

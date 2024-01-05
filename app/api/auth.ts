@@ -27,8 +27,8 @@ function parseApiKey(bearToken: string) {
 
 export function auth(req: NextRequest) {
   const authToken = req.headers.get("Authorization") ?? "";
-  const authToken2 = req.headers.get("auth_token") ?? "";
-  req.headers.delete("auth_token");
+  const authToken2 = req.headers.get("Auth-Token") ?? "";
+  req.headers.delete("Auth-Token");
   // check if it is openai api key or user token
   const { accessCode, apiKey } = parseApiKey(authToken);
 
@@ -36,6 +36,7 @@ export function auth(req: NextRequest) {
 
   const serverConfig = getServerSideConfig();
   console.log("[Auth] allowed hashed codes: ", [...serverConfig.codes]);
+  console.log("[Auth] got access code2:", authToken2);
   console.log("[Auth] got access code:", accessCode);
   console.log("[Auth] hashed access code:", hashedCode);
   console.log("[User IP] ", getIP(req));
