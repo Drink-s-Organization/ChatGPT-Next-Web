@@ -833,7 +833,7 @@
 .page-header {
   flex-basis: 100%;
   height: 64px;
-  background: var(-- #FFFFFF);
+  background: var(--white);
   opacity: 1;
   display: flex;
   justify-content: space-between;
@@ -885,14 +885,14 @@
 .sidebar-role-btn {
   width: 91px;
   height: 37px;
-  background: var(-- #FFFFFF);
+  background: var(--white);
   border-radius: 10px;
   opacity: 1;
 }
 
 .sidebar-new-chat-btn {
   height: 68px;
-  background: var(-- #FFFFFF);
+  background: var(--white);
   border-radius: 10px;
   opacity: 1;
   box-sizing: border-box;

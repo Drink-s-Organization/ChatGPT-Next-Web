@@ -27,7 +27,7 @@ import PinIcon from "../icons/pin.svg";
 import EditIcon from "../icons/rename.svg";
 import ConfirmIcon from "../icons/confirm.svg";
 import CancelIcon from "../icons/cancel.svg";
-
+import RobotIcon from "../icons/robot.svg";
 import LightIcon from "../icons/light.svg";
 import Lightning from "../icons/lightning-line.svg";
 import DarkIcon from "../icons/dark.svg";
@@ -548,11 +548,13 @@ export function ChatActions(props: {
         }}
       />
 
-      {/* <ChatAction
-        onClick={() => setShowModelSelector(true)}
-        text={currentModel}
-        icon={<RobotIcon />}
-      /> */}
+      {
+        <ChatAction
+          onClick={() => setShowModelSelector(true)}
+          text={currentModel}
+          icon={<RobotIcon />}
+        />
+      }
 
       {showModelSelector && (
         <Selector

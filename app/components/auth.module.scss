@@ -21,7 +21,7 @@
     position: absolute;
     z-index: 0;
     background-image: url("../../public/background.png");
-    background-size: contain;
+    background-size: cover;
   }
 
   .background-container-mask {
@@ -66,7 +66,7 @@
       height: 40px;
       margin-top: 15px;
       margin-bottom: 15px;
-      background: var(--#FFFFFF);
+      background: var(--white);
       border-radius: 4px 4px 4px 4px;
       opacity: 1;
       border: 1px solid #DDE1EE;
@@ -232,12 +232,13 @@
   .auth-doc {
     width: 960px;
     height: 600px;
-    background: var(--#FFFFFF);
+    background: var(--white);
     border-radius: 16px 16px 16px 16px;
     opacity: 1;
     border: 1px solid #1D93AB;
     padding: 40px;
     position: relative;
+    z-index: 999;
 
     h1 {
       width: 88px;
