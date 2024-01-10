@@ -1,3 +1,5 @@
+import tr from "@/app/locales/tr";
+
 export const OWNER = "Yidadaa";
 export const REPO = "ChatGPT-Next-Web";
 export const REPO_URL = `https://github.com/${OWNER}/${REPO}`;
@@ -125,11 +127,11 @@ export const DEFAULT_MODELS = [
   },
   {
     name: "gpt-4-1106-preview",
-    available: false,
+    available: true,
   },
   {
     name: "gpt-4-vision-preview",
-    available: false,
+    available: true,
   },
   {
     name: "gpt-3.5-turbo",
