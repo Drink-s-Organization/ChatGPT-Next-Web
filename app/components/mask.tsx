@@ -7,6 +7,7 @@ import DownloadIcon from "../icons/download.svg";
 import UploadIcon from "../icons/upload.svg";
 import EditIcon from "../icons/edit.svg";
 import AddIcon from "../icons/add.svg";
+import ChatIcon from "../icons/chat.svg";
 import CloseIcon from "../icons/close.svg";
 import DeleteIcon from "../icons/delete.svg";
 import EyeIcon from "../icons/eye.svg";
@@ -540,7 +541,7 @@ export function MaskPage() {
                 </div>
                 <div className={styles["mask-actions"]}>
                   <IconButton
-                    icon={<AddIcon />}
+                    icon={<ChatIcon />}
                     text={Locale.Mask.Item.Chat}
                     onClick={() => {
                       chatStore.newSession(m);

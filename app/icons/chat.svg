@@ -1,27 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16"
-  height="16" viewBox="0 0 16 16" fill="none">
-  <defs>
-    <rect id="path_0" x="0" y="0" width="16" height="16" />
-  </defs>
-  <g opacity="0.8" transform="translate(0 0)  rotate(0 8 8)">
-    <mask id="bg-mask-0" fill="white">
-      <use xlink:href="#path_0"></use>
-    </mask>
-    <g mask="url(#bg-mask-0)">
-      <path id="路径 1"
-        style="stroke:#A6A6A6; stroke-width:1.3333333333333333; stroke-opacity:1; stroke-dasharray:0 0"
-        transform="translate(1.3333533333333334 1.3333333333333333)  rotate(0 6.666673333333334 6.666666666666666)"
-        d="M6.67,0C2.98,0 0,2.98 0,6.67C0,8.36 0,13.33 0,13.33C0,13.33 4.68,13.33 6.67,13.33C10.35,13.33 13.33,10.35 13.33,6.67C13.33,2.98 10.35,0 6.67,0Z " />
-      <path id="路径 2"
-        style="stroke:#A6A6A6; stroke-width:1.3333333333333333; stroke-opacity:1; stroke-dasharray:0 0"
-        transform="translate(4.666666666666666 6)  rotate(0 3 0)" d="M0,0L6,0 " />
-      <path id="路径 3"
-        style="stroke:#A6A6A6; stroke-width:1.3333333333333333; stroke-opacity:1; stroke-dasharray:0 0"
-        transform="translate(4.666666666666666 8.666666666666666)  rotate(0 3 0)" d="M0,0L6,0 " />
-      <path id="路径 4"
-        style="stroke:#A6A6A6; stroke-width:1.3333333333333333; stroke-opacity:1; stroke-dasharray:0 0"
-        transform="translate(4.666666666666666 11.333333333333332)  rotate(0 1.6666666666666665 0)"
-        d="M0,0L3.33,0 " />
-    </g>
-  </g>
+<!--<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16"-->
+<!--  height="16" viewBox="0 0 16 16" fill="none">-->
+<!--  <defs>-->
+<!--    <rect id="path_0" x="0" y="0" width="16" height="16" />-->
+<!--  </defs>-->
+<!--  <g opacity="0.8" transform="translate(0 0)  rotate(0 8 8)">-->
+<!--    <mask id="bg-mask-0" fill="#fff">-->
+<!--      <use xlink:href="#path_0"></use>-->
+<!--    </mask>-->
+<!--    <g mask="url(#bg-mask-0)">-->
+<!--      <path id="路径 1"-->
+<!--        style="stroke:#333; stroke-width:1.3333333333333333; stroke-opacity:1; stroke-dasharray:0 0"-->
+<!--        transform="translate(1.3333533333333334 1.3333333333333333)  rotate(0 6.666673333333334 6.666666666666666)"-->
+<!--        d="M6.67,0C2.98,0 0,2.98 0,6.67C0,8.36 0,13.33 0,13.33C0,13.33 4.68,13.33 6.67,13.33C10.35,13.33 13.33,10.35 13.33,6.67C13.33,2.98 10.35,0 6.67,0Z " />-->
+<!--      <path id="路径 2"-->
+<!--        style="stroke:#333; stroke-width:1.3333333333333333; stroke-opacity:1; stroke-dasharray:0 0"-->
+<!--        transform="translate(4.666666666666666 6)  rotate(0 3 0)" d="M0,0L6,0 " />-->
+<!--      <path id="路径 3"-->
+<!--        style="stroke:#333; stroke-width:1.3333333333333333; stroke-opacity:1; stroke-dasharray:0 0"-->
+<!--        transform="translate(4.666666666666666 8.666666666666666)  rotate(0 3 0)" d="M0,0L6,0 " />-->
+<!--      <path id="路径 4"-->
+<!--        style="stroke:#333; stroke-width:1.3333333333333333; stroke-opacity:1; stroke-dasharray:0 0"-->
+<!--        transform="translate(4.666666666666666 11.333333333333332)  rotate(0 1.6666666666666665 0)"-->
+<!--        d="M0,0L3.33,0 " />-->
+<!--    </g>-->
+<!--  </g>-->
+<!--</svg>-->
+
+<svg t="1704857728356" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9535"
+     id="mx_n_1704857728356" width="16" height="16">
+    <path d="M512 938.666667a425.173333 425.173333 0 0 1-167.466667-34.133334 332.8 332.8 0 0 0-79.573333 9.813334c-47.573333 9.173333-76.586667 14.72-98.56-3.413334A46.72 46.72 0 0 1 149.333333 874.666667c0-10.24 0-23.893333 2.133334-39.466667 1.92-24.106667 6.186667-80.426667 0-94.72A426.666667 426.666667 0 1 1 512 938.666667z m-175.573333-119.893334a104.96 104.96 0 0 1 41.6 7.253334 341.333333 341.333333 0 1 0-153.6-130.133334c18.346667 28.8 17.493333 75.093333 12.8 136.746667l11.733333-2.133333a490.666667 490.666667 0 0 1 87.466667-11.733334z"
+          p-id="9536" fill="#333333"></path>
+    <path d="M661.333333 384H362.666667a42.666667 42.666667 0 0 0 0 85.333333h298.666666a42.666667 42.666667 0 0 0 0-85.333333zM618.666667 554.666667H405.333333a42.666667 42.666667 0 0 0 0 85.333333h213.333334a42.666667 42.666667 0 0 0 0-85.333333z"
+          p-id="9537" fill="#333333"></path>
 </svg>
