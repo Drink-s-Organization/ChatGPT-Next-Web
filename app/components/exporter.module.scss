@@ -133,15 +133,18 @@
         left: 0px;
         height: 50%;
         transform: scale(1.5);
+        opacity: 0.2;
       }
 
       .main-title {
         font-size: 20px;
         font-weight: bolder;
+        //user-select: text;
       }
 
       .sub-title {
         font-size: 12px;
+        user-select: text;
       }
 
       .icons {
@@ -164,6 +167,7 @@
         border-radius: 10px;
         background-color: var(--white);
         box-shadow: var(--card-shadow);
+        user-select: text;
 
         &:not(:last-child) {
           margin-bottom: 5px;
@@ -185,6 +189,7 @@
         max-width: calc(100% - 104px);
         box-shadow: var(--card-shadow);
         border: var(--border-in-light);
+        user-select: text;
 
         code,
         pre {

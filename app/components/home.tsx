@@ -905,7 +905,7 @@ function Screen() {
                         styles["recharge-pop-body-question-item-content"]
                       }
                     >
-                      提供，我们为每一个新注册的用户提供99算力。此外首次购买将享受折上折，在原有打折的基础上立减10元。
+                      提供，我们为每一个新注册的用户提供3999算力。此外首次购买将享受折上折，在原有打折的基础上立减10元。
                     </div>
                   </div>
                   <div className={styles["recharge-pop-body-question-item"]}>

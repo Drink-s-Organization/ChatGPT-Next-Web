@@ -38,7 +38,7 @@ import Locale, { AllLangs, ALL_LANG_OPTIONS, Lang } from "../locales";
 import { useNavigate } from "react-router-dom";
 
 import chatStyle from "./chat.module.scss";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { copyToClipboard, downloadAs, readFromFile } from "../utils";
 import { Updater } from "../typing";
 import { ModelConfigList } from "./model-config";
@@ -51,6 +51,7 @@ import {
   Draggable,
   OnDragEndResponder,
 } from "@hello-pangea/dnd";
+import ConfirmIcon from "@/app/icons/confirm.svg";
 
 // drag and drop helper function
 function reorder<T>(list: T[], startIndex: number, endIndex: number): T[] {
@@ -605,6 +606,16 @@ export function MaskPage() {
                 onClick={() => {
                   navigate(Path.Masks);
                   maskStore.create(editingMask);
+                  setEditingMaskId(undefined);
+                }}
+              />,
+              <IconButton
+                type="primary"
+                text={Locale.UI.Confirm}
+                icon={<ConfirmIcon />}
+                key="ok"
+                onClick={() => {
+                  navigate(Path.Masks);
                   setEditingMaskId(undefined);
                 }}
               />,

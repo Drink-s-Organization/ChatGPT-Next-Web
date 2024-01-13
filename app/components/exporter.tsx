@@ -532,7 +532,7 @@ export function ImagePreviewer(props: {
           <div>
             <div className={styles["main-title"]}>EasyChat</div>
             <div className={styles["sub-title"]}>
-              easychat.vip 让人人享受ai带来的便利
+              https://easychat.vip 让人人享受ai带来的便利
             </div>
             <div className={styles["icons"]}>
               <ExportAvatar avatar={config.avatar} />
