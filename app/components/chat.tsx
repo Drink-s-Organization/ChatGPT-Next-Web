@@ -77,6 +77,9 @@ import { useNavigate } from "react-router-dom";
 import {
   CHAT_PAGE_SIZE,
   LAST_INPUT_KEY,
+  LOGIN_STAT,
+  LOGIN_SUCCESSFULLY_PROMPTS,
+  NEED_SEND_LOGIN_MSG,
   Path,
   REQUEST_TIMEOUT_MS,
   UNFINISHED_INPUT,
@@ -792,6 +795,26 @@ function _Chat() {
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    const isLogin = localStorage.getItem(LOGIN_STAT);
+    if (isLogin == "true") {
+      let oldMsgList = session.messages;
+      session.messages = oldMsgList.filter(
+        (oldMsg) => !oldMsg.content.includes(Locale.Error.Unauthorized),
+      );
+    }
+
+    const needSendLoginMsg = localStorage.getItem(NEED_SEND_LOGIN_MSG);
+    console.log("needSendLoginMsg", needSendLoginMsg);
+    if (needSendLoginMsg == "true") {
+      session.messages.push(
+        createMessage({
+          role: "assistant",
+          content: LOGIN_SUCCESSFULLY_PROMPTS,
+        }),
+      );
+    }
+    localStorage.setItem(NEED_SEND_LOGIN_MSG, "false");
   }, []);
 
   // check if should send message

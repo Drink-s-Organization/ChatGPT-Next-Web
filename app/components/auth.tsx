@@ -2,7 +2,7 @@ import styles from "./auth.module.scss";
 import { IconButton } from "./button";
 
 import { useNavigate } from "react-router-dom";
-import { Path } from "../constant";
+import { LOGIN_STAT, NEED_SEND_LOGIN_MSG, Path } from "../constant";
 import { useAccessStore } from "../store";
 import Locale from "../locales";
 
@@ -47,6 +47,17 @@ export function AuthPage() {
   }
 
   const onClickBtn = () => {
+    const url: string = window.location.href;
+    const queryStringArray: string[] = url.split("?");
+    const queryString: string =
+      queryStringArray.length > 1 ? queryStringArray[1] : "";
+    let msgId: string | null = null;
+    if (queryString) {
+      const searchParams = new URLSearchParams(queryString);
+      msgId = searchParams.get("msgId");
+    }
+    console.log(url);
+
     console.log("todo login");
     if (!checkParams()) {
       return;
@@ -80,6 +91,7 @@ export function AuthPage() {
             isLogin && loginPsw
               ? setPswTips(resp["message"])
               : setCodeTips(resp["message"]);
+            localStorage.setItem(LOGIN_STAT, "false");
             return;
           }
           if (!isLogin) {
@@ -95,6 +107,8 @@ export function AuthPage() {
           }
           const auth = data["authorization"];
           localStorage.setItem("Authorization", auth);
+          localStorage.setItem(LOGIN_STAT, "true");
+          localStorage.setItem(NEED_SEND_LOGIN_MSG, "true");
           accessStore.authToken = auth;
           accessStore.update((access) => {
             access.accessCode = auth;
