@@ -336,6 +336,14 @@ export const useChatStore = createPersistStore(
             botMessage.svrId = svrId;
             if (message) {
               botMessage.content = message;
+              console.log("botMessage", botMessage);
+              // if (botMessage.content.includes(Locale.Error.Unauthorized)) {
+              //   const authContent = "/#/auth";
+              //   const newAuthContent = "/#/auth?msgId=" + botMessage.id;
+              //   const authLink = Locale.Error.Unauthorized.replace(authContent, newAuthContent);
+              //   botMessage.content = botMessage.content.replace(Locale.Error.Unauthorized, authLink);
+              // }
+              console.log("new botMessage", botMessage);
               get().onNewMessage(botMessage);
             }
             ChatControllerPool.remove(session.id, botMessage.id);

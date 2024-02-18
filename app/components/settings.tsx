@@ -59,6 +59,7 @@ import {
   ServiceProvider,
   SlotID,
   UPDATE_URL,
+  LOGIN_STAT,
 } from "../constant";
 import { Prompt, SearchService, usePromptStore } from "../store/prompt";
 import { ErrorBoundary } from "./error";
@@ -586,8 +587,11 @@ export function Settings() {
     accessStore.update((access) => {
       access.authToken = "";
       access.Watt = 0;
+      access.phone = "";
     });
     navigate(Path.Auth);
+    localStorage.setItem(LOGIN_STAT, "false");
+    localStorage.setItem("user_watt", "0");
   }
 
   function recharge() {
@@ -740,7 +744,9 @@ export function Settings() {
           <ListItem title={Locale.Settings.Account + accessStore.phone}>
             {
               <IconButton
-                text={Locale.Settings.Logout}
+                text={
+                  accessStore.phone ? Locale.Settings.Logout : Locale.Auth.Login
+                }
                 onClick={() => logout()}
               />
             }
