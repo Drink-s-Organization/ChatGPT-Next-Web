@@ -1,6 +1,6 @@
 export VERSION=$1
 #export BASE_URL=http://api.easychat.vip/chatapi
-export BASE_URL=http://39.106.226.212:8888/chatapi
+# export BASE_URL=http://chatapi.yoooxin.cn/chatapi
 
 read -p "Enter your name: " username
 
