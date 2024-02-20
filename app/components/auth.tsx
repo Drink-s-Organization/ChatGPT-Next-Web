@@ -391,7 +391,7 @@ export function AuthPage() {
             {Locale.Auth.LoginTips}
             <a
               onClick={() => {
-                setShowDoc(true);
+                // setShowDoc(true);
                 setDocTitle(
                   Locale.Auth.Agreement.replace("《", "").replace("》", ""),
                 );
@@ -403,7 +403,7 @@ export function AuthPage() {
             {Locale.Auth.LoginAnd}
             <a
               onClick={() => {
-                setShowDoc(true);
+                // setShowDoc(true);
                 setDocTitle(
                   Locale.Auth.Privacy.replace("《", "").replace("》", ""),
                 );

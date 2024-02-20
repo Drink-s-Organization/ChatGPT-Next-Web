@@ -237,11 +237,11 @@ export function SideBar(props: { className?: string }) {
           </div>
 
           <div className={styles["sidebar-action"]}>
-            <IconButton
-              icon={<GroupChatIcon />}
-              className={`${styles["icon-button-group-chat"]} icon-button-group-chat`}
-              shadow
-            />
+            {/*<IconButton*/}
+            {/*  icon={<GroupChatIcon />}*/}
+            {/*  className={`${styles["icon-button-group-chat"]} icon-button-group-chat`}*/}
+            {/*  shadow*/}
+            {/*/>*/}
 
             <div className={styles["group-chat-contain"]}>
               <Image
