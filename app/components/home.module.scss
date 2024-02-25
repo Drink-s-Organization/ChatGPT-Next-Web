@@ -43,7 +43,7 @@
 .sidebar {
   top: 0;
   width: var(--sidebar-width);
-  height: calc(var(--full-height) - 64px);
+  height: calc(var(--full-height) - 64px) !important;
   box-sizing: border-box;
   padding: 20px;
   background-color: var(--second);
@@ -129,6 +129,7 @@
 
   .sidebar-show {
     left: 0;
+    position: relative !important;
   }
 
   .mobile {
