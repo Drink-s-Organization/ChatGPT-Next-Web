@@ -349,8 +349,8 @@ function Screen() {
               onClick={() => {
                 if (isLogin) {
                   getUserInfo();
-                  // setPopRecharge(true);
-                  // getPayQRCode();
+                  setPopRecharge(true);
+                  getPayQRCode();
                 } else {
                   navigate(Path.Auth);
                 }

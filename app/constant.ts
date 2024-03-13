@@ -166,12 +166,9 @@ export const LOGIN_STAT = "isLogin";
 
 export const NEED_SEND_LOGIN_MSG = "need_send_login_msg";
 
-// export const LOGIN_SUCCESSFULLY_PROMPTS =
-//   "🎉 欢迎回来！您已成功登录账号。\n\n✨ 推荐好友注册使用，将赠送双方账号各1w算力哦 " +
-//   "\n\n关注下方账号获取更多活动内容！祝您使用愉快！" +
-//   "\n\n🍠 小红书官方账号 [easychat](https://www.xiaohongshu.com/user/profile/64ffc1670000000006032502?xhsshare=CopyLink&appuid=64ffc1670000000006032502&apptime=1708258130) " +
-//   "\n\n🤖 B站官方账号 [easychat](https://b23.tv/34JHeJl)" +
-//   "\n\n🛰️ 微信客服 easychat-yx";
-
 export const LOGIN_SUCCESSFULLY_PROMPTS =
-  "🎉 欢迎回来！您已成功登录账号。祝您使用愉快！";
+  "🎉 欢迎回来！您已成功登录账号。\n\n✨ 推荐好友注册使用，将赠送双方账号各1w算力哦 " +
+  "\n\n关注下方账号获取更多活动内容！祝您使用愉快！" +
+  "\n\n🍠 小红书官方账号 [easychat](https://www.xiaohongshu.com/user/profile/64ffc1670000000006032502?xhsshare=CopyLink&appuid=64ffc1670000000006032502&apptime=1708258130) " +
+  "\n\n🤖 B站官方账号 [easychat](https://b23.tv/34JHeJl)" +
+  "\n\n🛰️ 微信客服 easychat-yx";
