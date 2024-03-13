@@ -31,7 +31,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { isIOS, useMobileScreen } from "../utils";
 import dynamic from "next/dynamic";
 import { showConfirm, showToast } from "./ui-lib";
-import WechatUserGroupQRCodeImg from "@/public/wecom-usergroup-rqcode.png";
+import UserGroupQRCodeImg from "@/public/qq-usergroup-qrcode.png";
 import Image from "next/image";
 
 const ChatList = dynamic(async () => (await import("./chat-list")).ChatList, {
@@ -244,13 +244,8 @@ export function SideBar(props: { className?: string }) {
             />
 
             <div className={styles["group-chat-contain"]}>
-              <Image
-                src={WechatUserGroupQRCodeImg}
-                alt={""}
-                height={95}
-                width={95}
-              />
-              <span className={styles["text"]}>微信用户群</span>
+              <Image src={UserGroupQRCodeImg} alt={""} height={95} width={95} />
+              <span className={styles["text"]}>EasyChat用户群</span>
             </div>
           </div>
         </div>
