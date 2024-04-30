@@ -8,6 +8,7 @@ import GithubIcon from "../icons/github.svg";
 import ChatGptIcon from "../icons/chatgpt.svg";
 import AddIcon from "../icons/add.svg";
 import GroupChatIcon from "../icons/group-chat.svg";
+import FeedBackIcon from "../icons/feedback.svg";
 import CloseIcon from "../icons/close.svg";
 import DeleteIcon from "../icons/delete.svg";
 import MaskIcon from "../icons/mask.svg";
@@ -37,6 +38,13 @@ import Image from "next/image";
 const ChatList = dynamic(async () => (await import("./chat-list")).ChatList, {
   loading: () => null,
 });
+
+const handleIconClick = () => {
+  window.open(
+    "https://qv0r71aoct.feishu.cn/share/base/form/shrcnTncNQvL0KXl8W916WL0rpc",
+    "_blank",
+  );
+};
 
 function useHotKey() {
   const chatStore = useChatStore();
@@ -238,15 +246,16 @@ export function SideBar(props: { className?: string }) {
 
           <div className={styles["sidebar-action"]}>
             <IconButton
-              icon={<GroupChatIcon />}
+              icon={<FeedBackIcon />}
+              onClick={handleIconClick}
               className={`${styles["icon-button-group-chat"]} icon-button-group-chat`}
-              shadow
+              // shadow
             />
 
-            <div className={styles["group-chat-contain"]}>
-              <Image src={UserGroupQRCodeImg} alt={""} height={95} width={95} />
-              <span className={styles["text"]}>EasyChat用户群</span>
-            </div>
+            {/*<div className={styles["group-chat-contain"]}>*/}
+            {/*  <Image src={UserGroupQRCodeImg} alt={""} height={95} width={95} />*/}
+            {/*  <span className={styles["text"]}>使用反馈</span>*/}
+            {/*</div>*/}
           </div>
         </div>
         <div>
