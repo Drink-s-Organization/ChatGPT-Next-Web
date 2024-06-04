@@ -243,10 +243,8 @@ export class ChatGPTApi implements LLMApi {
         const message = this.extractMessage(resJson);
         const tokenCount = this.extractToken(resJson) / 100;
         const userWatt = this.extractUserWatt(resJson);
-        if (userWatt >= 0) {
+        if (userWatt != 0) {
           localStorage.setItem("user_watt", userWatt);
-        } else {
-          localStorage.setItem("user_watt", "0");
         }
         options.onFinish(message, tokenCount);
       }
