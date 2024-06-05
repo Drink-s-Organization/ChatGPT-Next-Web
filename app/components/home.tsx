@@ -154,25 +154,25 @@ function Screen() {
   const [popRechargePurchase, setPopRechargePurchase] = useState(true);
   const purchaseWattPlan = [
     {
-      tips: "4k算力≈20w字",
-      goods_count: 4000,
-      now_amount: 15.99,
-      origin_amount: 20.0,
+      tips: "8k算力≈40w字",
+      goods_count: 8000,
+      now_amount: 5.99,
+      origin_amount: 10.0,
       discount: 4.01,
-    },
-    {
-      tips: "1w算力≈50w字",
-      goods_count: 10000,
-      now_amount: 39.99,
-      origin_amount: 50.0,
-      discount: 10.01,
     },
     {
       tips: "2w算力≈100w字",
       goods_count: 20000,
-      now_amount: 69.99,
+      now_amount: 29.99,
+      origin_amount: 50.0,
+      discount: 20.01,
+    },
+    {
+      tips: "4w算力≈200w字",
+      goods_count: 40000,
+      now_amount: 59.99,
       origin_amount: 100.0,
-      discount: 30.01,
+      discount: 40.01,
     },
   ];
   const [choosePurchasePlan, setChoosePurchasePlan] = useState(0);
@@ -209,7 +209,10 @@ function Screen() {
       channel: choosePayWay,
       amount: accessStore.isNewUser
         ? Number(
-            (purchaseWattPlan[choosePurchasePlan].now_amount - 10).toFixed(2),
+            Math.max(
+              purchaseWattPlan[choosePurchasePlan].now_amount - 10,
+              0.01,
+            ).toFixed(2),
           )
         : purchaseWattPlan[choosePurchasePlan].now_amount,
       goods_name: purchaseWattPlan[choosePurchasePlan].tips,
@@ -846,9 +849,10 @@ function Screen() {
                                 >
                                   ¥
                                   {accessStore.isNewUser
-                                    ? (
+                                    ? Math.max(
                                         purchaseWattPlan[choosePurchasePlan]
-                                          .now_amount - 10
+                                          .now_amount - 10,
+                                        0.01,
                                       ).toFixed(2)
                                     : purchaseWattPlan[choosePurchasePlan]
                                         .now_amount}
