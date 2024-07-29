@@ -1,4 +1,5 @@
-FROM node:18-alpine AS base
+#FROM node:18-alpine AS base
+FROM registry.cn-beijing.aliyuncs.com/doododmain/doodod/node-18-alpine AS base
 
 FROM base AS deps
 
