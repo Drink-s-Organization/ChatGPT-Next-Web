@@ -15,3 +15,8 @@ services:
       - ENABLE_BALANCE_QUERY=$ENABLE_BALANCE_QUERY
       - DISABLE_FAST_LINK=$DISABLE_FAST_LINK
       - OPENAI_SB=$OPENAI_SB
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "3"
