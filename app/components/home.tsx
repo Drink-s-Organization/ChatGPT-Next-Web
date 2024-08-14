@@ -45,7 +45,7 @@ import { useAccessStore } from "../store";
 import { IconButton } from "./button";
 import Image from "next/image";
 import { httpRequest } from "@/app/client/server/api";
-import QRCode from "react-qr-code";
+import QRCode from "qrcode.react";
 import { formatWattNum } from "@/app/utils/format";
 
 export function Loading(props: { noLogo?: boolean }) {
