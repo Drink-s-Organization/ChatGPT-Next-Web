@@ -58,7 +58,6 @@ export function AuthPage() {
     }
     console.log(url);
 
-    console.log("todo login");
     if (!checkParams()) {
       return;
     }

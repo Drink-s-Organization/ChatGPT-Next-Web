@@ -64,15 +64,15 @@ export class ChatGPTApi implements LLMApi {
   }
 
   extractMessage(res: any) {
-    return res.choices?.at(0)?.message?.content ?? "";
+    return res.data.choices?.at(0)?.message?.content ?? "";
   }
 
   extractToken(res: any) {
-    return res.usage?.total_tokens ?? 0;
+    return res.data.usage?.total_tokens ?? 0;
   }
 
   extractUserWatt(res: any) {
-    return res.user_watt ?? 0;
+    return res.data.user_watt ?? 0;
   }
 
   async chat(options: ChatOptions) {
