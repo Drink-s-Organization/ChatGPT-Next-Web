@@ -15,8 +15,7 @@ export async function httpRequest<T>(
 ) {
   try {
     const { method = "POST", data = {} } = options;
-    url = `http://127.0.0.1:8888${url}`;
-    // url = `https://api.easychat.vip${url}`;
+    url = `https://api.easychat.vip${url}`;
     // url = `http://39.106.226.212:8888${url}`;
     const requestOptions: RequestInit = {
       method: method.toUpperCase(),
